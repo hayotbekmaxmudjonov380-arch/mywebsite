@@ -9,6 +9,7 @@ import { categories, featuredProducts, products, stats, newProducts, bestsellers
 import { useLanguage } from '@/lib/language-context'
 import { categoryNames, categoryDescriptions, statsTranslations } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
+import { CategoryCarousel } from './category-carousel'
 import styles from './contact-section.module.css'
 import type { Product } from '@/lib/marketplace-types'
 
@@ -227,24 +228,7 @@ export default function MarketplaceHome() {
           <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('cat.eyebrow')}</p>
           <h2 className="max-w-xl text-xl sm:text-2xl md:text-4xl font-medium tracking-tight">{t('cat.title')}</h2>
         </div>
-        <div className="grid grid-cols-2 border-l border-t border-white/10 md:grid-cols-3">
-          {categories.map((category) => {
-            const catName = categoryNames[locale]?.[category.id] || category.name
-            const catDesc = categoryDescriptions[locale]?.[category.id] || category.description
-            return (
-              <Link key={category.id} href={`/categories/${category.slug}`} className="group flex min-h-[120px] sm:min-h-36 md:min-h-44 flex-col justify-between border-b border-r border-white/10 p-3.5 sm:p-5 md:p-7 transition-colors hover:bg-white/[.03]">
-                <div className="flex items-start justify-between">
-                  <span className="text-xl sm:text-2xl" style={{ color: category.color }}>{category.icon}</span>
-                  <ArrowRight size={16} className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
-                </div>
-                <div>
-                  <h3 className="text-xs sm:text-sm font-medium">{catName}</h3>
-                  <p className="mt-1 hidden max-w-xs text-xs leading-5 text-muted-foreground md:block">{catDesc}</p>
-                </div>
-              </Link>
-            )
-          })}
-        </div>
+        <CategoryCarousel />
       </section>
 
       {/* Stats */}
