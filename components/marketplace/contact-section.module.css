@@ -52,7 +52,7 @@
   font-weight: 600;
   line-height: 0.98;
   letter-spacing: -0.04em;
-  color: #f5f7ff;
+  color: #1a1a2e;
   margin: 0;
 }
 
@@ -64,7 +64,7 @@
 .description {
   font-size: 16px;
   line-height: 1.7;
-  color: #929db4;
+  color: #555;
   max-width: 520px;
   margin: 0;
 }
@@ -104,13 +104,13 @@
   align-items: center;
   gap: 10px;
   padding: 14px 28px;
-  background: rgba(255, 255, 255, 0.03);
-  color: #f5f7ff;
+  background: rgba(26, 26, 46, 0.04);
+  color: #1a1a2e;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px solid rgba(100, 140, 220, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 12px;
   cursor: pointer;
   transition: all 200ms ease;
@@ -120,7 +120,7 @@
 .ctaSecondary:hover {
   border-color: #2864ff;
   background: rgba(40, 100, 255, 0.08);
-  color: #fff;
+  color: #2864ff;
 }
 
 /* Social Icon Bar */
@@ -135,22 +135,22 @@
   display: flex;
   gap: 24px;
   padding: 16px 32px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(26, 26, 46, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   box-shadow:
-    inset 0 0 12px rgba(255, 255, 255, 0.04),
-    inset 0 0 4px rgba(255, 255, 255, 0.06),
-    0 8px 32px rgba(0, 0, 0, 0.2);
+    inset 0 0 12px rgba(0, 0, 0, 0.02),
+    inset 0 0 4px rgba(0, 0, 0, 0.03),
+    0 8px 32px rgba(0, 0, 0, 0.06);
   transition: all 400ms ease;
 }
 
 .socialBarInner:hover {
   box-shadow:
-    inset 0 0 20px rgba(255, 170, 0, 0.06),
-    inset 0 0 5px rgba(255, 170, 0, 0.08),
-    0 8px 32px rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 170, 0, 0.2);
+    inset 0 0 20px rgba(40, 100, 255, 0.06),
+    inset 0 0 5px rgba(40, 100, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.1);
+  border-color: rgba(40, 100, 255, 0.25);
 }
 
 @media (max-width: 480px) {
@@ -169,15 +169,15 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(26, 26, 46, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   text-decoration: none;
-  color: #f5f7ff;
+  color: #1a1a2e;
 }
 
 .socialBtn::before {
@@ -192,9 +192,9 @@
 .socialBtn:hover {
   transform: translateY(-6px);
   box-shadow:
-    inset 0 0 20px rgba(255, 255, 255, 0.1),
-    inset 0 0 5px rgba(255, 255, 255, 0.15),
-    0 5px 15px rgba(0, 0, 0, 0.3);
+    inset 0 0 20px rgba(0, 0, 0, 0.06),
+    inset 0 0 5px rgba(0, 0, 0, 0.08),
+    0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .socialBtn svg {
@@ -205,7 +205,7 @@
 
 .socialBtn:hover svg {
   transform: translate(6px, -6px);
-  filter: drop-shadow(-3px 3px 0 rgba(255, 170, 0, 0.2));
+  filter: drop-shadow(-3px 3px 0 rgba(40, 100, 255, 0.2));
 }
 
 /* Isometric shadow layers */
@@ -222,19 +222,19 @@
 .socialBtn:hover .socialShadow:nth-child(1) {
   opacity: 0.2;
   transform: translate(4px, -4px);
-  box-shadow: inset 0 0 18px rgba(255, 170, 0, 0.15);
+  box-shadow: inset 0 0 18px rgba(40, 100, 255, 0.15);
 }
 
 .socialBtn:hover .socialShadow:nth-child(2) {
   opacity: 0.4;
   transform: translate(8px, -8px);
-  box-shadow: inset 0 0 18px rgba(255, 170, 0, 0.1);
+  box-shadow: inset 0 0 18px rgba(40, 100, 255, 0.1);
 }
 
 .socialBtn:hover .socialShadow:nth-child(3) {
   opacity: 0.6;
   transform: translate(12px, -12px);
-  box-shadow: inset 0 0 18px rgba(255, 170, 0, 0.06);
+  box-shadow: inset 0 0 18px rgba(40, 100, 255, 0.06);
 }
 
 /* Tooltip */
@@ -244,13 +244,13 @@
   left: 50%;
   transform: translateX(-50%) translateY(4px);
   padding: 4px 10px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(255, 170, 0, 0.3);
+  background: rgba(26, 26, 46, 0.9);
+  border: 1px solid rgba(40, 100, 255, 0.3);
   border-radius: 6px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.05em;
-  color: #ffaa00;
+  color: #2864ff;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
