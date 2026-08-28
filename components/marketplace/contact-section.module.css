@@ -145,12 +145,29 @@
   transition: all 400ms ease;
 }
 
+:global(.dark) .socialBarInner {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 0 12px rgba(255, 255, 255, 0.04),
+    inset 0 0 4px rgba(255, 255, 255, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
 .socialBarInner:hover {
   box-shadow:
     inset 0 0 20px rgba(40, 100, 255, 0.06),
     inset 0 0 5px rgba(40, 100, 255, 0.08),
     0 8px 32px rgba(0, 0, 0, 0.1);
   border-color: rgba(40, 100, 255, 0.25);
+}
+
+:global(.dark) .socialBarInner:hover {
+  box-shadow:
+    inset 0 0 20px rgba(109, 141, 255, 0.1),
+    inset 0 0 5px rgba(109, 141, 255, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+  border-color: rgba(109, 141, 255, 0.35);
 }
 
 @media (max-width: 480px) {
@@ -180,6 +197,12 @@
   color: #1a1a2e;
 }
 
+:global(.dark) .socialBtn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #e0e0e0;
+}
+
 .socialBtn::before {
   content: '';
   position: absolute;
@@ -189,12 +212,23 @@
   pointer-events: none;
 }
 
+:global(.dark) .socialBtn::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+}
+
 .socialBtn:hover {
   transform: translateY(-6px);
   box-shadow:
     inset 0 0 20px rgba(0, 0, 0, 0.06),
     inset 0 0 5px rgba(0, 0, 0, 0.08),
     0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+:global(.dark) .socialBtn:hover {
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.08),
+    inset 0 0 5px rgba(255, 255, 255, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 .socialBtn svg {
@@ -225,16 +259,28 @@
   box-shadow: inset 0 0 18px rgba(40, 100, 255, 0.15);
 }
 
+:global(.dark) .socialBtn:hover .socialShadow:nth-child(1) {
+  box-shadow: inset 0 0 18px rgba(109, 141, 255, 0.2);
+}
+
 .socialBtn:hover .socialShadow:nth-child(2) {
   opacity: 0.4;
   transform: translate(8px, -8px);
   box-shadow: inset 0 0 18px rgba(40, 100, 255, 0.1);
 }
 
+:global(.dark) .socialBtn:hover .socialShadow:nth-child(2) {
+  box-shadow: inset 0 0 18px rgba(109, 141, 255, 0.15);
+}
+
 .socialBtn:hover .socialShadow:nth-child(3) {
   opacity: 0.6;
   transform: translate(12px, -12px);
   box-shadow: inset 0 0 18px rgba(40, 100, 255, 0.06);
+}
+
+:global(.dark) .socialBtn:hover .socialShadow:nth-child(3) {
+  box-shadow: inset 0 0 18px rgba(109, 141, 255, 0.1);
 }
 
 /* Tooltip */
