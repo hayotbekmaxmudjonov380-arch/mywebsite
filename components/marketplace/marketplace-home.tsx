@@ -16,6 +16,7 @@ import { Footer } from './footer'
 import btnStyles from './hand-drawn-button.module.css'
 import logoStyles from './logo-glow.module.css'
 import glowCardStyles from './glow-card.module.css'
+import { WindowsIcon } from './windows-icon'
 import type { Product } from '@/lib/marketplace-types'
 
 const HeroScene = dynamic(() => import('./hero-scene').then((mod) => mod.HeroScene), { ssr: false, loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(64,91,180,.3),transparent_52%)]" /> })
@@ -249,9 +250,13 @@ export default function MarketplaceHome() {
                 <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineBottom}`} />
                 <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineLeft}`} />
                 <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineRight}`} />
-                <div className={`${glowCardStyles.glowIcon} flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${app.color} text-primary`}>
-                  {app.icon}
-                </div>
+                {i === 0 ? (
+                  <WindowsIcon />
+                ) : (
+                  <div className={`${glowCardStyles.glowIcon} flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${app.color} text-primary`}>
+                    {app.icon}
+                  </div>
+                )}
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className={`${glowCardStyles.glowTitle} text-base sm:text-lg font-medium tracking-tight`}>{app.name}</h3>
