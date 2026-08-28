@@ -9,49 +9,75 @@ import styles from './category-carousel.module.css'
 export function CategoryCarousel() {
   const { locale } = useLanguage()
   const innerRef = useRef<HTMLDivElement>(null)
-  const [isPaused, setIsPaused] = useState(false)
-  const [rotation, setRotation] = useState(0)
+  const [paused, setPaused] = useState(false)
   const isDragging = useRef(false)
   const startX = useRef(0)
-  const currentRotation = useRef(0)
-  const animationFrame = useRef<number | null>(null)
+  const dragRotation = useRef(0)
+  const baseRotation = useRef(0)
+  const lastTime = useRef(0)
+  const resumeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const getRotation = useCallback(() => {
-    if (!innerRef.current) return 0
-    const style = window.getComputedStyle(innerRef.current)
-    const matrix = new DOMMatrixReadOnly(style.transform)
-    const values = Array.from(matrix.toString().matchAll(/matrix.*\((.+)\)/))
-    if (values.length > 0) {
-      const valuesArray = values[0][1].split(', ').map(parseFloat)
-      const angle = Math.round(Math.atan2(valuesArray[1], valuesArray[0]) * (180 / Math.PI))
-      return angle
+  const ANIM_DURATION = 20000
+
+  useEffect(() => {
+    lastTime.current = Date.now()
+    const tick = () => {
+      if (!isDragging.current && !paused) {
+        const elapsed = (Date.now() - lastTime.current) % ANIM_DURATION
+        baseRotation.current = (elapsed / ANIM_DURATION) * 360
+      }
+      animationFrame.current = requestAnimationFrame(tick)
     }
-    return 0
+    const animationFrame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(animationFrame)
+  }, [paused])
+
+  const applyTransform = useCallback((rotation: number) => {
+    if (!innerRef.current) return
+    innerRef.current.style.transform =
+      `perspective(1000px) rotateX(-15deg) rotateY(${rotation}deg)`
   }, [])
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (!innerRef.current) return
     isDragging.current = true
     startX.current = e.clientX
-    currentRotation.current = getRotation()
-    setIsPaused(true)
-    innerRef.current.style.animationPlayState = 'paused'
+    dragRotation.current = 0
+    lastTime.current = Date.now()
     innerRef.current.setPointerCapture(e.pointerId)
-  }, [getRotation])
+
+    if (resumeTimeout.current) clearTimeout(resumeTimeout.current)
+
+    innerRef.current.style.animation = 'none'
+    applyTransform(baseRotation.current)
+  }, [applyTransform])
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!isDragging.current || !innerRef.current) return
     const deltaX = e.clientX - startX.current
-    const newRotation = currentRotation.current + deltaX * 0.5
-    setRotation(newRotation)
-    innerRef.current.style.transform = `perspective(1000px) rotateX(-15deg) rotateY(${newRotation}deg)`
-  }, [])
+    dragRotation.current = deltaX * 0.4
+    applyTransform(baseRotation.current + dragRotation.current)
+  }, [applyTransform])
 
   const handlePointerUp = useCallback(() => {
     if (!isDragging.current || !innerRef.current) return
     isDragging.current = false
-    setIsPaused(false)
-    innerRef.current.style.animationPlayState = 'running'
+
+    baseRotation.current = baseRotation.current + dragRotation.current
+    dragRotation.current = 0
+
+    resumeTimeout.current = setTimeout(() => {
+      if (!innerRef.current) return
+      const elapsed = baseRotation.current
+      innerRef.current.style.animation = ''
+      innerRef.current.style.animationDuration = `${ANIM_DURATION}ms`
+      innerRef.current.style.animationTimingFunction = 'linear'
+      innerRef.current.style.animationIterationCount = 'infinite'
+      innerRef.current.style.animationName = 'none'
+      void innerRef.current.offsetHeight
+      innerRef.current.style.animationName = 'rotating'
+      lastTime.current = Date.now() - (elapsed / 360) * ANIM_DURATION
+    }, 300)
   }, [])
 
   return (
@@ -59,10 +85,7 @@ export function CategoryCarousel() {
       <div
         ref={innerRef}
         className={styles.inner}
-        style={{
-          ['--quantity' as string]: categories.length,
-          animationPlayState: isPaused ? 'paused' : 'running',
-        }}
+        style={{ ['--quantity' as string]: categories.length }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
