@@ -182,9 +182,6 @@ export default function MarketplaceHome() {
                   {t('hero.cta1')} <ArrowRight size={14} />
                 </button>
               </div>
-              <Link href="#contact" className="inline-flex items-center gap-2.5 sm:gap-3 border border-white/15 px-5 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.14em] rounded-lg hover:bg-white/[.05] transition-colors">
-                {t('hero.cta2')}
-              </Link>
             </div>
 
             {/* Trust Metrics */}
