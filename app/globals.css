@@ -24,3 +24,165 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @keyframes earth-entry-label { 0%, 28% { opacity: 0; transform: translateY(8px); } 55% { opacity: 1; } 100% { opacity: 0; transform: translateY(-10px); } }
 @media (prefers-reduced-motion: reduce) { .earth-entry { animation: earth-entry-fade .01ms forwards; } .earth-entry__core { animation: none; opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+
+/* ===== DARK MODE ===== */
+.dark {
+  color-scheme: dark;
+  --background: #050505;
+  --foreground: #f0f0f0;
+  --card: #0d0d0d;
+  --card-foreground: #f0f0f0;
+  --popover: #0d0d0d;
+  --popover-foreground: #f0f0f0;
+  --primary: #6d8dff;
+  --primary-foreground: #ffffff;
+  --secondary: #1a1a2e;
+  --secondary-foreground: #f0f0f0;
+  --muted: #1a1a1a;
+  --muted-foreground: #929db4;
+  --accent: #1a1a3e;
+  --accent-foreground: #a8b8ff;
+  --destructive: #e27b84;
+  --border: rgba(255,255,255,.1);
+  --input: rgba(255,255,255,.1);
+  --ring: #6d8dff;
+}
+
+/* Midnight sky background */
+.dark body {
+  background-color: #050505;
+  position: relative;
+}
+
+.dark body::before,
+.dark body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Stars layer 1 - small fast twinkle */
+.dark body::before {
+  background-image:
+    radial-gradient(1px 1px at 10% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 50% 50%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 15% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 75% 70%, #fff, transparent),
+    radial-gradient(1px 1px at 25% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 85% 90%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 20% 40%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 60% 85%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 85% 65%, #fff, transparent),
+    radial-gradient(2px 2px at 40% 70%, #fff, transparent),
+    radial-gradient(2px 2px at 10% 80%, #fff, transparent),
+    radial-gradient(2px 2px at 80% 40%, #fff, transparent);
+  background-size: 250px 250px, 300px 300px, 200px 200px, 350px 350px, 280px 280px,
+    220px 220px, 310px 310px, 260px 260px, 340px 340px, 290px 290px,
+    400px 400px, 380px 380px, 420px 420px,
+    500px 500px, 480px 480px, 520px 520px;
+  animation: md-twinkle 4s ease-in-out infinite;
+}
+
+/* Stars layer 2 */
+.dark body::after {
+  background-image:
+    radial-gradient(1px 1px at 5% 15%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 55% 25%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 35% 55%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 65% 45%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 95% 75%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1.5px 1.5px at 25% 85%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.5px 1.5px at 75% 15%, rgba(255,255,255,.5), transparent),
+    radial-gradient(2px 2px at 45% 35%, rgba(255,255,255,.4), transparent),
+    radial-gradient(2px 2px at 85% 55%, rgba(255,255,255,.4), transparent);
+  background-size: 320px 320px, 280px 280px, 360px 360px, 300px 300px, 340px 340px,
+    400px 400px, 380px 380px, 450px 450px, 420px 420px;
+  animation: md-twinkle 6s ease-in-out infinite 1.5s;
+}
+
+/* Moon */
+.dark #meteor-container::before {
+  content: '';
+  position: fixed;
+  top: 12%;
+  right: 12%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 12px 12px 0 0 #fdfbd3;
+  filter: drop-shadow(0 0 12px rgba(253, 211, 77, 0.35));
+  z-index: 1;
+  pointer-events: none;
+  animation: md-float 8s ease-in-out infinite;
+}
+
+/* Shooting stars (meteors) */
+.dark #meteor-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.dark .meteor {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.5);
+  opacity: 0;
+}
+
+.dark .meteor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, #fff, transparent);
+}
+
+.dark .meteor-1 {
+  top: 10%;
+  left: 110%;
+  animation: md-shoot 8s linear infinite;
+}
+
+.dark .meteor-2 {
+  top: 30%;
+  left: 110%;
+  animation: md-shoot 12s linear infinite 4s;
+}
+
+.dark .meteor-3 {
+  top: 55%;
+  left: 110%;
+  animation: md-shoot 10s linear infinite 2s;
+}
+
+@keyframes md-twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes md-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes md-shoot {
+  0% { transform: translateX(0) translateY(0) rotate(-35deg); opacity: 0; }
+  5% { opacity: 1; }
+  15% { transform: translateX(-1500px) translateY(1000px) rotate(-35deg); opacity: 0; }
+  100% { transform: translateX(-1500px) translateY(1000px) rotate(-35deg); opacity: 0; }
+}

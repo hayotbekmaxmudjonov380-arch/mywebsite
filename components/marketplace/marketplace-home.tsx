@@ -4,9 +4,10 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import { ArrowRight, Menu, Search, ShoppingBag, Star, X } from 'lucide-react'
+import { ArrowRight, Menu, Search, ShoppingBag, Star, X, Sun, Moon } from 'lucide-react'
 import { categories, featuredProducts, products, newProducts, bestsellers, formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
+import { useTheme } from '@/lib/theme-context'
 import { categoryNames, categoryDescriptions } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { CategoryCarousel } from './category-carousel'
@@ -27,29 +28,34 @@ function Logo({ className = '' }: { className?: string }) {
 
 function Nav({ cart, onSearch }: { cart: number; onSearch: () => void }) {
   const { t } = useLanguage()
+  const { theme, toggleTheme } = useTheme()
   const [open, setOpen] = useState(false)
+  const isDark = theme === 'dark'
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="mx-auto mt-3 sm:mt-4 flex max-w-7xl items-center justify-between border border-black/[.08] bg-white/80 py-2.5 sm:py-3 backdrop-blur-xl rounded-[14px] shadow-sm" style={{ paddingInline: 'clamp(20px, 3.5vw, 56px)' }}>
+      <div className={`mx-auto mt-3 sm:mt-4 flex max-w-7xl items-center justify-between border py-2.5 sm:py-3 backdrop-blur-xl rounded-[14px] shadow-sm ${isDark ? 'border-white/[.08] bg-black/60' : 'border-black/[.08] bg-white/80'}`} style={{ paddingInline: 'clamp(20px, 3.5vw, 56px)' }}>
         <Logo />
-        <nav className="hidden items-center gap-5 lg:gap-7 text-[11px] uppercase tracking-[.14em] text-muted-foreground md:flex">
-          <Link href="#categories" className="transition-colors hover:text-foreground">{t('nav.categories')}</Link>
-          <Link href="#programs" className="transition-colors hover:text-foreground">{t('nav.programs')}</Link>
-          <Link href="#contact" className="transition-colors hover:text-foreground">{t('footer.contact')}</Link>
+        <nav className={`hidden items-center gap-5 lg:gap-7 text-[11px] uppercase tracking-[.14em] md:flex ${isDark ? 'text-gray-400' : 'text-muted-foreground'}`}>
+          <Link href="#categories" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-foreground'}`}>{t('nav.categories')}</Link>
+          <Link href="#programs" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-foreground'}`}>{t('nav.programs')}</Link>
+          <Link href="#contact" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-foreground'}`}>{t('footer.contact')}</Link>
         </nav>
         <div className="flex items-center gap-1 sm:gap-1.5">
           <LanguageSwitcher />
-          <button onClick={onSearch} className="grid size-8 sm:size-9 place-items-center text-muted-foreground hover:text-foreground transition-colors" aria-label={t('nav.search')}>
+          <button onClick={toggleTheme} className={`grid size-8 sm:size-9 place-items-center transition-colors ${isDark ? 'text-yellow-400 hover:text-yellow-300' : 'text-muted-foreground hover:text-foreground'}`} aria-label="Toggle theme">
+            {isDark ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <button onClick={onSearch} className={`grid size-8 sm:size-9 place-items-center transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-muted-foreground hover:text-foreground'}`} aria-label={t('nav.search')}>
             <Search size={16} />
           </button>
-          <button className="grid size-8 sm:size-9 place-items-center text-muted-foreground hover:text-foreground transition-colors" aria-label={t('nav.favorites')}>
+          <button className={`grid size-8 sm:size-9 place-items-center transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-muted-foreground hover:text-foreground'}`} aria-label={t('nav.favorites')}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
           </button>
-          <button className="relative grid size-8 sm:size-9 place-items-center text-muted-foreground hover:text-foreground transition-colors" aria-label={t('nav.cart')}>
+          <button className={`relative grid size-8 sm:size-9 place-items-center transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-muted-foreground hover:text-foreground'}`} aria-label={t('nav.cart')}>
             <ShoppingBag size={16} />
             {cart > 0 && <span className="absolute right-0.5 top-0.5 grid size-3.5 place-items-center rounded-full bg-primary text-[7px] text-primary-foreground font-medium">{cart}</span>}
           </button>
-          <Link href="/account" className="hidden ml-1 items-center gap-2 border border-black/15 bg-black/[.04] px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[.12em] text-muted-foreground hover:bg-black/[.08] hover:text-foreground transition-colors sm:inline-flex">
+          <Link href="/account" className={`hidden ml-1 items-center gap-2 border px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[.12em] transition-colors sm:inline-flex ${isDark ? 'border-white/15 bg-white/[.04] text-gray-400 hover:bg-white/[.08] hover:text-white' : 'border-black/15 bg-black/[.04] text-muted-foreground hover:bg-black/[.08] hover:text-foreground'}`}>
             {t('nav.login')}
           </Link>
           <button onClick={() => setOpen(!open)} className="grid size-8 sm:size-9 place-items-center md:hidden" aria-label="Toggle menu">
@@ -58,11 +64,11 @@ function Nav({ cart, onSearch }: { cart: number; onSearch: () => void }) {
         </div>
       </div>
       {open && (
-        <nav className="mx-3 sm:mx-4 mt-2 flex flex-col gap-3 sm:gap-4 border border-black/[.08] bg-white/95 p-4 sm:p-5 text-xs uppercase tracking-[.14em] md:hidden rounded-xl backdrop-blur-xl shadow-lg">
+        <nav className={`mx-3 sm:mx-4 mt-2 flex flex-col gap-3 sm:gap-4 border p-4 sm:p-5 text-xs uppercase tracking-[.14em] md:hidden rounded-xl backdrop-blur-xl shadow-lg ${isDark ? 'border-white/[.08] bg-black/95 text-gray-400' : 'border-black/[.08] bg-white/95'}`}>
           <Link onClick={() => setOpen(false)} href="#categories">{t('nav.categories')}</Link>
           <Link onClick={() => setOpen(false)} href="#programs">{t('nav.programs')}</Link>
           <Link onClick={() => setOpen(false)} href="#contact">{t('footer.contact')}</Link>
-          <Link onClick={() => setOpen(false)} href="/account" className="mt-2 border border-black/15 bg-black/[.04] px-4 py-2.5 text-center text-foreground">{t('nav.login')}</Link>
+          <Link onClick={() => setOpen(false)} href="/account" className={`mt-2 border px-4 py-2.5 text-center ${isDark ? 'border-white/15 bg-white/[.04] text-white' : 'border-black/15 bg-black/[.04] text-foreground'}`}>{t('nav.login')}</Link>
         </nav>
       )}
     </header>
@@ -131,11 +137,13 @@ function ProductSection({ title, eyebrow, items, onAdd }: { title: string; eyebr
 
 export default function MarketplaceHome() {
   const { t, locale } = useLanguage()
+  const { theme } = useTheme()
   const [query, setQuery] = useState('')
   const [active, setActive] = useState('all')
   const [cart, setCart] = useState<Product[]>([])
   const [searchOpen, setSearchOpen] = useState(false)
   const [enteringEarth, setEnteringEarth] = useState(false)
+  const isDark = theme === 'dark'
 
   const enterExplore = () => {
     setEnteringEarth(true)
@@ -153,7 +161,7 @@ export default function MarketplaceHome() {
     setCart((current) => current.some((item) => item.id === product.id) ? current : [...current, product])
 
   return (
-    <main className="min-h-screen overflow-x-hidden">
+    <main className={`min-h-screen overflow-x-hidden ${isDark ? 'text-white' : ''}`}>
       <Nav cart={cart.length} onSearch={() => setSearchOpen(true)} />
 
       {/* Hero */}
@@ -299,6 +307,13 @@ export default function MarketplaceHome() {
           <span>{t('earth.entering')}</span>
         </div>
       )}
+
+      {/* Meteor container for dark mode */}
+      <div id="meteor-container" aria-hidden="true">
+        <div className="meteor meteor-1" />
+        <div className="meteor meteor-2" />
+        <div className="meteor meteor-3" />
+      </div>
 
       {/* SVG Filters for Hand-Drawn Button Effect */}
       <svg height={0} width={0} aria-hidden="true">
