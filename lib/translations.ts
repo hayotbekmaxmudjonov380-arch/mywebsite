@@ -9,10 +9,8 @@ export const locales: { id: Locale; label: string; flag: string }[] = [
 export const translations: Record<Locale, Record<string, string>> = {
   en: {
     // Nav
-    'nav.explore': 'Explore',
     'nav.categories': 'Categories',
-    'nav.new': 'New arrivals',
-    'nav.custom': 'Custom order',
+    'nav.programs': 'Programs',
     'nav.login': 'Sign in',
     'nav.search': 'Search',
     'nav.favorites': 'Favorites',
@@ -59,19 +57,17 @@ export const translations: Record<Locale, Record<string, string>> = {
     'section.new.eyebrow': 'Just landed',
     'section.new.title': 'New in the collection.',
 
-    // Stats
-    'stats.eyebrow': 'Why itshop',
-    'stats.title': 'Less time scaffolding. More time making.',
-    'stats.rating': 'Average rating',
-    'stats.creators': 'Creators building',
-    'stats.support': 'Average support reply',
-    'stats.source': 'Source included',
-
-    // Custom
-    'custom.eyebrow': 'Need something specific?',
-    'custom.title': 'Let\'s build the thing that doesn\'t exist yet.',
-    'custom.desc': 'From a sharp MVP to a full digital ecosystem, our studio can help you move from rough idea to remarkable product.',
-    'custom.cta': 'Start a conversation',
+    // Programs
+    'programs.eyebrow': 'Our programs',
+    'programs.title': 'Download our applications.',
+    'programs.desc': 'Ready-made software for your business. Download and start using right away.',
+    'programs.download': 'Download',
+    'programs.app1.name': 'Market App',
+    'programs.app1.desc': 'Full-featured marketplace application for Windows with all tools.',
+    'programs.app2.name': 'Market Mobile',
+    'programs.app2.desc': 'Mobile version for Android with full marketplace access.',
+    'programs.app3.name': 'Admin Panel',
+    'programs.app3.desc': 'Management panel for controlling products and orders.',
 
     // Footer
     'footer.account': 'Account',
@@ -138,10 +134,8 @@ export const translations: Record<Locale, Record<string, string>> = {
 
   uz: {
     // Nav
-    'nav.explore': 'Ko\'rish',
     'nav.categories': 'Kategoriyalar',
-    'nav.new': 'Yangilar',
-    'nav.custom': 'Maxsus buyurtma',
+    'nav.programs': 'Dasturlar',
     'nav.login': 'Kirish',
     'nav.search': 'Qidirish',
     'nav.favorites': 'Sevimlilar',
@@ -188,19 +182,17 @@ export const translations: Record<Locale, Record<string, string>> = {
     'section.new.eyebrow': 'Yangi qo\'shildi',
     'section.new.title': 'Kolleksiyada yangi.',
 
-    // Stats
-    'stats.eyebrow': 'Nega itshop',
-    'stats.title': 'Kamroq vaqt sarflang. Ko\'proq yarating.',
-    'stats.rating': 'O\'rtacha baho',
-    'stats.creators': 'Yaratuvchilar qurmoqda',
-    'stats.support': 'O\'rtacha javob vaqti',
-    'stats.source': 'Manba kiritilgan',
-
-    // Custom
-    'custom.eyebrow': 'Nimadir kerakmi?',
-    'custom.title': 'Hali mavjud bo\'lmagan narsani yarataylik.',
-    'custom.desc': 'MVP dan to\'liq raqamli ekotizimgacha, studiyamiz g\'oyadan ajoyib mahsulotga o\'tishga yordam beradi.',
-    'custom.cta': 'Suhbat boshlash',
+    // Programs
+    'programs.eyebrow': 'Bizning dasturlarimiz',
+    'programs.title': 'Dasturlarimizni yuklab oling.',
+    'programs.desc': 'Biznesingiz uchun tayyor dasturiy ta\'minot. Yuklab oling va darhol foydalaning.',
+    'programs.download': 'Yuklab olish',
+    'programs.app1.name': 'Market Ilova',
+    'programs.app1.desc': 'Windows uchun to\'liq marketplace ilovasi, barcha vositalar bilan.',
+    'programs.app2.name': 'Market Mobile',
+    'programs.app2.desc': 'Android uchun mobil versiya, to\'liq marketplace kirish imkoniyati.',
+    'programs.app3.name': 'Admin Panel',
+    'programs.app3.desc': 'Mahsulotlar va buyurtmalarni boshqarish paneli.',
 
     // Footer
     'footer.account': 'Hisob',
@@ -267,10 +259,8 @@ export const translations: Record<Locale, Record<string, string>> = {
 
   ru: {
     // Nav
-    'nav.explore': 'Смотреть',
     'nav.categories': 'Категории',
-    'nav.new': 'Новинки',
-    'nav.custom': 'Индивидуальный заказ',
+    'nav.programs': 'Программы',
     'nav.login': 'Войти',
     'nav.search': 'Поиск',
     'nav.favorites': 'Избранное',
@@ -317,19 +307,17 @@ export const translations: Record<Locale, Record<string, string>> = {
     'section.new.eyebrow': 'Новинки',
     'section.new.title': 'Новое в коллекции.',
 
-    // Stats
-    'stats.eyebrow': 'Почему itshop',
-    'stats.title': 'Меньше времени на заготовки. Больше времени на создание.',
-    'stats.rating': 'Средняя оценка',
-    'stats.creators': 'Создателей строят',
-    'stats.support': 'Среднее время ответа',
-    'stats.source': 'Исходный код включён',
-
-    // Custom
-    'custom.eyebrow': 'Нужно что-то особенное?',
-    'custom.title': 'Давайте создадим то, чего ещё не существует.',
-    'custom.desc': 'От лаконичного MVP до полноценной цифровой экосистемы — наша студия поможет превратить сырую идею в замечательный продукт.',
-    'custom.cta': 'Начать разговор',
+    // Programs
+    'programs.eyebrow': 'Наши программы',
+    'programs.title': 'Скачайте наши приложения.',
+    'programs.desc': 'Готовое программное обеспечение для вашего бизнеса. Скачайте и начните использовать сразу.',
+    'programs.download': 'Скачать',
+    'programs.app1.name': 'Market Приложение',
+    'programs.app1.desc': 'Полнофункциональное приложение маркетплейса для Windows со всеми инструментами.',
+    'programs.app2.name': 'Market Mobile',
+    'programs.app2.desc': 'Мобильная версия для Android с полным доступом к маркетплейсу.',
+    'programs.app3.name': 'Админ Панель',
+    'programs.app3.desc': 'Панель управления для контроля продуктов и заказов.',
 
     // Footer
     'footer.account': 'Аккаунт',

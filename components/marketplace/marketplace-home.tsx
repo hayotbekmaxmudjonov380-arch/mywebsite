@@ -4,10 +4,10 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import { ArrowRight, Check, ChevronDown, Menu, Search, ShoppingBag, Star, X } from 'lucide-react'
-import { categories, featuredProducts, products, stats, newProducts, bestsellers, formatPrice } from '@/lib/catalog'
+import { ArrowRight, Menu, Search, ShoppingBag, Star, X } from 'lucide-react'
+import { categories, featuredProducts, products, newProducts, bestsellers, formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
-import { categoryNames, categoryDescriptions, statsTranslations } from '@/lib/translations'
+import { categoryNames, categoryDescriptions } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { CategoryCarousel } from './category-carousel'
 import styles from './contact-section.module.css'
@@ -31,10 +31,8 @@ function Nav({ cart, onSearch }: { cart: number; onSearch: () => void }) {
       <div className="mx-auto mt-3 sm:mt-4 flex max-w-7xl items-center justify-between border border-white/[.08] bg-[#080B14]/80 py-2.5 sm:py-3 backdrop-blur-xl rounded-[14px]" style={{ paddingInline: 'clamp(20px, 3.5vw, 56px)' }}>
         <Logo />
         <nav className="hidden items-center gap-5 lg:gap-7 text-[11px] uppercase tracking-[.14em] text-muted-foreground md:flex">
-          <Link href="#explore" className="transition-colors hover:text-foreground">{t('nav.explore')}</Link>
           <Link href="#categories" className="transition-colors hover:text-foreground">{t('nav.categories')}</Link>
-          <Link href="#new" className="transition-colors hover:text-foreground">{t('nav.new')}</Link>
-          <Link href="#custom" className="transition-colors hover:text-foreground">{t('nav.custom')}</Link>
+          <Link href="#programs" className="transition-colors hover:text-foreground">{t('nav.programs')}</Link>
           <Link href="#contact" className="transition-colors hover:text-foreground">{t('footer.contact')}</Link>
         </nav>
         <div className="flex items-center gap-1 sm:gap-1.5">
@@ -59,10 +57,8 @@ function Nav({ cart, onSearch }: { cart: number; onSearch: () => void }) {
       </div>
       {open && (
         <nav className="mx-3 sm:mx-4 mt-2 flex flex-col gap-3 sm:gap-4 border border-white/[.08] bg-[#080B14]/95 p-4 sm:p-5 text-xs uppercase tracking-[.14em] md:hidden rounded-xl backdrop-blur-xl">
-          <Link onClick={() => setOpen(false)} href="#explore">{t('nav.explore')}</Link>
           <Link onClick={() => setOpen(false)} href="#categories">{t('nav.categories')}</Link>
-          <Link onClick={() => setOpen(false)} href="#new">{t('nav.new')}</Link>
-          <Link onClick={() => setOpen(false)} href="#custom">{t('nav.custom')}</Link>
+          <Link onClick={() => setOpen(false)} href="#programs">{t('nav.programs')}</Link>
           <Link onClick={() => setOpen(false)} href="#contact">{t('footer.contact')}</Link>
           <Link onClick={() => setOpen(false)} href="/account" className="mt-2 border border-white/15 bg-white/[.04] px-4 py-2.5 text-center text-foreground">{t('nav.login')}</Link>
         </nav>
@@ -176,7 +172,7 @@ export default function MarketplaceHome() {
               <button type="button" onClick={enterExplore} className="inline-flex items-center gap-2.5 sm:gap-3 bg-primary px-5 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.14em] text-primary-foreground rounded-lg transition-all hover:bg-primary/90 hover:shadow-[0_0_24px_rgba(109,141,255,.35)]">
                 {t('hero.cta1')} <ArrowRight size={14} />
               </button>
-              <Link href="#custom" className="inline-flex items-center gap-2.5 sm:gap-3 border border-white/15 px-5 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.14em] rounded-lg hover:bg-white/[.05] transition-colors">
+              <Link href="#contact" className="inline-flex items-center gap-2.5 sm:gap-3 border border-white/15 px-5 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.14em] rounded-lg hover:bg-white/[.05] transition-colors">
                 {t('hero.cta2')}
               </Link>
             </div>
@@ -231,35 +227,36 @@ export default function MarketplaceHome() {
         <CategoryCarousel />
       </section>
 
-      {/* Stats */}
-      <section className="border-y border-white/10 bg-primary px-4 sm:px-5 py-12 sm:py-16 md:px-10 md:py-20 text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-8 sm:gap-10 md:grid-cols-[1fr_2fr] md:items-center">
-          <div>
-            <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] opacity-70">{t('stats.eyebrow')}</p>
-            <h2 className="mt-3 sm:mt-4 max-w-sm text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight">{t('stats.title')}</h2>
-          </div>
-          <div className="grid grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-6 sm:gap-y-8 border-t border-primary-foreground/20 pt-6 sm:pt-7 md:grid-cols-4 md:border-l md:border-t-0 md:pl-8 md:pt-0">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <p className="font-mono text-xl sm:text-2xl">{stat.value}</p>
-                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs opacity-70">{statsTranslations[locale]?.[stat.label === 'Average rating' ? 'rating' : stat.label === 'Creators building' ? 'creators' : stat.label === 'Average support reply' ? 'support' : 'source'] || stat.label}</p>
-              </div>
-            ))}
-          </div>
+      {/* Bizning dasturlarimiz */}
+      <section id="programs" className="mx-auto max-w-7xl px-4 sm:px-5 py-16 sm:py-20 md:px-10 md:py-28">
+        <div className="flex flex-col gap-2 sm:gap-3 mb-8 sm:mb-10">
+          <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('programs.eyebrow')}</p>
+          <h2 className="max-w-xl text-xl sm:text-2xl md:text-4xl font-medium tracking-tight">{t('programs.title')}</h2>
+          <p className="max-w-md text-xs sm:text-sm leading-5 sm:leading-6 text-muted-foreground">{t('programs.desc')}</p>
         </div>
-      </section>
-
-      {/* Custom Work */}
-      <section id="custom" className="mx-auto max-w-7xl px-4 sm:px-5 py-16 sm:py-20 md:px-10 md:py-28">
-        <div className="flex flex-col justify-between gap-6 sm:gap-8 border border-white/10 bg-card/50 p-5 sm:p-7 md:flex-row md:items-end md:p-12">
-          <div>
-            <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('custom.eyebrow')}</p>
-            <h2 className="mt-3 sm:mt-4 max-w-lg text-xl sm:text-2xl md:text-4xl font-medium tracking-tight">{t('custom.title')}</h2>
-            <p className="mt-4 sm:mt-5 max-w-md text-xs sm:text-sm leading-5 sm:leading-6 text-muted-foreground">{t('custom.desc')}</p>
-          </div>
-          <a href="mailto:hello@itshop.uz" className="inline-flex shrink-0 items-center gap-3 bg-primary px-4 sm:px-5 py-2.5 sm:py-3 text-[9px] sm:text-[10px] font-semibold uppercase tracking-[.16em] text-primary-foreground">
-            {t('custom.cta')} <ArrowRight size={14} />
-          </a>
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { name: t('programs.app1.name'), desc: t('programs.app1.desc'), platform: 'Windows', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 5.5L10.5 4.5V11.5H3V5.5Z"/><path d="M10.5 4.5L21 3V11.5H10.5V4.5Z"/><path d="M3 11.5H10.5V18.5L3 17.5V11.5Z"/><path d="M10.5 11.5H21V20L10.5 18.5V11.5Z"/></svg>, color: 'from-blue-500/20 to-blue-600/5' },
+            { name: t('programs.app2.name'), desc: t('programs.app2.desc'), platform: 'Android', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, color: 'from-green-500/20 to-green-600/5' },
+            { name: t('programs.app3.name'), desc: t('programs.app3.desc'), platform: 'Windows', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 17V7l8-5 8 5v10"/><path d="M9 21v-6h6v6"/><path d="M4 12h16"/></svg>, color: 'from-purple-500/20 to-purple-600/5' },
+          ].map((app, i) => (
+            <div key={i} className="group flex flex-col gap-4 border border-white/10 bg-card/60 p-5 sm:p-6 transition-all hover:border-primary/60 hover:shadow-[0_0_30px_rgba(109,141,255,.1)]">
+              <div className={`flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${app.color} text-primary`}>
+                {app.icon}
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="text-base sm:text-lg font-medium tracking-tight">{app.name}</h3>
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[.14em] text-primary bg-primary/10 px-2 py-0.5 rounded-full">{app.platform}</span>
+                </div>
+                <p className="text-xs sm:text-sm leading-5 text-muted-foreground">{app.desc}</p>
+              </div>
+              <button className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[.16em] font-semibold border border-white/10 bg-white/[.03] text-muted-foreground transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                {t('programs.download')}
+              </button>
+            </div>
+          ))}
         </div>
       </section>
 
