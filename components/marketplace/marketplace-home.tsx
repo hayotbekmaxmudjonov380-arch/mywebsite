@@ -14,14 +14,15 @@ import { CategoryCarousel } from './category-carousel'
 import { ContactSection } from './contact-section'
 import { Footer } from './footer'
 import btnStyles from './hand-drawn-button.module.css'
+import logoStyles from './logo-glow.module.css'
 import type { Product } from '@/lib/marketplace-types'
 
 const HeroScene = dynamic(() => import('./hero-scene').then((mod) => mod.HeroScene), { ssr: false, loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(64,91,180,.3),transparent_52%)]" /> })
 
 function Logo({ className = '' }: { className?: string }) {
   return (
-    <Link href="/" className={`flex shrink-0 items-center transition-opacity hover:opacity-80 ${className}`} aria-label="ITSHOP bosh sahifa">
-      <Image src="/logotip1.png" alt="ITSHOP" width={140} height={40} className="h-[34px] w-auto object-contain sm:h-[38px] md:h-[40px]" priority />
+    <Link href="/" className={`${logoStyles.logoLink} ${className}`} aria-label="ITSHOP bosh sahifa">
+      <Image src="/logotip1.png" alt="ITSHOP" width={140} height={40} className={`${logoStyles.logoImage} h-[34px] w-auto object-contain sm:h-[38px] md:h-[40px]`} priority />
     </Link>
   )
 }

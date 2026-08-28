@@ -1,0 +1,35 @@
+.logoLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  border-radius: 12px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+}
+
+.logoLink:hover {
+  background: linear-gradient(270deg, rgba(2, 29, 78, 0.6) 0%, rgba(31, 215, 232, 0.7) 100%);
+  box-shadow: 0 0 40px rgba(31, 76, 101, 0.5), 0 0 80px rgba(31, 215, 232, 0.15);
+  transform: scale(1.03);
+}
+
+.logoLink:active {
+  transform: scale(0.97);
+}
+
+.logoImage {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 0 6px rgba(109, 141, 255, 0.3));
+  transition: filter 0.4s ease;
+}
+
+.logoLink:hover .logoImage {
+  filter: drop-shadow(0 0 12px rgba(31, 215, 232, 0.5));
+}
+
+:global(.dark) .logoLink:hover {
+  box-shadow: 0 0 40px rgba(31, 76, 101, 0.6), 0 0 80px rgba(31, 215, 232, 0.2);
+}
