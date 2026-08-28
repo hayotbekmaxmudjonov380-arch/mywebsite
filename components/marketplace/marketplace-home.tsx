@@ -171,19 +171,19 @@ export default function MarketplaceHome() {
       {!isDark && <LiquidMetal />}
 
       {/* Hero */}
-      <section className="relative min-h-[600px] sm:min-h-[680px] md:min-h-[700px] px-4 pt-28 pb-10 sm:px-5 sm:pb-14 sm:pt-32 md:px-10 md:pb-16 md:pt-36">
-        <div className="relative z-10 mx-auto flex flex-col md:flex-row items-center max-w-7xl gap-8 md:gap-4">
-          <div className="flex-1 max-w-2xl">
-            <p className="mb-5 sm:mb-7 flex items-center gap-3 font-mono text-[9px] sm:text-[10px] uppercase tracking-[.26em] text-primary">
+      <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] px-4 pt-24 pb-8 sm:px-5 sm:pb-14 sm:pt-32 lg:px-10 lg:pb-16 lg:pt-36">
+        <div className="relative z-10 mx-auto flex flex-col lg:flex-row items-center max-w-7xl gap-6 lg:gap-4">
+          <div className="flex-1 max-w-2xl text-center lg:text-left">
+            <p className="mb-4 sm:mb-7 flex items-center justify-center lg:justify-start gap-3 font-mono text-[9px] sm:text-[10px] uppercase tracking-[.26em] text-primary">
               <span className="size-1.5 bg-primary" /> {t('hero.badge')}
             </p>
-            <h1 className="text-balance text-[clamp(2.2rem,7.5vw,7.2rem)] font-semibold leading-[.88] tracking-[-.07em]">
+            <h1 className="text-balance text-[clamp(1.8rem,6vw,7.2rem)] font-semibold leading-[.92] tracking-[-.05em] sm:leading-[.88] sm:tracking-[-.07em] break-words">
               {t('hero.title1')}<br /><span className="text-primary">{t('hero.title2')}</span>
             </h1>
-            <p className="mt-6 sm:mt-8 max-w-md text-xs sm:text-sm md:text-base leading-5 sm:leading-6 text-muted-foreground">
+            <p className="mt-4 sm:mt-8 max-w-md text-xs sm:text-sm md:text-base leading-5 sm:leading-6 text-muted-foreground mx-auto lg:mx-0">
               {t('hero.desc')}
             </p>
-            <div className="mt-6 sm:mt-8 flex flex-wrap gap-2.5 sm:gap-3">
+            <div className="mt-5 sm:mt-8 flex flex-wrap justify-center lg:justify-start gap-2.5 sm:gap-3">
               <div className={btnStyles.buttonWrap}>
                 <button type="button" onClick={enterExplore} className={btnStyles.buttonLight}>
                   <svg className={btnStyles.highlight} viewBox="0 0 144.75738 77.18431" preserveAspectRatio="none">
@@ -198,7 +198,7 @@ export default function MarketplaceHome() {
               </div>
             </div>
           </div>
-          <div className="flex-1 w-full md:w-auto">
+          <div className="flex-1 w-full md:w-auto flex justify-center">
             <HeroScene />
           </div>
         </div>

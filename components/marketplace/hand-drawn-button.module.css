@@ -23,6 +23,7 @@
   animation: idle 1s infinite ease-in-out;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .buttonLight {
