@@ -15,14 +15,20 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.4s ease;
+  transition: color 0.4s ease, border-color 0.4s ease;
   text-decoration: none;
   margin-top: auto;
   z-index: 2;
 }
 
+:global(.dark) .dlBtn {
+  border-color: rgba(109, 141, 255, 0.3);
+  background: rgba(109, 141, 255, 0.08);
+}
+
 .dlBtn:hover {
   color: #fff;
+  border-color: transparent;
 }
 
 /* Expanding circle */
@@ -44,6 +50,10 @@
   height: 300px;
 }
 
+:global(.dark) .dlBtnCircle {
+  background: #4a6dff;
+}
+
 /* Left SVG wave */
 .dlBtnLeft {
   position: absolute;
@@ -51,8 +61,13 @@
   left: -8px;
   height: 100%;
   width: auto;
-  opacity: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
   z-index: 0;
+}
+
+.dlBtn:hover .dlBtnLeft {
+  opacity: 1;
 }
 
 /* Right SVG wave */
@@ -62,7 +77,13 @@
   right: -8px;
   height: 100%;
   width: 40px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
   z-index: 0;
+}
+
+.dlBtn:hover .dlBtnRight {
+  opacity: 1;
 }
 
 /* Gradient overlay */
@@ -71,9 +92,14 @@
   inset: 0;
   border-radius: 8px;
   background: linear-gradient(to bottom, transparent, transparent, rgba(255, 255, 255, 0.1));
-  opacity: 0.3;
+  opacity: 0;
+  transition: opacity 0.4s ease;
   z-index: 0;
   pointer-events: none;
+}
+
+.dlBtn:hover .dlBtnOverlay {
+  opacity: 0.3;
 }
 
 /* Content */
