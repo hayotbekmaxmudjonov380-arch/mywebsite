@@ -15,7 +15,7 @@ export function Footer() {
           {/* Column 1 - Brand */}
           <div className={styles.footerBrand}>
             <Link href="/" className={styles.footerLogo}>
-              <Image src="/logotip1.png" alt="ITSHOP" width={120} height={32} className={styles.footerLogoImage} />
+              <Image src="/logotip2.png" alt="ITSHOP" width={120} height={32} className={styles.footerLogoImage} />
             </Link>
             <p className={styles.footerTagline}>{t('footer_new.tagline')}</p>
             <div className={styles.socialLinks}>

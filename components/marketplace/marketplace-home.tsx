@@ -22,7 +22,7 @@ const HeroScene = dynamic(() => import('./hero-scene').then((mod) => mod.HeroSce
 function Logo({ className = '' }: { className?: string }) {
   return (
     <Link href="/" className={`${logoStyles.logoLink} ${className}`} aria-label="ITSHOP bosh sahifa">
-      <Image src="/logotip1.png" alt="ITSHOP" width={140} height={40} className={`${logoStyles.logoImage} h-[34px] w-auto object-contain sm:h-[38px] md:h-[40px]`} priority />
+      <Image src="/logotip2.png" alt="ITSHOP" width={140} height={40} className={`${logoStyles.logoImage} h-[34px] w-auto object-contain sm:h-[38px] md:h-[40px]`} priority />
     </Link>
   )
 }
