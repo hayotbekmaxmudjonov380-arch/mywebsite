@@ -183,24 +183,6 @@ export default function MarketplaceHome() {
                 </button>
               </div>
             </div>
-
-            {/* Trust Metrics */}
-            <div className="mt-10 sm:mt-14 flex flex-wrap gap-x-6 gap-y-5 sm:gap-x-8">
-              {[
-                { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>, value: '100%', label: t('trust.quality') },
-                { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>, value: '24/7', label: t('trust.support') },
-                { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>, value: '500+', label: t('trust.products') },
-                { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>, value: '', label: t('trust.secure') },
-              ].map((m, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="flex size-9 items-center justify-center rounded-lg border border-black/10 bg-black/[.03] text-primary">{m.icon}</div>
-                  <div>
-                    {m.value && <p className="font-mono text-sm sm:text-base font-semibold text-foreground">{m.value}</p>}
-                    <p className="text-[10px] sm:text-[11px] text-muted-foreground">{m.label}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
