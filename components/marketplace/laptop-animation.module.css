@@ -1,32 +1,32 @@
 .laptopScene {
   width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   perspective: 1900px;
+  padding: 20px 0;
 }
 
 .laptop {
-  transform: scale(0.5);
+  transform: scale(0.45);
   position: relative;
 }
 
 @media (min-width: 640px) {
   .laptop {
-    transform: scale(0.65);
+    transform: scale(0.55);
   }
 }
 
 @media (min-width: 768px) {
   .laptop {
-    transform: scale(0.8);
+    transform: scale(0.6);
   }
 }
 
 @media (min-width: 1024px) {
   .laptop {
-    transform: scale(1);
+    transform: scale(0.75);
   }
 }
 
