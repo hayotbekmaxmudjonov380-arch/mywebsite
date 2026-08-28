@@ -14,6 +14,9 @@ export const viewport: Viewport = { colorScheme: 'light dark', themeColor: '#fff
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="bg-background" suppressHydrationWarning>
+      <head>
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js" />
+      </head>
       <body className={`${geist.variable} ${geistMono.variable}`}>
         <ThemeProvider>
           <LanguageProvider>
