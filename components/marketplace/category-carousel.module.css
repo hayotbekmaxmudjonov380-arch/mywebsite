@@ -6,6 +6,13 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.carouselWrapper:active {
+  cursor: grabbing;
 }
 
 .inner {
@@ -23,6 +30,7 @@
   transform-style: preserve-3d;
   transform: perspective(var(--perspective));
   animation: rotating 20s linear infinite;
+  will-change: transform;
 }
 
 @keyframes rotating {
