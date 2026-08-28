@@ -16,9 +16,9 @@ import type { Product } from '@/lib/marketplace-types'
 
 const HeroScene = dynamic(() => import('./hero-scene').then((mod) => mod.HeroScene), { ssr: false, loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(64,91,180,.3),transparent_52%)]" /> })
 
-function Logo() {
+function Logo({ className = '' }: { className?: string }) {
   return (
-    <Link href="/" className="flex shrink-0 items-center transition-opacity hover:opacity-80" aria-label="ITSHOP bosh sahifa">
+    <Link href="/" className={`flex shrink-0 items-center transition-opacity hover:opacity-80 ${className}`} aria-label="ITSHOP bosh sahifa">
       <Image src="/logotip1.png" alt="ITSHOP" width={140} height={40} className="h-[34px] w-auto object-contain sm:h-[38px] md:h-[40px]" priority />
     </Link>
   )

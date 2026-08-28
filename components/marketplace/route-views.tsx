@@ -155,9 +155,9 @@ function Shell({ children }: { children: React.ReactNode }) {
   const { t } = useLanguage()
   return (
     <main className="min-h-screen px-4 sm:px-5 pb-16 sm:pb-20 pt-24 sm:pt-28 md:px-10">
-      <header className="mx-auto flex max-w-7xl items-center justify-between border-b border-white/10 pb-4 sm:pb-5">
+      <header className="mx-auto flex max-w-7xl items-center justify-between border-b border-black/10 pb-4 sm:pb-5">
         <Link href="/" className="flex shrink-0 items-center transition-opacity hover:opacity-80">
-          <Image src="/logotip1.png" alt="ITSHOP" width={140} height={40} className="h-[34px] w-auto object-contain sm:h-[38px] md:h-[40px]" />
+          <Image src="/logotip1.png" alt="ITSHOP" width={140} height={40} className="h-[34px] w-auto object-contain sm:h-[38px] md:h-[40px]" priority />
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
