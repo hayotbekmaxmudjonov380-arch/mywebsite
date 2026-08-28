@@ -33,6 +33,10 @@
   will-change: transform;
 }
 
+.carouselWrapper:hover .inner {
+  animation-play-state: paused;
+}
+
 @keyframes rotating {
   from {
     transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0);

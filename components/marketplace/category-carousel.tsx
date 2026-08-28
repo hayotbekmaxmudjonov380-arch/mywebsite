@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import { categories } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
 import { categoryNames, categoryDescriptions } from '@/lib/translations'
@@ -11,53 +11,64 @@ export function CategoryCarousel() {
   const innerRef = useRef<HTMLDivElement>(null)
   const isDragging = useRef(false)
   const startX = useRef(0)
-  const dragOffset = useRef(0)
-  const pauseOffset = useRef(0)
-  const [animStyle, setAnimStyle] = useState<React.CSSProperties>({})
-  const [isPaused, setIsPaused] = useState(false)
+  const pausedAngle = useRef(0)
+  const [manualTransform, setManualTransform] = useState<string | null>(null)
+
+  const freezeAtCurrentAngle = useCallback(() => {
+    if (!innerRef.current || manualTransform !== null) return
+    const computed = getComputedStyle(innerRef.current).transform
+    let angle = 0
+    if (computed && computed !== 'none') {
+      const m = computed.match(/matrix\(([^)]+)\)/)
+      if (m) {
+        const p = m[1].split(',').map(Number)
+        angle = Math.atan2(p[1], p[0]) * (180 / Math.PI)
+      }
+    }
+    pausedAngle.current = angle
+    setManualTransform(`perspective(1000px) rotateX(-15deg) rotateY(${angle}deg)`)
+  }, [manualTransform])
+
+  const unfreeze = useCallback(() => {
+    if (!isDragging.current) {
+      pausedAngle.current = 0
+      setManualTransform(null)
+    }
+  }, [])
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     isDragging.current = true
     startX.current = e.clientX
-    dragOffset.current = 0
-    setIsPaused(true)
+    freezeAtCurrentAngle()
     innerRef.current?.setPointerCapture(e.pointerId)
-  }, [])
+  }, [freezeAtCurrentAngle])
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!isDragging.current || !innerRef.current) return
+    if (!isDragging.current || manualTransform === null) return
     const delta = e.clientX - startX.current
-    dragOffset.current = delta * 0.3
-    innerRef.current.style.transform =
-      `perspective(1000px) rotateX(-15deg) rotateY(${pauseOffset.current + dragOffset.current}deg)`
-  }, [])
+    setManualTransform(`perspective(1000px) rotateX(-15deg) rotateY(${pausedAngle.current + delta * 0.3}deg)`)
+  }, [manualTransform])
 
   const handlePointerUp = useCallback(() => {
-    if (!isDragging.current) return
     isDragging.current = false
-    pauseOffset.current += dragOffset.current
-    dragOffset.current = 0
-    setTimeout(() => setIsPaused(false), 50)
+    pausedAngle.current = 0
+    setManualTransform(null)
   }, [])
 
-  useEffect(() => {
-    if (!isPaused && innerRef.current) {
-      setAnimStyle({
-        animation: `rotating 20s linear infinite`,
-      })
-    }
-  }, [isPaused])
-
   return (
-    <div className={styles.carouselWrapper}>
+    <div
+      className={styles.carouselWrapper}
+      onTouchStart={freezeAtCurrentAngle}
+      onTouchEnd={unfreeze}
+    >
       <div
         ref={innerRef}
         className={styles.inner}
         style={{
           ['--quantity' as string]: categories.length,
-          ...(isPaused
-            ? { animation: 'none' }
-            : animStyle),
+          ...(manualTransform !== null
+            ? { animation: 'none', transform: manualTransform }
+            : {}),
         }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
