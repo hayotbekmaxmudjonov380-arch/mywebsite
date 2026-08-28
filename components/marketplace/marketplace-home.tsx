@@ -16,6 +16,7 @@ import { Footer } from './footer'
 import btnStyles from './hand-drawn-button.module.css'
 import logoStyles from './logo-glow.module.css'
 import glowCardStyles from './glow-card.module.css'
+import dlBtnStyles from './download-btn.module.css'
 import { WindowsIcon } from './windows-icon'
 import type { Product } from '@/lib/marketplace-types'
 
@@ -264,9 +265,23 @@ export default function MarketplaceHome() {
                   </div>
                   <p className={`${glowCardStyles.glowDesc} text-xs sm:text-sm leading-5 text-muted-foreground`}>{app.desc}</p>
                 </div>
-                <button className={`${glowCardStyles.glowBtn} flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[.16em] font-semibold border border-primary/20 bg-primary/5 text-primary transition-all hover:bg-primary hover:text-primary-foreground`}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  {t('programs.download')}
+                <button className={`${glowCardStyles.glowBtn} ${dlBtnStyles.dlBtn}`}>
+                  <span className={dlBtnStyles.dlBtnCircle} />
+                  <span className={dlBtnStyles.dlBtnLeft}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-full opacity-100" viewBox="0 0 487 487">
+                      <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z" />
+                    </svg>
+                  </span>
+                  <span className={dlBtnStyles.dlBtnRight}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="object-cover w-full h-full" viewBox="0 0 487 487">
+                      <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z" />
+                    </svg>
+                  </span>
+                  <span className={dlBtnStyles.dlBtnOverlay} />
+                  <span className={dlBtnStyles.dlBtnContent}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    {t('programs.download')}
+                  </span>
                 </button>
               </div>
             </div>
