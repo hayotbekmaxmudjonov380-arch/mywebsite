@@ -18,6 +18,7 @@ import logoStyles from './logo-glow.module.css'
 import glowCardStyles from './glow-card.module.css'
 import dlBtnStyles from './download-btn.module.css'
 import { WindowsIcon } from './windows-icon'
+import { LiquidMetal } from './liquid-metal'
 import type { Product } from '@/lib/marketplace-types'
 
 const HeroScene = dynamic(() => import('./hero-scene').then((mod) => mod.HeroScene), { ssr: false, loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(64,91,180,.3),transparent_52%)]" /> })
@@ -167,6 +168,7 @@ export default function MarketplaceHome() {
   return (
     <main className={`min-h-screen overflow-x-hidden ${isDark ? 'text-white' : ''}`}>
       <Nav cart={cart.length} onSearch={() => setSearchOpen(true)} />
+      {!isDark && <LiquidMetal />}
 
       {/* Hero */}
       <section className="relative min-h-[600px] sm:min-h-[680px] md:min-h-[700px] px-4 pt-28 pb-10 sm:px-5 sm:pb-14 sm:pt-32 md:px-10 md:pb-16 md:pt-36">
