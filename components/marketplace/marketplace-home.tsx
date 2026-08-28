@@ -10,7 +10,8 @@ import { useLanguage } from '@/lib/language-context'
 import { categoryNames, categoryDescriptions } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { CategoryCarousel } from './category-carousel'
-import styles from './contact-section.module.css'
+import { ContactSection } from './contact-section'
+import { Footer } from './footer'
 import btnStyles from './hand-drawn-button.module.css'
 import type { Product } from '@/lib/marketplace-types'
 
@@ -252,73 +253,10 @@ export default function MarketplaceHome() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="mx-auto max-w-7xl px-4 sm:px-5 py-16 sm:py-20 md:px-10 md:py-28">
-        <div className="flex flex-col gap-2 sm:gap-3 mb-8 sm:mb-10">
-          <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('contact.title')}</p>
-          <h2 className="max-w-xl text-xl sm:text-2xl md:text-4xl font-medium tracking-tight">{t('contact.desc')}</h2>
-        </div>
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <ul className={styles.socialCard}>
-            <li className={`${styles.socialItem} ${styles.tg}`}>
-              <span className={styles.shadowLayer} />
-              <span className={styles.shadowLayer} />
-              <span className={styles.shadowLayer} />
-              <a href="https://t.me/maxmudjonovhayotbek" target="_blank" rel="noopener noreferrer">
-                <svg className={styles.socialIcon} width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-              </a>
-              <div className={styles.socialLabel}>Telegram</div>
-            </li>
-            <li className={`${styles.socialItem} ${styles.ig}`}>
-              <span className={styles.shadowLayer} />
-              <span className={styles.shadowLayer} />
-              <span className={styles.shadowLayer} />
-              <a href="https://www.instagram.com/maxmudjonov_hayotbek?igsi=dXUzbGNscmx0OTFl" target="_blank" rel="noopener noreferrer">
-                <svg className={styles.socialIcon} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              </a>
-              <div className={styles.socialLabel}>Instagram</div>
-            </li>
-            <li className={`${styles.socialItem} ${styles.phone}`}>
-              <span className={styles.shadowLayer} />
-              <span className={styles.shadowLayer} />
-              <span className={styles.shadowLayer} />
-              <a href="tel:+998997689685">
-                <svg className={styles.socialIcon} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </a>
-              <div className={styles.socialLabel}>Phone</div>
-            </li>
-          </ul>
-
-          {/* Map */}
-          <div className="overflow-hidden border border-black/10 bg-card/50">
-            <div className="p-4 sm:p-5 border-b border-black/10">
-              <p className="text-sm font-medium text-foreground">{t('contact.location')}</p>
-            </div>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d744.2711922919523!2d60.62130486861233!3d41.558432967695765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfc9842c81fc9d%3A0x9e434d2b8a616ce9!2sIT%20Park!5e1!3m2!1sru!2s!4v1787748834782!5m2!1sru!2s"
-              width="100%"
-              height="300"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-              className="w-full"
-            />
-          </div>
-        </div>
-      </section>
+      <ContactSection />
 
       {/* Footer */}
-      <footer className="border-t border-black/10 px-4 sm:px-5 py-6 sm:py-8 md:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between">
-          <Logo />
-          <div className="flex gap-4 sm:gap-5 text-[9px] sm:text-[10px] uppercase tracking-[.16em] text-muted-foreground">
-            <Link href="/account">{t('footer.account')}</Link>
-            <Link href="/admin">{t('footer.admin')}</Link>
-            <a href="mailto:hello@itshop.uz">{t('footer.contact')}</a>
-          </div>
-          <p className="text-[9px] sm:text-[10px] text-muted-foreground">{t('footer.copy')}</p>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Search Modal */}
       {searchOpen && (
