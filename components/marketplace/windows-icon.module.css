@@ -10,6 +10,12 @@
   overflow: hidden;
   cursor: pointer;
   flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.winIcon:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 16px rgba(40, 207, 241, 0.4);
 }
 
 .winIconBg {
@@ -17,16 +23,7 @@
   inset: 0;
   border-radius: 50%;
   background: radial-gradient(circle at 50% 100%, #30f8f8 10%, #28cff1 30%, #2d6284 60%, #2c517b);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.winIcon:hover .winIconBg {
   opacity: 1;
-}
-
-.winIcon:active .winIconBg {
-  opacity: 0.65;
 }
 
 .winIconTop {
@@ -42,16 +39,7 @@
   position: absolute;
   inset: 0;
   filter: blur(3px);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.winIcon:hover .winColors {
-  opacity: 1;
-}
-
-.winIcon:active .winColors {
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 .winRed {
@@ -115,10 +103,5 @@
   z-index: 2;
   width: 20px;
   height: 20px;
-  color: #6d8dff;
-  transition: color 0.3s ease;
-}
-
-.winIcon:hover .winLogo {
   color: #fff;
 }
