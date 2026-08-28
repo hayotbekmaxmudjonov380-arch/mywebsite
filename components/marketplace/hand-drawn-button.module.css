@@ -19,7 +19,7 @@
   padding: 0.85em 1.6em;
   border-width: 0px;
   border-radius: 2rem;
-  box-shadow: #33333366 4px 4px 0 1px;
+  box-shadow: rgba(0,0,0,.15) 4px 4px 0 1px;
   animation: idle 1s infinite ease-in-out;
   position: relative;
   overflow: hidden;
@@ -27,7 +27,7 @@
 
 .buttonLight {
   composes: button;
-  color: #070a11;
+  color: #ffffff;
   background-color: #6d8dff;
 }
 

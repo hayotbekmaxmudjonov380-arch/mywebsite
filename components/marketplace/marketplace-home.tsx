@@ -29,7 +29,7 @@ function Nav({ cart, onSearch }: { cart: number; onSearch: () => void }) {
   const [open, setOpen] = useState(false)
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="mx-auto mt-3 sm:mt-4 flex max-w-7xl items-center justify-between border border-white/[.08] bg-[#080B14]/80 py-2.5 sm:py-3 backdrop-blur-xl rounded-[14px]" style={{ paddingInline: 'clamp(20px, 3.5vw, 56px)' }}>
+      <div className="mx-auto mt-3 sm:mt-4 flex max-w-7xl items-center justify-between border border-black/[.08] bg-white/80 py-2.5 sm:py-3 backdrop-blur-xl rounded-[14px] shadow-sm" style={{ paddingInline: 'clamp(20px, 3.5vw, 56px)' }}>
         <Logo />
         <nav className="hidden items-center gap-5 lg:gap-7 text-[11px] uppercase tracking-[.14em] text-muted-foreground md:flex">
           <Link href="#categories" className="transition-colors hover:text-foreground">{t('nav.categories')}</Link>
@@ -48,7 +48,7 @@ function Nav({ cart, onSearch }: { cart: number; onSearch: () => void }) {
             <ShoppingBag size={16} />
             {cart > 0 && <span className="absolute right-0.5 top-0.5 grid size-3.5 place-items-center rounded-full bg-primary text-[7px] text-primary-foreground font-medium">{cart}</span>}
           </button>
-          <Link href="/account" className="hidden ml-1 items-center gap-2 border border-white/15 bg-white/[.04] px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[.12em] text-muted-foreground hover:bg-white/[.08] hover:text-foreground transition-colors sm:inline-flex">
+          <Link href="/account" className="hidden ml-1 items-center gap-2 border border-black/15 bg-black/[.04] px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[.12em] text-muted-foreground hover:bg-black/[.08] hover:text-foreground transition-colors sm:inline-flex">
             {t('nav.login')}
           </Link>
           <button onClick={() => setOpen(!open)} className="grid size-8 sm:size-9 place-items-center md:hidden" aria-label="Toggle menu">
@@ -57,11 +57,11 @@ function Nav({ cart, onSearch }: { cart: number; onSearch: () => void }) {
         </div>
       </div>
       {open && (
-        <nav className="mx-3 sm:mx-4 mt-2 flex flex-col gap-3 sm:gap-4 border border-white/[.08] bg-[#080B14]/95 p-4 sm:p-5 text-xs uppercase tracking-[.14em] md:hidden rounded-xl backdrop-blur-xl">
+        <nav className="mx-3 sm:mx-4 mt-2 flex flex-col gap-3 sm:gap-4 border border-black/[.08] bg-white/95 p-4 sm:p-5 text-xs uppercase tracking-[.14em] md:hidden rounded-xl backdrop-blur-xl shadow-lg">
           <Link onClick={() => setOpen(false)} href="#categories">{t('nav.categories')}</Link>
           <Link onClick={() => setOpen(false)} href="#programs">{t('nav.programs')}</Link>
           <Link onClick={() => setOpen(false)} href="#contact">{t('footer.contact')}</Link>
-          <Link onClick={() => setOpen(false)} href="/account" className="mt-2 border border-white/15 bg-white/[.04] px-4 py-2.5 text-center text-foreground">{t('nav.login')}</Link>
+          <Link onClick={() => setOpen(false)} href="/account" className="mt-2 border border-black/15 bg-black/[.04] px-4 py-2.5 text-center text-foreground">{t('nav.login')}</Link>
         </nav>
       )}
     </header>
@@ -72,7 +72,7 @@ function ProductCard({ product, onAdd }: { product: Product; onAdd: () => void }
   const { t, locale } = useLanguage()
   const catName = categoryNames[locale]?.[product.categoryPlatform] || product.category
   return (
-    <article className="group border border-white/10 bg-card/60 transition-colors hover:border-primary/60">
+    <article className="group border border-black/10 bg-card/60 transition-colors hover:border-primary/60">
       <Link href={`/products/${product.slug}`} className="block">
         <div className="relative aspect-[1.35] overflow-hidden" style={{ background: product.cover }}>
           <div className="absolute inset-0 opacity-35" style={{ backgroundImage: 'linear-gradient(115deg, transparent 35%, rgba(255,255,255,.25) 50%, transparent 65%)', backgroundSize: '220% 100%' }} />
@@ -97,7 +97,7 @@ function ProductCard({ product, onAdd }: { product: Product; onAdd: () => void }
           </div>
         </div>
       </Link>
-      <div className="border-t border-white/10 p-2.5 sm:p-3">
+      <div className="border-t border-black/10 p-2.5 sm:p-3">
         <button onClick={onAdd} className="flex w-full items-center justify-center gap-2 py-2 text-[9px] sm:text-[10px] uppercase tracking-[.16em] text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground">
           <ShoppingBag size={13} /> {t('common.addToCart')}
         </button>
@@ -193,7 +193,7 @@ export default function MarketplaceHome() {
                 { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>, value: '', label: t('trust.secure') },
               ].map((m, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <div className="flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/[.03] text-primary">{m.icon}</div>
+                  <div className="flex size-9 items-center justify-center rounded-lg border border-black/10 bg-black/[.03] text-primary">{m.icon}</div>
                   <div>
                     {m.value && <p className="font-mono text-sm sm:text-base font-semibold text-foreground">{m.value}</p>}
                     <p className="text-[10px] sm:text-[11px] text-muted-foreground">{m.label}</p>
@@ -206,7 +206,7 @@ export default function MarketplaceHome() {
       </section>
 
       {/* Benefit Strip */}
-      <section className="border-y border-white/[.06] bg-white/[.015]">
+      <section className="border-y border-black/[.06] bg-black/[.015]">
         <div className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
           {[
             { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>, title: t('benefit.reliable.title'), desc: t('benefit.reliable.desc') },
@@ -214,7 +214,7 @@ export default function MarketplaceHome() {
             { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>, title: t('benefit.support.title'), desc: t('benefit.support.desc') },
             { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>, title: t('benefit.secure.title'), desc: t('benefit.secure.desc') },
           ].map((b, i) => (
-            <div key={i} className={`flex items-start gap-3.5 p-5 sm:p-6 ${i < 3 ? 'sm:border-r border-white/[.06]' : ''} ${i < 2 ? 'border-b sm:border-b-0' : ''} lg:border-r last:border-r-0`}>
+            <div key={i} className={`flex items-start gap-3.5 p-5 sm:p-6 ${i < 3 ? 'sm:border-r border-black/[.06]' : ''} ${i < 2 ? 'border-b sm:border-b-0' : ''} lg:border-r last:border-r-0`}>
               <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">{b.icon}</div>
               <div>
                 <p className="text-sm font-medium text-foreground">{b.title}</p>
@@ -247,7 +247,7 @@ export default function MarketplaceHome() {
             { name: t('programs.app2.name'), desc: t('programs.app2.desc'), platform: 'Android', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, color: 'from-green-500/20 to-green-600/5' },
             { name: t('programs.app3.name'), desc: t('programs.app3.desc'), platform: 'Windows', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 17V7l8-5 8 5v10"/><path d="M9 21v-6h6v6"/><path d="M4 12h16"/></svg>, color: 'from-purple-500/20 to-purple-600/5' },
           ].map((app, i) => (
-            <div key={i} className="group flex flex-col gap-4 border border-white/10 bg-card/60 p-5 sm:p-6 transition-all hover:border-primary/60 hover:shadow-[0_0_30px_rgba(109,141,255,.1)]">
+            <div key={i} className="group flex flex-col gap-4 border border-black/10 bg-card/60 p-5 sm:p-6 transition-all hover:border-primary/60 hover:shadow-[0_0_30px_rgba(109,141,255,.1)]">
               <div className={`flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${app.color} text-primary`}>
                 {app.icon}
               </div>
@@ -258,7 +258,7 @@ export default function MarketplaceHome() {
                 </div>
                 <p className="text-xs sm:text-sm leading-5 text-muted-foreground">{app.desc}</p>
               </div>
-              <button className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[.16em] font-semibold border border-white/10 bg-white/[.03] text-muted-foreground transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary">
+              <button className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[.16em] font-semibold border border-black/10 bg-black/[.03] text-muted-foreground transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 {t('programs.download')}
               </button>
@@ -305,8 +305,8 @@ export default function MarketplaceHome() {
           </ul>
 
           {/* Map */}
-          <div className="overflow-hidden border border-white/10 bg-card/50">
-            <div className="p-4 sm:p-5 border-b border-white/10">
+          <div className="overflow-hidden border border-black/10 bg-card/50">
+            <div className="p-4 sm:p-5 border-b border-black/10">
               <p className="text-sm font-medium text-foreground">{t('contact.location')}</p>
             </div>
             <iframe
@@ -324,7 +324,7 @@ export default function MarketplaceHome() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 px-4 sm:px-5 py-6 sm:py-8 md:px-10">
+      <footer className="border-t border-black/10 px-4 sm:px-5 py-6 sm:py-8 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between">
           <Logo />
           <div className="flex gap-4 sm:gap-5 text-[9px] sm:text-[10px] uppercase tracking-[.16em] text-muted-foreground">
@@ -339,7 +339,7 @@ export default function MarketplaceHome() {
       {/* Search Modal */}
       {searchOpen && (
         <div className="fixed inset-0 z-[60] bg-background/95 p-4 sm:p-5 md:p-10 backdrop-blur-xl">
-          <button onClick={() => setSearchOpen(false)} className="absolute right-4 top-4 sm:right-5 sm:top-5 grid size-9 sm:size-10 place-items-center border border-white/10" aria-label="Close search">
+          <button onClick={() => setSearchOpen(false)} className="absolute right-4 top-4 sm:right-5 sm:top-5 grid size-9 sm:size-10 place-items-center border border-black/10" aria-label="Close search">
             <X size={18} />
           </button>
           <div className="mx-auto mt-20 sm:mt-24 max-w-3xl">
@@ -352,7 +352,7 @@ export default function MarketplaceHome() {
             <div className="mt-6 sm:mt-8 grid gap-2 sm:gap-3">
               {products.filter((product) => `${product.name} ${product.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase())).slice(0, 4).map((product) => (
                 <Link onClick={() => setSearchOpen(false)} href={`/products/${product.slug}`} key={product.id}
-                  className="flex items-center justify-between border-b border-white/10 py-3 sm:py-4 hover:text-primary">
+                  className="flex items-center justify-between border-b border-black/10 py-3 sm:py-4 hover:text-primary">
                   <span className="text-sm sm:text-base">{product.name}</span>
                   <span className="font-mono text-[10px] sm:text-xs text-muted-foreground">{product.category}</span>
                 </Link>
