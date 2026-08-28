@@ -156,9 +156,9 @@ export default function MarketplaceHome() {
       <Nav cart={cart.length} onSearch={() => setSearchOpen(true)} />
 
       {/* Hero */}
-      <section className="relative flex min-h-[700px] sm:min-h-[680px] md:min-h-[780px] items-end px-4 pb-24 pt-28 sm:px-5 sm:pb-14 sm:pt-32 md:px-10 md:pb-16 md:pt-36">
+      <section className="relative min-h-[700px] sm:min-h-[680px] md:min-h-[780px] px-4 pt-28 pb-10 sm:px-5 sm:pb-14 sm:pt-32 md:px-10 md:pb-16 md:pt-36">
         <HeroScene />
-        <div className="relative z-10 mx-auto w-full max-w-7xl">
+        <div className="relative z-10 mx-auto flex flex-col max-w-7xl">
           <div className="max-w-2xl">
             <p className="mb-5 sm:mb-7 flex items-center gap-3 font-mono text-[9px] sm:text-[10px] uppercase tracking-[.26em] text-primary">
               <span className="size-1.5 bg-primary" /> {t('hero.badge')}
