@@ -15,6 +15,7 @@ import { ContactSection } from './contact-section'
 import { Footer } from './footer'
 import btnStyles from './hand-drawn-button.module.css'
 import logoStyles from './logo-glow.module.css'
+import glowCardStyles from './glow-card.module.css'
 import type { Product } from '@/lib/marketplace-types'
 
 const HeroScene = dynamic(() => import('./hero-scene').then((mod) => mod.HeroScene), { ssr: false, loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(64,91,180,.3),transparent_52%)]" /> })
@@ -241,21 +242,28 @@ export default function MarketplaceHome() {
             { name: t('programs.app2.name'), desc: t('programs.app2.desc'), platform: 'Android', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, color: 'from-green-500/20 to-green-600/5' },
             { name: t('programs.app3.name'), desc: t('programs.app3.desc'), platform: 'Windows', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 17V7l8-5 8 5v10"/><path d="M9 21v-6h6v6"/><path d="M4 12h16"/></svg>, color: 'from-purple-500/20 to-purple-600/5' },
           ].map((app, i) => (
-            <div key={i} className="group flex flex-col gap-4 border border-black/10 bg-card/60 p-5 sm:p-6 transition-all hover:border-primary/60 hover:shadow-[0_0_30px_rgba(109,141,255,.1)]">
-              <div className={`flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${app.color} text-primary`}>
-                {app.icon}
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-base sm:text-lg font-medium tracking-tight">{app.name}</h3>
-                  <span className="text-[9px] sm:text-[10px] uppercase tracking-[.14em] text-primary bg-primary/10 px-2 py-0.5 rounded-full">{app.platform}</span>
+            <div key={i} className={`${glowCardStyles.glowCardOuter} group`}>
+              <div className={glowCardStyles.glowCard}>
+                <div className={glowCardStyles.glowRay} />
+                <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineTop}`} />
+                <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineBottom}`} />
+                <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineLeft}`} />
+                <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineRight}`} />
+                <div className={`${glowCardStyles.glowIcon} flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${app.color} text-primary`}>
+                  {app.icon}
                 </div>
-                <p className="text-xs sm:text-sm leading-5 text-muted-foreground">{app.desc}</p>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className={`${glowCardStyles.glowTitle} text-base sm:text-lg font-medium tracking-tight`}>{app.name}</h3>
+                    <span className={`${glowCardStyles.glowBadge} text-[9px] sm:text-[10px] uppercase tracking-[.14em] text-primary bg-primary/10 px-2 py-0.5 rounded-full`}>{app.platform}</span>
+                  </div>
+                  <p className={`${glowCardStyles.glowDesc} text-xs sm:text-sm leading-5 text-muted-foreground`}>{app.desc}</p>
+                </div>
+                <button className={`${glowCardStyles.glowBtn} flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[.16em] font-semibold border border-primary/20 bg-primary/5 text-primary transition-all hover:bg-primary hover:text-primary-foreground`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  {t('programs.download')}
+                </button>
               </div>
-              <button className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[.16em] font-semibold border border-black/10 bg-black/[.03] text-muted-foreground transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                {t('programs.download')}
-              </button>
             </div>
           ))}
         </div>
