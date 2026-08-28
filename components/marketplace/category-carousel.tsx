@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import { categories } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
 import { categoryNames, categoryDescriptions } from '@/lib/translations'
@@ -14,70 +14,56 @@ export function CategoryCarousel() {
   const startX = useRef(0)
   const dragRotation = useRef(0)
   const baseRotation = useRef(0)
-  const lastTime = useRef(0)
-  const resumeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const ANIM_DURATION = 20000
-
-  useEffect(() => {
-    lastTime.current = Date.now()
-    const tick = () => {
-      if (!isDragging.current && !paused) {
-        const elapsed = (Date.now() - lastTime.current) % ANIM_DURATION
-        baseRotation.current = (elapsed / ANIM_DURATION) * 360
-      }
-      animationFrame.current = requestAnimationFrame(tick)
-    }
-    const animationFrame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(animationFrame)
-  }, [paused])
-
-  const applyTransform = useCallback((rotation: number) => {
-    if (!innerRef.current) return
-    innerRef.current.style.transform =
-      `perspective(1000px) rotateX(-15deg) rotateY(${rotation}deg)`
-  }, [])
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (!innerRef.current) return
     isDragging.current = true
     startX.current = e.clientX
     dragRotation.current = 0
-    lastTime.current = Date.now()
-    innerRef.current.setPointerCapture(e.pointerId)
 
-    if (resumeTimeout.current) clearTimeout(resumeTimeout.current)
+    if (resumeTimer.current) clearTimeout(resumeTimer.current)
 
+    const style = getComputedStyle(innerRef.current)
+    const matrix = style.transform
+    let angle = 0
+    if (matrix && matrix !== 'none') {
+      const values = matrix.match(/matrix.*\((.+)\)/)
+      if (values) {
+        const parts = values[1].split(', ').map(parseFloat)
+        angle = Math.round(Math.atan2(parts[1], parts[0]) * (180 / Math.PI))
+      }
+    }
+    baseRotation.current = angle
     innerRef.current.style.animation = 'none'
-    applyTransform(baseRotation.current)
-  }, [applyTransform])
+    innerRef.current.style.transform = `perspective(1000px) rotateX(-15deg) rotateY(${angle}deg)`
+    setPaused(true)
+    innerRef.current.setPointerCapture(e.pointerId)
+  }, [])
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!isDragging.current || !innerRef.current) return
     const deltaX = e.clientX - startX.current
     dragRotation.current = deltaX * 0.4
-    applyTransform(baseRotation.current + dragRotation.current)
-  }, [applyTransform])
+    innerRef.current.style.transform =
+      `perspective(1000px) rotateX(-15deg) rotateY(${baseRotation.current + dragRotation.current}deg)`
+  }, [])
 
   const handlePointerUp = useCallback(() => {
     if (!isDragging.current || !innerRef.current) return
     isDragging.current = false
-
-    baseRotation.current = baseRotation.current + dragRotation.current
+    baseRotation.current += dragRotation.current
     dragRotation.current = 0
 
-    resumeTimeout.current = setTimeout(() => {
+    resumeTimer.current = setTimeout(() => {
       if (!innerRef.current) return
-      const elapsed = baseRotation.current
       innerRef.current.style.animation = ''
-      innerRef.current.style.animationDuration = `${ANIM_DURATION}ms`
+      innerRef.current.style.animationDuration = '20s'
       innerRef.current.style.animationTimingFunction = 'linear'
       innerRef.current.style.animationIterationCount = 'infinite'
-      innerRef.current.style.animationName = 'none'
-      void innerRef.current.offsetHeight
       innerRef.current.style.animationName = 'rotating'
-      lastTime.current = Date.now() - (elapsed / 360) * ANIM_DURATION
-    }, 300)
+      setPaused(false)
+    }, 100)
   }, [])
 
   return (
