@@ -8,11 +8,17 @@
 }
 
 .laptop {
-  transform: scale(0.65);
+  transform: scale(0.5);
   position: relative;
 }
 
 @media (min-width: 640px) {
+  .laptop {
+    transform: scale(0.65);
+  }
+}
+
+@media (min-width: 768px) {
   .laptop {
     transform: scale(0.8);
   }
