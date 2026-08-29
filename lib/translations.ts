@@ -41,7 +41,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'benefit.secure.desc': 'Payment and account data is processed securely.',
 
     // Categories
-    'cat.eyebrow': 'The ecosystem',
+    'cat.eyebrow': 'Our Services',
     'cat.title': 'One place for your next digital product.',
 
     // Explore
@@ -214,7 +214,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'benefit.secure.desc': 'To\'lov va hisob ma\'lumotlari xavfsiz qayta ishlansin.',
 
     // Categories
-    'cat.eyebrow': 'Ekotizim',
+    'cat.eyebrow': 'Bizning xizmatlar',
     'cat.title': 'Keyingi raqamli mahsulotingiz uchun bitta joy.',
 
     // Explore
@@ -387,7 +387,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'benefit.secure.desc': 'Платёжные данные защищены и обрабатываются безопасно.',
 
     // Categories
-    'cat.eyebrow': 'Экосистема',
+    'cat.eyebrow': 'Наши услуги',
     'cat.title': 'Одно место для вашего следующего цифрового продукта.',
 
     // Explore
