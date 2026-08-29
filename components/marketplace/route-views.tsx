@@ -9,6 +9,7 @@ import { categoryNames, licenseFeatures, statsTranslations } from '@/lib/transla
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { ProfileCard } from '@/components/marketplace/profile-card'
 import backBtnStyles from './back-button.module.css'
+import catBgStyles from './category-bg.module.css'
 
 export function ProductView({ slug }: { slug: string }) {
   const product = getProduct(slug)
@@ -156,6 +157,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   const { t } = useLanguage()
   return (
     <main className="min-h-screen px-4 sm:px-5 pb-16 sm:pb-20 pt-24 sm:pt-28 md:px-10">
+      <div className={catBgStyles.categoryBg} />
       <header className="mx-auto flex max-w-7xl items-center justify-between border-b border-black/10 pb-4 sm:pb-5">
         <Link href="/#programs" className={backBtnStyles.backBtn}>
           <ArrowLeft size={14} /> {t('common.backToTemplates')}
