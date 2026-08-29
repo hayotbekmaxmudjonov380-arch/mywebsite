@@ -51,14 +51,6 @@ export function SplineBackground() {
         ref={canvasRef}
         style={{ width: '100%', height: '100%', display: 'block', background: 'transparent' }}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(245,245,247,0.7) 50%, rgba(255,255,255,0.5) 100%)',
-          backdropFilter: 'blur(1px)',
-          WebkitBackdropFilter: 'blur(1px)',
-        }}
-      />
     </div>
   )
 }

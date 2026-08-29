@@ -168,8 +168,6 @@ export default function MarketplaceHome() {
   return (
     <main className={`min-h-screen overflow-x-hidden ${isDark ? 'text-white' : ''}`}>
       <Nav cart={cart.length} onSearch={() => setSearchOpen(true)} />
-      {!isDark && <SplineBackground />}
-
       {/* Hero */}
       <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] px-4 pt-24 pb-8 sm:px-5 sm:pb-14 sm:pt-32 lg:px-10 lg:pb-16 lg:pt-36">
         <div className="relative z-10 mx-auto flex flex-col lg:flex-row items-center max-w-7xl gap-6 lg:gap-4">
