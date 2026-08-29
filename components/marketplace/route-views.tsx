@@ -163,15 +163,14 @@ function Shell({ children }: { children: React.ReactNode }) {
         className="pointer-events-none absolute inset-0"
         style={{
           zIndex: 0,
-          filter: 'blur(4px)',
-          opacity: 1,
+          filter: 'blur(1px)',
           background: `
-            linear-gradient(30deg, rgba(109,141,255,0.4) 12%, transparent 13%, transparent 87%, rgba(109,141,255,0.4) 88%),
-            linear-gradient(150deg, rgba(109,141,255,0.4) 12%, transparent 13%, transparent 87%, rgba(109,141,255,0.4) 88%),
-            linear-gradient(30deg, rgba(109,141,255,0.4) 12%, transparent 13%, transparent 87%, rgba(109,141,255,0.4) 88%),
-            linear-gradient(150deg, rgba(109,141,255,0.4) 12%, transparent 13%, transparent 87%, rgba(109,141,255,0.4) 88%),
-            linear-gradient(60deg, rgba(109,141,255,0.55) 25%, transparent 26%, transparent 75%, rgba(109,141,255,0.55) 76%),
-            linear-gradient(60deg, rgba(109,141,255,0.55) 25%, transparent 26%, transparent 75%, rgba(109,141,255,0.55) 76%)
+            linear-gradient(30deg, rgba(109,141,255,0.5) 12%, transparent 13%, transparent 87%, rgba(109,141,255,0.5) 88%),
+            linear-gradient(150deg, rgba(109,141,255,0.5) 12%, transparent 13%, transparent 87%, rgba(109,141,255,0.5) 88%),
+            linear-gradient(30deg, rgba(109,141,255,0.5) 12%, transparent 13%, transparent 87%, rgba(109,141,255,0.5) 88%),
+            linear-gradient(150deg, rgba(109,141,255,0.5) 12%, transparent 13%, transparent 87%, rgba(109,141,255,0.5) 88%),
+            linear-gradient(60deg, rgba(109,141,255,0.7) 25%, transparent 26%, transparent 75%, rgba(109,141,255,0.7) 76%),
+            linear-gradient(60deg, rgba(109,141,255,0.7) 25%, transparent 26%, transparent 75%, rgba(109,141,255,0.7) 76%)
           `,
           backgroundPosition: '0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px',
           backgroundSize: '80px 140px',
