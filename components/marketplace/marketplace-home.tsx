@@ -230,9 +230,9 @@ export default function MarketplaceHome() {
         <CategoryCarousel />
       </section>
 
-      {/* Bizning dasturlarimiz */}
+      {/* Bizning shablonlar */}
       <section id="programs" className="mx-auto max-w-7xl px-4 sm:px-5 py-16 sm:py-20 md:px-10 md:py-28">
-        <div className="flex flex-col gap-2 sm:gap-3 mb-8 sm:mb-10">
+        <div className="flex flex-col gap-2 sm:gap-3 mb-8 sm:mb-10 text-center items-center">
           <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('programs.eyebrow')}</p>
           <h2 className="max-w-xl text-xl sm:text-2xl md:text-4xl font-medium tracking-tight">{t('programs.title')}</h2>
           <p className="max-w-md text-xs sm:text-sm leading-5 sm:leading-6 text-muted-foreground">{t('programs.desc')}</p>

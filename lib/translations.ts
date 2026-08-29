@@ -58,9 +58,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     'section.new.title': 'New in the collection.',
 
     // Programs
-    'programs.eyebrow': 'Our programs',
-    'programs.title': 'Download our applications.',
-    'programs.desc': 'Ready-made software for your business. Download and start using right away.',
+    'programs.eyebrow': 'Our Templates',
+    'programs.title': 'Open our templates.',
+    'programs.desc': 'Ready-made templates for your business. Open and start using right away.',
     'programs.download': 'Open',
     'programs.app1.name': 'Desktop Programs',
     'programs.app1.desc': 'Native desktop applications for Windows, macOS and Linux.',
@@ -231,9 +231,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     'section.new.title': 'Kolleksiyada yangi.',
 
     // Programs
-    'programs.eyebrow': 'Bizning dasturlarimiz',
-    'programs.title': 'Dasturlarimizni yuklab oling.',
-    'programs.desc': 'Biznesingiz uchun tayyor dasturiy ta\'minot. Yuklab oling va darhol foydalaning.',
+    'programs.eyebrow': 'Bizning shablonlar',
+    'programs.title': 'Shablonlarimizni oching.',
+    'programs.desc': 'Tayyor shablonlar biznesingiz uchun. Oching va darhol foydalaning.',
     'programs.download': 'Ochish',
     'programs.app1.name': 'Desktop Dasturlar',
     'programs.app1.desc': 'Windows, macOS va Linux uchun dasturiy ta\'minot.',
@@ -404,9 +404,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     'section.new.title': 'Новое в коллекции.',
 
     // Programs
-    'programs.eyebrow': 'Наши программы',
-    'programs.title': 'Скачайте наши приложения.',
-    'programs.desc': 'Готовое программное обеспечение для вашего бизнеса. Скачайте и начните использовать сразу.',
+    'programs.eyebrow': 'Наши шаблоны',
+    'programs.title': 'Откройте наши шаблоны.',
+    'programs.desc': 'Готовые шаблоны для вашего бизнеса. Откройте и начните использовать сразу.',
     'programs.download': 'Открыть',
     'programs.app1.name': 'Desktop Dasturlar',
     'programs.app1.desc': 'Windows, macOS va Linux uchun dasturiy ta\'minot.',
