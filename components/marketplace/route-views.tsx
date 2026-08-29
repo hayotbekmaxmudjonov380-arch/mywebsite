@@ -75,9 +75,11 @@ export function CategoryView({ slug }: { slug: string }) {
   const catName = categoryNames[locale]?.[slug] || category.name
   return (
     <Shell>
-      <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('category.categoryOf')} / {catName}</p>
-      <h1 className="mt-3 sm:mt-4 max-w-2xl text-4xl sm:text-6xl md:text-8xl font-medium tracking-[-.06em]">{catName}<span className="text-primary">.</span></h1>
-      <p className="mt-4 sm:mt-6 max-w-md text-xs sm:text-sm leading-5 sm:leading-6 text-muted-foreground">{category.description}</p>
+      <div className="text-center">
+        <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('category.categoryOf')} / {catName}</p>
+        <h1 className="mt-3 sm:mt-4 text-4xl sm:text-6xl md:text-8xl font-medium tracking-[-.06em]">{catName}<span className="text-primary">.</span></h1>
+        <p className="mt-4 sm:mt-6 mx-auto max-w-md text-xs sm:text-sm leading-5 sm:leading-6 text-muted-foreground">{category.description}</p>
+      </div>
       <div className="mt-10 sm:mt-16 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {items.length ? items.map((product) => (
           <Link key={product.id} href={`/products/${product.slug}`} className="border border-white/10 p-4 sm:p-5 hover:border-primary/60">
