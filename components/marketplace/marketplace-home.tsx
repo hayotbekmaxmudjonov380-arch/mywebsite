@@ -150,9 +150,7 @@ export default function MarketplaceHome() {
   const isDark = theme === 'dark'
 
   const enterExplore = () => {
-    setEnteringEarth(true)
-    window.setTimeout(() => document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 650)
-    window.setTimeout(() => setEnteringEarth(false), 1200)
+    document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   const filtered = useMemo(() =>
