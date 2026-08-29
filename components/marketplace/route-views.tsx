@@ -8,6 +8,7 @@ import { useLanguage } from '@/lib/language-context'
 import { categoryNames, licenseFeatures, statsTranslations } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { ProfileCard } from '@/components/marketplace/profile-card'
+import backBtnStyles from './back-button.module.css'
 
 export function ProductView({ slug }: { slug: string }) {
   const product = getProduct(slug)
@@ -156,8 +157,9 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen px-4 sm:px-5 pb-16 sm:pb-20 pt-24 sm:pt-28 md:px-10">
       <header className="mx-auto flex max-w-7xl items-center justify-between border-b border-black/10 pb-4 sm:pb-5">
-        <Link href="/#programs" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
+        <Link href="/#programs" className={backBtnStyles.backBtn}>
           <ArrowLeft size={14} /> {t('common.backToTemplates')}
+          <span className={backBtnStyles.border} />
         </Link>
       </header>
       <div className="mx-auto max-w-7xl pt-12 sm:pt-16">{children}</div>
