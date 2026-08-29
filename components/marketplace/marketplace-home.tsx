@@ -239,12 +239,12 @@ export default function MarketplaceHome() {
         </div>
         <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { name: t('programs.app1.name'), desc: t('programs.app1.desc'), platform: 'Windows', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 5.5L10.5 4.5V11.5H3V5.5Z"/><path d="M10.5 4.5L21 3V11.5H10.5V4.5Z"/><path d="M3 11.5H10.5V18.5L3 17.5V11.5Z"/><path d="M10.5 11.5H21V20L10.5 18.5V11.5Z"/></svg>, color: 'from-blue-500/20 to-blue-600/5' },
-            { name: t('programs.app2.name'), desc: t('programs.app2.desc'), platform: 'iOS & Android', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, color: 'from-green-500/20 to-green-600/5' },
-            { name: t('programs.app3.name'), desc: t('programs.app3.desc'), platform: 'Web', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>, color: 'from-cyan-500/20 to-cyan-600/5' },
-            { name: t('programs.app4.name'), desc: t('programs.app4.desc'), platform: 'Dokumentlar', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>, color: 'from-orange-500/20 to-orange-600/5' },
+            { name: t('programs.app1.name'), desc: t('programs.app1.desc'), platform: 'Windows', slug: 'desktop', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 5.5L10.5 4.5V11.5H3V5.5Z"/><path d="M10.5 4.5L21 3V11.5H10.5V4.5Z"/><path d="M3 11.5H10.5V18.5L3 17.5V11.5Z"/><path d="M10.5 11.5H21V20L10.5 18.5V11.5Z"/></svg>, color: 'from-blue-500/20 to-blue-600/5' },
+            { name: t('programs.app2.name'), desc: t('programs.app2.desc'), platform: 'iOS & Android', slug: 'mobile', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, color: 'from-green-500/20 to-green-600/5' },
+            { name: t('programs.app3.name'), desc: t('programs.app3.desc'), platform: 'Web', slug: 'web', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>, color: 'from-cyan-500/20 to-cyan-600/5' },
+            { name: t('programs.app4.name'), desc: t('programs.app4.desc'), platform: 'Dokumentlar', slug: 'institute', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>, color: 'from-orange-500/20 to-orange-600/5' },
           ].map((app, i) => (
-            <div key={i} className={`${glowCardStyles.glowCardOuter} group`}>
+            <Link key={i} href={`/categories/${app.slug}`} className={`${glowCardStyles.glowCardOuter} group block`}>
               <div className={glowCardStyles.glowCard}>
                 <div className={glowCardStyles.glowRay} />
                 <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineTop}`} />
@@ -261,7 +261,7 @@ export default function MarketplaceHome() {
                   </div>
                   <p className={`${glowCardStyles.glowDesc} text-xs sm:text-sm leading-5 text-muted-foreground`}>{app.desc}</p>
                 </div>
-                <button className={`${glowCardStyles.glowBtn} ${dlBtnStyles.dlBtn}`}>
+                <span className={`${glowCardStyles.glowBtn} ${dlBtnStyles.dlBtn}`}>
                   <span className={dlBtnStyles.dlBtnCircle} />
                   <span className={dlBtnStyles.dlBtnLeft}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-full opacity-100" viewBox="0 0 487 487">
@@ -275,12 +275,12 @@ export default function MarketplaceHome() {
                   </span>
                   <span className={dlBtnStyles.dlBtnOverlay} />
                   <span className={dlBtnStyles.dlBtnContent}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                     {t('programs.download')}
                   </span>
-                </button>
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

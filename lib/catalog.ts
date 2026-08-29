@@ -7,6 +7,7 @@ export const categories: Category[] = [
   { id: 'telegram', name: 'Telegram', slug: 'telegram', description: 'Bots and mini apps for communities.', platform: 'telegram', icon: '➤', color: '#63a9e9' },
   { id: 'ai', name: 'AI Solutions', slug: 'ai', description: 'Intelligent tools that move ideas forward.', platform: 'ai', icon: '✦', color: '#d6b26e' },
   { id: 'business', name: 'Business Systems', slug: 'business', description: 'Systems that make operations flow.', platform: 'business', icon: '⌁', color: '#df7d84' },
+  { id: 'institute', name: 'Institute Materials', slug: 'institute', description: 'Slides, documents, articles and coursework.', platform: 'institute', icon: '📎', color: '#e8945a' },
 ]
 
 const license = (price: number): Product['licenses'] => [
@@ -42,4 +43,4 @@ export const integrations = ['React', 'Next.js', 'TypeScript', 'Python', 'Node.j
 
 export const texturePattern = 'radial-gradient(circle at 1px 1px, rgba(255,255,255,.11) 1px, transparent 0)'
 
-export const platformNames: Record<string, string> = { mobile: 'Mobile', desktop: 'Desktop', web: 'Web', telegram: 'Telegram', ai: 'AI', business: 'Business' }
+export const platformNames: Record<string, string> = { mobile: 'Mobile', desktop: 'Desktop', web: 'Web', telegram: 'Telegram', ai: 'AI', business: 'Business', institute: 'Institute' }

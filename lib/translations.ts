@@ -61,7 +61,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'programs.eyebrow': 'Our programs',
     'programs.title': 'Download our applications.',
     'programs.desc': 'Ready-made software for your business. Download and start using right away.',
-    'programs.download': 'Download',
+    'programs.download': 'Open',
     'programs.app1.name': 'Desktop Programs',
     'programs.app1.desc': 'Native desktop applications for Windows, macOS and Linux.',
     'programs.app2.name': 'Mobile Apps',
@@ -234,7 +234,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'programs.eyebrow': 'Bizning dasturlarimiz',
     'programs.title': 'Dasturlarimizni yuklab oling.',
     'programs.desc': 'Biznesingiz uchun tayyor dasturiy ta\'minot. Yuklab oling va darhol foydalaning.',
-    'programs.download': 'Yuklab olish',
+    'programs.download': 'Ochish',
     'programs.app1.name': 'Desktop Dasturlar',
     'programs.app1.desc': 'Windows, macOS va Linux uchun dasturiy ta\'minot.',
     'programs.app2.name': 'Mobil Ilovalar',
@@ -407,7 +407,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'programs.eyebrow': 'Наши программы',
     'programs.title': 'Скачайте наши приложения.',
     'programs.desc': 'Готовое программное обеспечение для вашего бизнеса. Скачайте и начните использовать сразу.',
-    'programs.download': 'Скачать',
+    'programs.download': 'Открыть',
     'programs.app1.name': 'Desktop Dasturlar',
     'programs.app1.desc': 'Windows, macOS va Linux uchun dasturiy ta\'minot.',
     'programs.app2.name': 'Mobil Ilovalar',
@@ -529,9 +529,9 @@ export const translations: Record<Locale, Record<string, string>> = {
 
 // Category names translations
 export const categoryNames: Record<Locale, Record<string, string>> = {
-  en: { mobile: 'Mobile Apps', desktop: 'Desktop', web: 'Web Apps', telegram: 'Telegram', ai: 'AI Solutions', business: 'Business Systems' },
-  uz: { mobile: 'Mobil ilovalar', desktop: 'Desktop', web: 'Veb ilovalar', telegram: 'Telegram', ai: 'AI yechimlari', business: 'Biznes tizimlari' },
-  ru: { mobile: 'Мобильные приложения', desktop: 'Десктоп', web: 'Веб-приложения', telegram: 'Телеграм', ai: 'AI решения', business: 'Бизнес-системы' },
+  en: { mobile: 'Mobile Apps', desktop: 'Desktop', web: 'Web Apps', telegram: 'Telegram', ai: 'AI Solutions', business: 'Business Systems', institute: 'Institute Materials' },
+  uz: { mobile: 'Mobil ilovalar', desktop: 'Desktop', web: 'Veb ilovalar', telegram: 'Telegram', ai: 'AI yechimlari', business: 'Biznes tizimlari', institute: 'Institut materiallari' },
+  ru: { mobile: 'Мобильные приложения', desktop: 'Десктоп', web: 'Веб-приложения', telegram: 'Телеграм', ai: 'AI решения', business: 'Бизнес-системы', institute: 'Материалы института' },
 }
 
 // Category descriptions translations
@@ -543,6 +543,7 @@ export const categoryDescriptions: Record<Locale, Record<string, string>> = {
     telegram: 'Bots and mini apps for communities.',
     ai: 'Intelligent tools that move ideas forward.',
     business: 'Systems that make operations flow.',
+    institute: 'Slides, documents, articles and coursework.',
   },
   uz: {
     mobile: 'Haqiqiy foydalanuvchilar uchun iOS va Android mahsulotlari.',
@@ -551,6 +552,7 @@ export const categoryDescriptions: Record<Locale, Record<string, string>> = {
     telegram: 'Jamiyatlar uchun botlar va mini ilovalar.',
     ai: 'G\'oyalarni ilgari suradigan aqlli vositalar.',
     business: 'Operatsiyalarni tartibga soluvchi tizimlar.',
+    institute: 'Slaydlar, hujjatlar, maqolalar va kurs ishlari.',
   },
   ru: {
     mobile: 'Продукты iOS и Android для реальных пользователей.',
@@ -559,6 +561,7 @@ export const categoryDescriptions: Record<Locale, Record<string, string>> = {
     telegram: 'Боты и мини-приложения для сообществ.',
     ai: 'Умные инструменты для продвижения идей.',
     business: 'Системы для бесперебойной работы.',
+    institute: 'Слайды, документы, статьи и курсовые работы.',
   },
 }
 
