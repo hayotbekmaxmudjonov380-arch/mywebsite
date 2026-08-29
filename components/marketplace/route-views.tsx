@@ -156,13 +156,9 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen px-4 sm:px-5 pb-16 sm:pb-20 pt-24 sm:pt-28 md:px-10">
       <header className="mx-auto flex max-w-7xl items-center justify-between border-b border-black/10 pb-4 sm:pb-5">
-        <Link href="/" className="flex shrink-0 items-center transition-opacity hover:opacity-80">
-          <Image src="/logotip2.png" alt="ITSHOP" width={140} height={40} className="h-[34px] w-auto object-contain sm:h-[38px] md:h-[40px]" priority />
+        <Link href="/#programs" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
+          <ArrowLeft size={14} /> {t('common.backToTemplates')}
         </Link>
-        <div className="flex items-center gap-4">
-          <LanguageSwitcher />
-          <Link href="/" className="text-[10px] sm:text-xs text-muted-foreground hover:text-foreground">{t('common.backHome')}</Link>
-        </div>
       </header>
       <div className="mx-auto max-w-7xl pt-12 sm:pt-16">{children}</div>
     </main>
