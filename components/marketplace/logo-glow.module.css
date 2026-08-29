@@ -5,13 +5,18 @@
   text-decoration: none;
   transition: all 0.4s ease;
   border-radius: 12px;
-  padding: 4px 8px;
-  margin: -4px -8px;
+  padding: 6px 10px;
+  margin: -6px -10px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(109,141,255,0.15);
+  box-shadow: 0 2px 12px rgba(109,141,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.4);
 }
 
 .logoLink:hover {
-  background: linear-gradient(270deg, rgba(2, 29, 78, 0.6) 0%, rgba(31, 215, 232, 0.7) 100%);
-  box-shadow: 0 0 40px rgba(31, 76, 101, 0.5), 0 0 80px rgba(31, 215, 232, 0.15);
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(209,222,255,0.8) 100%);
+  box-shadow: 0 0 24px rgba(109,141,255,0.25), 0 0 48px rgba(31,215,232,0.1);
   transform: scale(1.03);
 }
 
@@ -22,14 +27,25 @@
 .logoImage {
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 0 6px rgba(109, 141, 255, 0.3));
+  filter: drop-shadow(0 1px 3px rgba(109,141,255,0.4));
   transition: filter 0.4s ease;
 }
 
 .logoLink:hover .logoImage {
-  filter: drop-shadow(0 0 12px rgba(31, 215, 232, 0.5));
+  filter: drop-shadow(0 2px 8px rgba(109,141,255,0.6));
+}
+
+:global(.dark) .logoLink {
+  background: linear-gradient(135deg, rgba(20,20,30,0.85) 0%, rgba(30,30,50,0.6) 100%);
+  border-color: rgba(109,141,255,0.2);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(109,141,255,0.1);
 }
 
 :global(.dark) .logoLink:hover {
-  box-shadow: 0 0 40px rgba(31, 76, 101, 0.6), 0 0 80px rgba(31, 215, 232, 0.2);
+  background: linear-gradient(135deg, rgba(30,30,50,0.95) 0%, rgba(40,40,70,0.8) 100%);
+  box-shadow: 0 0 30px rgba(109,141,255,0.3), 0 0 60px rgba(31,215,232,0.15);
+}
+
+:global(.dark) .logoImage {
+  filter: drop-shadow(0 1px 4px rgba(109,141,255,0.5));
 }
