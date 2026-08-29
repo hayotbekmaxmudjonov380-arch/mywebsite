@@ -158,7 +158,7 @@ export function AdminView() {
 function Shell({ children }: { children: React.ReactNode }) {
   const { t } = useLanguage()
   return (
-    <main className="min-h-screen px-4 sm:px-5 pb-16 sm:pb-20 pt-24 sm:pt-28 md:px-10 relative overflow-hidden">
+    <main className="min-h-screen px-4 sm:px-5 pb-16 sm:pb-20 pt-16 sm:pt-20 md:px-10 relative overflow-hidden">
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -184,7 +184,7 @@ function Shell({ children }: { children: React.ReactNode }) {
           <span className={backBtnStyles.border} />
         </Link>
       </header>
-      <div className="relative z-10 mx-auto max-w-7xl pt-12 sm:pt-16">{children}</div>
+      <div className="relative z-10 mx-auto max-w-7xl pt-6 sm:pt-8">{children}</div>
     </main>
   )
 }
