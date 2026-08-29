@@ -1,58 +1,55 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+
+const SPLINE_URL = 'https://prod.spline.design/eukrn1QKORGsrEyB/scene.splinecode'
+const RUNTIME_URL = 'https://unpkg.com/@splinetool/runtime@2.0.12/build/runtime.standalone.js'
 
 export function SplineBackground() {
-  const [mounted, setMounted] = useState(false)
-  const wrapperRef = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-  useEffect(() => {
-    if (!mounted) return
+    let disposed = false
+    let app: any = null
 
-    const hideBranding = () => {
-      const el = wrapperRef.current?.querySelector('spline-viewer')
-      if (!el) return
-      const shadow = (el as any).shadowRoot
-      if (!shadow) return
-
-      shadow.querySelectorAll('*').forEach((node: HTMLElement) => {
-        const rect = node.getBoundingClientRect?.()
-        if (!rect) return
-        const w = rect.width
-        const h = rect.height
-        if (w < 200 && h < 60 && (w > 50 || h > 10)) {
-          const style = window.getComputedStyle(node)
-          const pos = style.position
-          if (pos === 'absolute' || pos === 'fixed') {
-            node.style.setProperty('display', 'none', 'important')
-          }
-        }
+    const loadScript = (src: string): Promise<void> =>
+      new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) { resolve(); return }
+        const s = document.createElement('script')
+        s.src = src
+        s.onload = () => resolve()
+        s.onerror = reject
+        document.head.appendChild(s)
       })
+
+    const init = async () => {
+      await loadScript(RUNTIME_URL)
+      if (disposed || !window.SplineRuntime) return
+
+      const { Application } = window.SplineRuntime
+      app = new Application(canvas, { renderer: 'webgl' })
+      await app.load(SPLINE_URL)
     }
 
-    hideBranding()
-    const t1 = setTimeout(hideBranding, 500)
-    const t2 = setTimeout(hideBranding, 2000)
-    const t3 = setTimeout(hideBranding, 4000)
-    const observer = new MutationObserver(hideBranding)
-    observer.observe(wrapperRef.current || document.body, { childList: true, subtree: true })
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); observer.disconnect() }
-  }, [mounted])
+    init().catch(() => {})
 
-  if (!mounted) return null
+    return () => {
+      disposed = true
+      if (app) {
+        try { app.dispose() } catch {}
+      }
+    }
+  }, [])
 
   return (
-    <div ref={wrapperRef} className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      <spline-viewer
-        url="https://prod.spline.design/eukrn1QKORGsrEyB/scene.splinecode"
-        style={{ width: '100%', height: '100%' }}
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      <canvas
+        ref={canvasRef}
+        style={{ width: '100%', height: '100%', display: 'block' }}
       />
-      <div className="absolute bottom-0 left-0 w-16 h-16 bg-background pointer-events-none" style={{ zIndex: 10 }} />
-      <div className="absolute bottom-0 right-0 h-8 pointer-events-none bg-background" style={{ zIndex: 10, width: 200 }} />
     </div>
   )
 }
