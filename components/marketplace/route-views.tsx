@@ -156,15 +156,31 @@ export function AdminView() {
 function Shell({ children }: { children: React.ReactNode }) {
   const { t } = useLanguage()
   return (
-    <main className="min-h-screen px-4 sm:px-5 pb-16 sm:pb-20 pt-24 sm:pt-28 md:px-10">
-      <div className={catBgStyles.categoryBg} />
-      <header className="mx-auto flex max-w-7xl items-center justify-between border-b border-black/10 pb-4 sm:pb-5">
+    <main className="min-h-screen px-4 sm:px-5 pb-16 sm:pb-20 pt-24 sm:pt-28 md:px-10 relative overflow-hidden">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          zIndex: 0,
+          background: `
+            linear-gradient(30deg, rgba(109,141,255,0.12) 12%, transparent 12.5%, transparent 87%, rgba(109,141,255,0.12) 87.5%),
+            linear-gradient(150deg, rgba(109,141,255,0.12) 12%, transparent 12.5%, transparent 87%, rgba(109,141,255,0.12) 87.5%),
+            linear-gradient(30deg, rgba(109,141,255,0.12) 12%, transparent 12.5%, transparent 87%, rgba(109,141,255,0.12) 87.5%),
+            linear-gradient(150deg, rgba(109,141,255,0.12) 12%, transparent 12.5%, transparent 87%, rgba(109,141,255,0.12) 87.5%),
+            linear-gradient(60deg, rgba(109,141,255,0.22) 25%, transparent 25.5%, transparent 75%, rgba(109,141,255,0.22) 75%),
+            linear-gradient(60deg, rgba(109,141,255,0.22) 25%, transparent 25.5%, transparent 75%, rgba(109,141,255,0.22) 75%)
+          `,
+          backgroundPosition: '0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px',
+          backgroundSize: '80px 140px',
+          backgroundColor: 'var(--background)',
+        }}
+      />
+      <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between border-b border-black/10 pb-4 sm:pb-5">
         <Link href="/#programs" className={backBtnStyles.backBtn}>
           <ArrowLeft size={14} /> {t('common.backToTemplates')}
           <span className={backBtnStyles.border} />
         </Link>
       </header>
-      <div className="mx-auto max-w-7xl pt-12 sm:pt-16">{children}</div>
+      <div className="relative z-10 mx-auto max-w-7xl pt-12 sm:pt-16">{children}</div>
     </main>
   )
 }
