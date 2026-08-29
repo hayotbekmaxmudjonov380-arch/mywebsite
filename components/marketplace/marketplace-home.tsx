@@ -17,7 +17,6 @@ import btnStyles from './hand-drawn-button.module.css'
 import logoStyles from './logo-glow.module.css'
 import glowCardStyles from './glow-card.module.css'
 import dlBtnStyles from './download-btn.module.css'
-import { WindowsIcon } from './windows-icon'
 import { SplineBackground } from './spline-background'
 import type { Product } from '@/lib/marketplace-types'
 
@@ -238,11 +237,12 @@ export default function MarketplaceHome() {
           <h2 className="max-w-xl text-xl sm:text-2xl md:text-4xl font-medium tracking-tight">{t('programs.title')}</h2>
           <p className="max-w-md text-xs sm:text-sm leading-5 sm:leading-6 text-muted-foreground">{t('programs.desc')}</p>
         </div>
-        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { name: t('programs.app1.name'), desc: t('programs.app1.desc'), platform: 'Windows', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 5.5L10.5 4.5V11.5H3V5.5Z"/><path d="M10.5 4.5L21 3V11.5H10.5V4.5Z"/><path d="M3 11.5H10.5V18.5L3 17.5V11.5Z"/><path d="M10.5 11.5H21V20L10.5 18.5V11.5Z"/></svg>, color: 'from-blue-500/20 to-blue-600/5' },
-            { name: t('programs.app2.name'), desc: t('programs.app2.desc'), platform: 'Android', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, color: 'from-green-500/20 to-green-600/5' },
-            { name: t('programs.app3.name'), desc: t('programs.app3.desc'), platform: 'Windows', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 17V7l8-5 8 5v10"/><path d="M9 21v-6h6v6"/><path d="M4 12h16"/></svg>, color: 'from-purple-500/20 to-purple-600/5' },
+            { name: t('programs.app2.name'), desc: t('programs.app2.desc'), platform: 'iOS & Android', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, color: 'from-green-500/20 to-green-600/5' },
+            { name: t('programs.app3.name'), desc: t('programs.app3.desc'), platform: 'Web', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>, color: 'from-cyan-500/20 to-cyan-600/5' },
+            { name: t('programs.app4.name'), desc: t('programs.app4.desc'), platform: 'Dokumentlar', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>, color: 'from-orange-500/20 to-orange-600/5' },
           ].map((app, i) => (
             <div key={i} className={`${glowCardStyles.glowCardOuter} group`}>
               <div className={glowCardStyles.glowCard}>
@@ -251,13 +251,9 @@ export default function MarketplaceHome() {
                 <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineBottom}`} />
                 <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineLeft}`} />
                 <div className={`${glowCardStyles.glowLine} ${glowCardStyles.glowLineRight}`} />
-                {i === 0 ? (
-                  <WindowsIcon />
-                ) : (
-                  <div className={`${glowCardStyles.glowIcon} flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${app.color} text-primary`}>
+                <div className={`${glowCardStyles.glowIcon} flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${app.color} text-primary`}>
                     {app.icon}
                   </div>
-                )}
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className={`${glowCardStyles.glowTitle} text-base sm:text-lg font-medium tracking-tight`}>{app.name}</h3>
