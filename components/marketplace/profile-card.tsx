@@ -44,20 +44,17 @@ export function ProfileCard() {
 
       {/* Content */}
       <div className={styles.content}>
-        <h2>itshop User</h2>
+        <h2>ITSHOP User</h2>
         <p>{t('account.profileDesc')}</p>
       </div>
 
       {/* Social Links */}
       <div className={styles.socials}>
-        <a href="#" aria-label="Instagram">
+        <a href="https://instagram.com/maxmudjonov_hayotbek" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
           <InstagramIcon />
         </a>
-        <a href="#" aria-label="Twitter">
+        <a href="https://t.me/maxmudjonovhayotbek" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
           <TwitterIcon />
-        </a>
-        <a href="#" aria-label="GitHub">
-          <GithubIcon />
         </a>
       </div>
 

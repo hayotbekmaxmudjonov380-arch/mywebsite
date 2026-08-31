@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { X, Send, Loader2, CheckCircle, Copy, ExternalLink, LogOut } from 'lucide-react'
+import { X, Loader2, CheckCircle, ExternalLink, LogOut } from 'lucide-react'
 import { useAuth } from '@/lib/auth-context'
 import { useLanguage } from '@/lib/language-context'
 import { useTheme } from '@/lib/theme-context'
@@ -17,7 +17,6 @@ export function LoginModal({ open, onClose }: { open: boolean; onClose: () => vo
     (user ? 'logged' : 'idle')
   const [codeInput, setCodeInput] = useState('')
   const [error, setError] = useState('')
-  const [copied, setCopied] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -36,21 +35,22 @@ export function LoginModal({ open, onClose }: { open: boolean; onClose: () => vo
   const handleStart = async () => {
     setStep('waiting')
     try {
-      const res = await fetch('/api/auth/request', {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+      let code = ''
+      for (let i = 0; i < CODE_LENGTH; i++) {
+        code += chars[Math.floor(Math.random() * chars.length)]
+      }
+
+      const telegramUrl = `https://t.me/itshopuzbot?start=${code}`
+      window.open(telegramUrl, '_blank')
+
+      await fetch('/api/auth/request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ telegramUserId: 0, telegramUsername: 'pending', telegramFirstName: 'Foydalanuvchi' }),
       })
-      const data = await res.json()
-      if (data.ok && data.code) {
-        const telegramUrl = `https://t.me/itshopuzbot?start=${data.code}`
-        window.open(telegramUrl, '_blank')
-        setTimeout(() => setStep('code'), 2000)
-      } else {
-        setError('Xatolik yuz berdi')
-        setStep('error')
-        setTimeout(() => setStep('idle'), 2000)
-      }
+
+      setTimeout(() => setStep('code'), 2000)
     } catch {
       setError('Serverga ulanib bo\'lmadi')
       setStep('error')
@@ -58,36 +58,10 @@ export function LoginModal({ open, onClose }: { open: boolean; onClose: () => vo
     }
   }
 
-  const handleVerify = async () => {
-    if (codeInput.length !== CODE_LENGTH) return
-    setStep('verifying')
-    setError('')
-    const result = await login(codeInput)
-    if (result.ok) {
-      setStep('success')
-      setTimeout(() => {
-        onClose()
-        setStep('idle')
-        setCodeInput('')
-      }, 1500)
-    } else {
-      setError(result.error || 'Noto\'g\'ri kod')
-      setStep('error')
-      setCodeInput('')
-      setTimeout(() => setStep('code'), 1500)
-    }
-  }
-
   const handleLogout = async () => {
     await logout()
     setStep('idle')
     setCodeInput('')
-  }
-
-  const handleCopyCode = (code: string) => {
-    navigator.clipboard.writeText(code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
   }
 
   const handleInputChange = (val: string) => {

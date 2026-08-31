@@ -1,6 +1,11 @@
-const BOT_TOKEN = '8843514458:AAF7O4edSgHXg0ULgIBmqv521n8lNOSu8y0'
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
 
-async function setWebhook(webhookUrl: string) {
+if (!BOT_TOKEN) {
+  console.error('TELEGRAM_BOT_TOKEN environment variable is required')
+  process.exit(1)
+}
+
+async function setWebhook(webhookUrl) {
   const url = `https://api.telegram.org/bot${BOT_TOKEN}/setWebhook`
   const res = await fetch(url, {
     method: 'POST',

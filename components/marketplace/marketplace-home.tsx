@@ -20,7 +20,6 @@ import logoStyles from './logo-glow.module.css'
 import glowCardStyles from './glow-card.module.css'
 import dlBtnStyles from './download-btn.module.css'
 import navGlassStyles from './nav-glass.module.css'
-import { SplineBackground } from './spline-background'
 import type { Product } from '@/lib/marketplace-types'
 
 const HeroScene = dynamic(() => import('./hero-scene').then((mod) => mod.HeroScene), { ssr: false, loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(64,91,180,.3),transparent_52%)]" /> })
@@ -41,7 +40,7 @@ function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; 
   const isDark = theme === 'dark'
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className={`${navGlassStyles.navPill} ${isDark ? navGlassStyles.dark : navGlassStyles.light}`}>
+      <div className={navGlassStyles.navPill}>
         <Logo />
         <nav className="hidden items-center gap-1 md:flex">
           <Link href="#categories" className={navGlassStyles.navLink}>{t('nav.categories')}</Link>
@@ -163,7 +162,6 @@ export default function MarketplaceHome() {
   const [cart, setCart] = useState<Product[]>([])
   const [searchOpen, setSearchOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
-  const [enteringEarth, setEnteringEarth] = useState(false)
   const isDark = theme === 'dark'
 
   const enterExplore = () => {
@@ -341,20 +339,14 @@ export default function MarketplaceHome() {
         </button>
       )}
 
-      {/* Earth Entry Animation */}
-      {enteringEarth && (
-        <div className="earth-entry" aria-hidden="true">
-          <div className="earth-entry__core" />
-          <span>{t('earth.entering')}</span>
+      {/* Meteor container for dark mode */}
+      {isDark && (
+        <div id="meteor-container" aria-hidden="true">
+          <div className="meteor meteor-1" />
+          <div className="meteor meteor-2" />
+          <div className="meteor meteor-3" />
         </div>
       )}
-
-      {/* Meteor container for dark mode */}
-      <div id="meteor-container" aria-hidden="true">
-        <div className="meteor meteor-1" />
-        <div className="meteor meteor-2" />
-        <div className="meteor meteor-3" />
-      </div>
 
       {/* SVG Filters for Hand-Drawn Button Effect */}
       <svg height={0} width={0} aria-hidden="true">

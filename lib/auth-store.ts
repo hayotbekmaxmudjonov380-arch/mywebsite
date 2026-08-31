@@ -17,7 +17,7 @@ export interface AuthUser {
   loggedAt: number
 }
 
-const CODE_EXPIRY_MS = 120_000
+const CODE_EXPIRY_MS = Number(process.env.AUTH_CODE_EXPIRY_MS) || 120_000
 const SESSION_EXPIRY_MS = 7 * 24 * 60 * 60 * 1000
 
 const pendingCodes = new Map<string, AuthCode>()
@@ -33,13 +33,18 @@ function generateSessionId(): string {
   return randomBytes(32).toString('hex')
 }
 
-export function createAuthCode(telegramUserId: number, telegramUsername: string, telegramFirstName: string): AuthCode {
+export function createAuthCode(
+  telegramUserId: number,
+  telegramUsername: string,
+  telegramFirstName: string,
+  externalCode?: string
+): AuthCode {
   for (const [, existing] of pendingCodes) {
     if (existing.telegramUserId === telegramUserId) {
       pendingCodes.delete(existing.code)
     }
   }
-  const code = generateCode()
+  const code = externalCode || generateCode()
   const now = Date.now()
   const authCode: AuthCode = { code, telegramUserId, telegramUsername, telegramFirstName, createdAt: now, expiresAt: now + CODE_EXPIRY_MS }
   pendingCodes.set(code, authCode)

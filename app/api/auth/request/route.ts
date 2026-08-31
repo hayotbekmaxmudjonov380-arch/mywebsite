@@ -14,7 +14,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       ok: true,
-      code: authCode.code,
       expiresAt: authCode.expiresAt,
     })
   } catch {

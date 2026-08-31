@@ -31,24 +31,24 @@
   z-index: -1;
 }
 
-/* Light mode */
-.light .navPill {
+/* Light mode (default — no .dark class on html) */
+.navPill {
   background: rgba(255, 255, 255, 0.45);
 }
 
-.light .navPill::after {
+.navPill::after {
   box-shadow:
     inset 2px 2px 5px -2px rgba(255, 255, 255, 0.6),
     inset -2px -2px 5px 2px rgba(255, 255, 255, 0.6),
     inset 0 -2px 0 rgba(255, 255, 255, 0.3);
 }
 
-/* Dark mode */
-.dark .navPill {
+/* Dark mode — .dark class on html */
+:global(.dark) .navPill {
   background: rgba(0, 30, 80, 0.404);
 }
 
-.dark .navPill::after {
+:global(.dark) .navPill::after {
   box-shadow:
     inset 2px 2px 5px -2px rgba(109, 141, 255, 0.15),
     inset -2px -2px 5px 2px rgba(109, 141, 255, 0.15),
@@ -68,13 +68,10 @@
   text-decoration: none;
   transition: all 0.18s ease;
   -webkit-tap-highlight-color: transparent;
-}
-
-.light .navLink {
   color: rgba(0, 0, 0, 0.5);
 }
 
-.light .navLink:hover {
+.navLink:hover {
   background: rgba(255, 255, 255, 0.5);
   color: #0071e3;
   transform: rotate(1deg);
@@ -84,11 +81,11 @@
     inset 0 -2px 0 rgba(255, 255, 255, 0.3);
 }
 
-.dark .navLink {
+:global(.dark) .navLink {
   color: rgba(255, 255, 255, 0.55);
 }
 
-.dark .navLink:hover {
+:global(.dark) .navLink:hover {
   background: rgba(109, 141, 255, 0.15);
   color: #6d8dff;
   transform: rotate(1deg);
@@ -113,22 +110,19 @@
   cursor: pointer;
   transition: all 0.18s ease;
   -webkit-tap-highlight-color: transparent;
-}
-
-.light .navIconBtn {
   color: rgba(0, 0, 0, 0.45);
 }
 
-.light .navIconBtn:hover {
+.navIconBtn:hover {
   background: rgba(0, 113, 227, 0.1);
   color: #0071e3;
 }
 
-.dark .navIconBtn {
+:global(.dark) .navIconBtn {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.dark .navIconBtn:hover {
+:global(.dark) .navIconBtn:hover {
   background: rgba(109, 141, 255, 0.15);
   color: #6d8dff;
 }
@@ -152,15 +146,12 @@
   transition: all 0.18s ease;
   -webkit-tap-highlight-color: transparent;
   white-space: nowrap;
-}
-
-.light .loginBtn {
   color: rgba(0, 113, 227, 0.9);
   background: rgba(0, 113, 227, 0.08);
   border-color: rgba(0, 113, 227, 0.15);
 }
 
-.light .loginBtn:hover {
+.loginBtn:hover {
   background: rgba(0, 113, 227, 0.15);
   transform: rotate(1deg);
   box-shadow:
@@ -169,13 +160,13 @@
     inset 0 -2px 0 rgba(255, 255, 255, 0.3);
 }
 
-.dark .loginBtn {
+:global(.dark) .loginBtn {
   color: rgba(109, 141, 255, 0.9);
   background: rgba(109, 141, 255, 0.08);
   border-color: rgba(109, 141, 255, 0.15);
 }
 
-.dark .loginBtn:hover {
+:global(.dark) .loginBtn:hover {
   background: rgba(109, 141, 255, 0.18);
   color: #6d8dff;
   transform: rotate(1deg);
@@ -204,12 +195,9 @@
   justify-content: center;
   gap: 8px;
   z-index: 50;
-}
-
-.light .mobileMenu {
   background: rgba(255, 255, 255, 0.45);
 }
 
-.dark .mobileMenu {
+:global(.dark) .mobileMenu {
   background: rgba(0, 30, 80, 0.404);
 }

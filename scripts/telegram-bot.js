@@ -1,8 +1,13 @@
 const { Bot } = require('node-telegram-bot-api')
 
-const BOT_TOKEN = '8843514458:AAF7O4edSgHXg0ULgIBmqv521n8lNOSu8y0'
-const API_URL = 'http://localhost:3000'
-const CODE_EXPIRY_MS = 120_000
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+const CODE_EXPIRY_MS = Number(process.env.AUTH_CODE_EXPIRY_MS) || 120_000
+
+if (!BOT_TOKEN) {
+  console.error('TELEGRAM_BOT_TOKEN environment variable is required')
+  process.exit(1)
+}
 
 const bot = new Bot(BOT_TOKEN)
 
@@ -21,23 +26,6 @@ function showCode(ctx, code) {
       ctx.api.deleteMessage(msg.chat.id, msg.message_id).catch(() => {})
     }, CODE_EXPIRY_MS)
   }).catch(() => {})
-}
-
-async function requestCodeFromAPI() {
-  try {
-    const res = await fetch(API_URL + '/api/auth/request', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ telegramUserId: 0, telegramUsername: 'bot_user', telegramFirstName: 'Foydalanuvchi' }),
-    })
-    const data = await res.json()
-    if (data.ok && data.code) {
-      return data.code
-    }
-  } catch (e) {
-    console.error('API xatosi:', e.message)
-  }
-  return null
 }
 
 bot.command('start', (ctx) => {
@@ -72,18 +60,32 @@ bot.command('help', (ctx) => {
   ctx.reply('Buyruqlar:\n/start — Botni boshlash\n/help — Yordam')
 })
 
-bot.on('callback_query', async (ctx) => {
+bot.on('callback_query', (ctx) => {
   const data = ctx.callbackQuery.data
 
   if (data === 'get_code') {
     ctx.answerCallbackQuery({ text: 'Parol yaratilmoqda...' }).catch(() => {})
 
-    const code = await requestCodeFromAPI()
-    if (code) {
-      showCode(ctx, code)
-    } else {
-      ctx.reply('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.').catch(() => {})
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+    let code = ''
+    for (let i = 0; i < 4; i++) {
+      code += chars[Math.floor(Math.random() * chars.length)]
     }
+
+    fetch(API_URL + '/api/auth/bot-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code,
+        telegramUserId: ctx.from.id,
+        telegramUsername: ctx.from.username || 'user',
+        telegramFirstName: ctx.from.first_name || 'Foydalanuvchi',
+      }),
+    }).then(() => {
+      showCode(ctx, code)
+    }).catch(() => {
+      ctx.reply('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.').catch(() => {})
+    })
   }
 })
 

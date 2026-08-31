@@ -50,11 +50,11 @@ export function Footer() {
           <div className={styles.footerColumn}>
             <h4 className={styles.footerColumnTitle}>{t('footer_new.company.title')}</h4>
             <ul className={styles.footerColumnLinks}>
-              <li><Link href="/about">{t('footer_new.company.about')}</Link></li>
-              <li><Link href="/partners">{t('footer_new.company.partners')}</Link></li>
+              <li><Link href="/#">{t('footer_new.company.about')}</Link></li>
+              <li><Link href="/#">{t('footer_new.company.partners')}</Link></li>
               <li><Link href="#contact">{t('footer_new.company.contact')}</Link></li>
-              <li><Link href="/blog">{t('footer_new.company.blog')}</Link></li>
-              <li><Link href="/careers">{t('footer_new.company.careers')}</Link></li>
+              <li><Link href="/#">{t('footer_new.company.blog')}</Link></li>
+              <li><Link href="/#">{t('footer_new.company.careers')}</Link></li>
             </ul>
           </div>
           
@@ -62,11 +62,11 @@ export function Footer() {
           <div className={styles.footerColumn}>
             <h4 className={styles.footerColumnTitle}>{t('footer_new.support.title')}</h4>
             <ul className={styles.footerColumnLinks}>
-              <li><Link href="/faq">{t('footer_new.support.faq')}</Link></li>
-              <li><Link href="/returns">{t('footer_new.support.returns')}</Link></li>
-              <li><Link href="/terms">{t('footer_new.support.terms')}</Link></li>
-              <li><Link href="/privacy">{t('footer_new.support.privacy')}</Link></li>
-              <li><Link href="/license">{t('footer_new.support.license')}</Link></li>
+              <li><Link href="/#">{t('footer_new.support.faq')}</Link></li>
+              <li><Link href="/#">{t('footer_new.support.returns')}</Link></li>
+              <li><Link href="/#">{t('footer_new.support.terms')}</Link></li>
+              <li><Link href="/#">{t('footer_new.support.privacy')}</Link></li>
+              <li><Link href="/#">{t('footer_new.support.license')}</Link></li>
             </ul>
           </div>
           

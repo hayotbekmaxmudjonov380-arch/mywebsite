@@ -1,4 +1,4 @@
-export type Platform = 'mobile' | 'desktop' | 'web' | 'telegram' | 'ai' | 'business'
+export type Platform = 'mobile' | 'desktop' | 'web' | 'telegram' | 'ai' | 'business' | 'institute'
 
 export interface Category {
   id: string

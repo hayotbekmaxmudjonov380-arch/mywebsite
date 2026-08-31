@@ -27,9 +27,9 @@ export function SplineBackground() {
 
     const init = async () => {
       await loadScript(RUNTIME_URL)
-      if (disposed || !window.SplineRuntime) return
+      if (disposed || !(window as unknown as Record<string, unknown>).SplineRuntime) return
 
-      const { Application } = window.SplineRuntime
+      const { Application } = (window as unknown as Record<string, unknown>).SplineRuntime as { Application: new (canvas: HTMLCanvasElement, options: Record<string, string>) => { load: (url: string) => Promise<void>; dispose: () => void } }
       app = new Application(canvas, { renderer: 'webgl' })
       await app.load(SPLINE_URL)
       app.setBackgroundColor('transparent')
