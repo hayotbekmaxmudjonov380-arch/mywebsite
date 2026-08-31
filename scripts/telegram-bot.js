@@ -1,4 +1,21 @@
 const { Bot } = require('node-telegram-bot-api')
+const fs = require('fs')
+const path = require('path')
+
+// Load .env.local manually
+try {
+  const envPath = path.join(__dirname, '..', '.env.local')
+  const envContent = fs.readFileSync(envPath, 'utf-8')
+  envContent.split('\n').forEach(line => {
+    const trimmed = line.trim()
+    if (trimmed && !trimmed.startsWith('#') && trimmed.includes('=')) {
+      const eqIdx = trimmed.indexOf('=')
+      const key = trimmed.slice(0, eqIdx).trim()
+      const val = trimmed.slice(eqIdx + 1).trim()
+      if (!process.env[key]) process.env[key] = val
+    }
+  })
+} catch {}
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
@@ -14,16 +31,21 @@ const bot = new Bot(BOT_TOKEN)
 console.log('ITSHOP Bot ishga tushdi...')
 
 function showCode(ctx, code) {
-  const sentMsg = ctx.reply(
+  ctx.reply(
     '\u{1F511} *Sizning kirish kodingiz:*\n\n' +
     '*`' + code + '`*\n\n' +
     '\u23F3 Bu kod 2 daqiqada bekor bo\'ladi.\n' +
     'Kodni nusxalab saytda kiriting.',
     { parse_mode: 'Markdown' }
-  )
-  sentMsg.then((msg) => {
+  ).then((msg) => {
     setTimeout(() => {
-      ctx.api.deleteMessage(msg.chat.id, msg.message_id).catch(() => {})
+      ctx.api.editMessageText(
+        msg.chat.id,
+        msg.message_id,
+        '\u23F0 *Kod muddati tugadi*\n\n' +
+        'Yangi kod olish uchun /start ni bosing.',
+        { parse_mode: 'Markdown' }
+      ).catch(() => {})
     }, CODE_EXPIRY_MS)
   }).catch(() => {})
 }
@@ -35,7 +57,7 @@ bot.command('start', (ctx) => {
   if (codeParam && /^[A-Z0-9]{4}$/i.test(codeParam)) {
     showCode(ctx, codeParam.toUpperCase())
   } else {
-    const sentMsg = ctx.reply(
+    ctx.reply(
       '\u{1F44B} *Salom!*\n\n' +
       'ITSHOP autentifikatsiya botiga xush kelibsiz!\n\n' +
       'Saytda kirish uchun maxsus parol oling:',
@@ -47,10 +69,15 @@ bot.command('start', (ctx) => {
           ]
         }
       }
-    )
-    sentMsg.then((msg) => {
+    ).then((msg) => {
       setTimeout(() => {
-        ctx.api.deleteMessage(msg.chat.id, msg.message_id).catch(() => {})
+        ctx.api.editMessageText(
+          msg.chat.id,
+          msg.message_id,
+          '\u23F0 *Xabar muddati tugadi*\n\n' +
+          'Yangi kod olish uchun /start ni bosing.',
+          { parse_mode: 'Markdown', reply_markup: {} }
+        ).catch(() => {})
       }, CODE_EXPIRY_MS)
     }).catch(() => {})
   }

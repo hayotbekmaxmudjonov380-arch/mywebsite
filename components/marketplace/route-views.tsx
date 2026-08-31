@@ -18,7 +18,7 @@ export function ProductView({ slug }: { slug: string }) {
   const lf = licenseFeatures[locale]
   return (
     <Shell>
-      <Link href="/" className="mb-6 sm:mb-10 inline-flex items-center gap-2 text-xs text-gray-500 hover:text-black">
+      <Link href="/" className="mb-6 sm:mb-10 inline-flex items-center gap-2 text-xs text-gray-500 hover:text-black dark:hover:text-white">
         <ArrowLeft size={14} /> {t('common.backToCollection')}
       </Link>
       <div className="grid gap-6 sm:gap-10 lg:grid-cols-[1.1fr_.9fr]">
@@ -33,9 +33,9 @@ export function ProductView({ slug }: { slug: string }) {
         </div>
         <div>
           <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{product.badges.join(' · ')}</p>
-          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-5xl md:text-7xl font-medium tracking-[-.05em] text-black">{product.name}</h1>
-          <p className="mt-4 sm:mt-6 text-sm sm:text-base leading-6 sm:leading-7 text-gray-600">{product.longDescription}</p>
-          <div className="mt-5 sm:mt-7 flex items-center gap-2 text-xs sm:text-sm text-black">
+          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-5xl md:text-7xl font-medium tracking-[-.05em] text-black dark:text-white">{product.name}</h1>
+          <p className="mt-4 sm:mt-6 text-sm sm:text-base leading-6 sm:leading-7 text-gray-600 dark:text-gray-400">{product.longDescription}</p>
+          <div className="mt-5 sm:mt-7 flex items-center gap-2 text-xs sm:text-sm text-black dark:text-white">
             <Star size={15} fill="currentColor" /> {product.rating} <span className="text-gray-500">{t('product.reviews', { count: product.reviews })}</span>
           </div>
           <div className="mt-7 sm:mt-10 flex flex-col gap-2.5 sm:gap-3">
@@ -43,10 +43,10 @@ export function ProductView({ slug }: { slug: string }) {
               <div key={item.id} className={`border p-3 sm:p-4 ${index === 0 ? 'border-primary/70' : 'border-black/10'}`}>
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h2 className="font-medium text-sm sm:text-base text-black">{lf?.[item.id === 'personal' ? 'personal' : 'commercial'] || item.name}</h2>
+                    <h2 className="font-medium text-sm sm:text-base text-black dark:text-white">{lf?.[item.id === 'personal' ? 'personal' : 'commercial'] || item.name}</h2>
                     <p className="mt-1 text-[10px] sm:text-xs text-gray-500">{lf?.[item.id === 'personal' ? 'personalDesc' : 'commercialDesc'] || item.description}</p>
                   </div>
-                  <span className="shrink-0 font-mono text-sm sm:text-base text-black">{formatPrice(item.price)}</span>
+                  <span className="shrink-0 font-mono text-sm sm:text-base text-black dark:text-white">{formatPrice(item.price)}</span>
                 </div>
                 <div className="mt-3 sm:mt-4 flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 sm:gap-y-2 text-[10px] sm:text-xs text-gray-500">
                   {item.features.map((feature) => (
@@ -77,16 +77,16 @@ export function CategoryView({ slug }: { slug: string }) {
     <Shell>
       <div className="text-center">
         <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('category.categoryOf')} / {catName}</p>
-        <h1 className="mt-3 sm:mt-4 text-4xl sm:text-6xl md:text-8xl font-medium tracking-[-.06em] text-black">{catName}</h1>
-        <p className="mt-4 sm:mt-6 mx-auto max-w-md text-xs sm:text-sm leading-5 sm:leading-6 text-gray-600">{category.description}</p>
+        <h1 className="mt-3 sm:mt-4 text-4xl sm:text-6xl md:text-8xl font-medium tracking-[-.06em] text-black dark:text-white">{catName}</h1>
+        <p className="mt-4 sm:mt-6 mx-auto max-w-md text-xs sm:text-sm leading-5 sm:leading-6 text-gray-600 dark:text-gray-400">{category.description}</p>
       </div>
       <div className="mt-10 sm:mt-16 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {items.length ? items.map((product) => (
-          <Link key={product.id} href={`/products/${product.slug}`} className="border border-black/10 p-4 sm:p-5 hover:border-primary/60 bg-white">
+          <Link key={product.id} href={`/products/${product.slug}`} className="border border-black/10 dark:border-white/10 p-4 sm:p-5 hover:border-primary/60 bg-white dark:bg-white/5">
             <div className="aspect-video" style={{ background: product.cover }} />
-            <h2 className="mt-4 sm:mt-5 font-medium text-sm sm:text-base text-black">{product.name}</h2>
-            <p className="mt-1.5 sm:mt-2 text-xs text-gray-500">{product.description}</p>
-            <p className="mt-4 sm:mt-5 font-mono text-xs sm:text-sm text-black">{formatPrice(product.price)}</p>
+            <h2 className="mt-4 sm:mt-5 font-medium text-sm sm:text-base text-black dark:text-white">{product.name}</h2>
+            <p className="mt-1.5 sm:mt-2 text-xs text-gray-500 dark:text-gray-400">{product.description}</p>
+            <p className="mt-4 sm:mt-5 font-mono text-xs sm:text-sm text-black dark:text-white">{formatPrice(product.price)}</p>
           </Link>
         )) : <Empty title={t('category.empty')} />}
       </div>
@@ -99,21 +99,21 @@ export function AccountView() {
   return (
     <Shell>
       <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('account.eyebrow')}</p>
-      <h1 className="mt-3 sm:mt-4 text-4xl sm:text-6xl font-medium tracking-[-.06em] text-black">{t('account.title')}</h1>
+      <h1 className="mt-3 sm:mt-4 text-4xl sm:text-6xl font-medium tracking-[-.06em] text-black dark:text-white">{t('account.title')}</h1>
       <div className="mt-10 sm:mt-14 flex flex-col lg:flex-row gap-6 sm:gap-10 items-start">
         <div className="w-full lg:w-auto flex justify-center">
           <ProfileCard />
         </div>
         <div className="flex-1 grid gap-3 sm:gap-4">
-          <div className="border border-black/10 p-5 sm:p-6 bg-white">
-            <h2 className="font-medium text-sm sm:text-base text-black">{t('account.downloads')}</h2>
-            <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500">{t('account.signIn')}</p>
+          <div className="border border-black/10 dark:border-white/10 p-5 sm:p-6 bg-white dark:bg-white/5">
+            <h2 className="font-medium text-sm sm:text-base text-black dark:text-white">{t('account.downloads')}</h2>
+            <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400">{t('account.signIn')}</p>
             <button className="mt-5 sm:mt-7 bg-primary px-5 py-2.5 sm:py-3 text-[10px] sm:text-xs font-semibold uppercase tracking-[.15em] text-primary-foreground">{t('account.signInBtn')}</button>
           </div>
-          <div className="border border-black/10 p-5 sm:p-6 bg-white">
+          <div className="border border-black/10 dark:border-white/10 p-5 sm:p-6 bg-white dark:bg-white/5">
             <Settings className="text-primary" size={20} />
-            <h2 className="mt-5 sm:mt-6 font-medium text-sm sm:text-base text-black">{t('account.profile')}</h2>
-            <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500">{t('account.profileDesc')}</p>
+            <h2 className="mt-5 sm:mt-6 font-medium text-sm sm:text-base text-black dark:text-white">{t('account.profile')}</h2>
+            <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400">{t('account.profileDesc')}</p>
           </div>
         </div>
       </div>
@@ -129,23 +129,23 @@ export function AdminView() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
           <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('admin.eyebrow')}</p>
-          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-5xl font-medium tracking-[-.06em] text-black">{t('admin.title')}</h1>
+          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-5xl font-medium tracking-[-.06em] text-black dark:text-white">{t('admin.title')}</h1>
         </div>
-        <button className="border border-black/15 px-4 py-2.5 sm:py-3 text-xs self-start sm:self-auto text-black bg-white">{t('admin.newProduct')}</button>
+        <button className="border border-black/15 dark:border-white/15 px-4 py-2.5 sm:py-3 text-xs self-start sm:self-auto text-black dark:text-white bg-white dark:bg-white/5">{t('admin.newProduct')}</button>
       </div>
-      <div className="mt-10 sm:mt-14 overflow-x-auto border border-black/10 bg-white">
-        <div className="grid min-w-[500px] sm:min-w-[620px] grid-cols-4 border-b border-black/10 px-3 sm:px-5 py-3 sm:py-4 text-[9px] sm:text-[10px] uppercase tracking-[.16em] text-gray-500">
+      <div className="mt-10 sm:mt-14 overflow-x-auto border border-black/10 dark:border-white/10 bg-white dark:bg-white/5">
+        <div className="grid min-w-[500px] sm:min-w-[620px] grid-cols-4 border-b border-black/10 dark:border-white/10 px-3 sm:px-5 py-3 sm:py-4 text-[9px] sm:text-[10px] uppercase tracking-[.16em] text-gray-500 dark:text-gray-400">
           <span>{t('admin.product')}</span>
           <span>{t('admin.status')}</span>
           <span>{t('admin.sales')}</span>
           <span>{t('admin.revenue')}</span>
         </div>
         {products.map((product) => (
-          <div key={product.id} className="grid min-w-[500px] sm:min-w-[620px] grid-cols-4 items-center border-b border-black/10 px-3 sm:px-5 py-4 sm:py-5 text-xs sm:text-sm last:border-0">
-            <span className="text-black">{product.name}</span>
+          <div key={product.id} className="grid min-w-[500px] sm:min-w-[620px] grid-cols-4 items-center border-b border-black/10 dark:border-white/10 px-3 sm:px-5 py-4 sm:py-5 text-xs sm:text-sm last:border-0">
+            <span className="text-black dark:text-white">{product.name}</span>
             <span className="text-primary">{t('admin.published')}</span>
-            <span className="text-black">{product.reviews + 18}</span>
-            <span className="text-black">{formatPrice(product.price * (product.reviews + 18))}</span>
+            <span className="text-black dark:text-white">{product.reviews + 18}</span>
+            <span className="text-black dark:text-white">{formatPrice(product.price * (product.reviews + 18))}</span>
           </div>
         ))}
       </div>
@@ -175,13 +175,13 @@ function Shell({ children }: { children: React.ReactNode }) {
           backgroundColor: 'var(--background)',
         }}
       />
-      <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between border-b border-black/10 pb-4 sm:pb-5 text-black">
+      <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between border-b border-black/10 dark:border-white/10 pb-4 sm:pb-5 text-black dark:text-white">
         <Link href="/#programs" className={backBtnStyles.backBtn}>
           <ArrowLeft size={14} /> {t('common.backToTemplates')}
           <span className={backBtnStyles.border} />
         </Link>
       </header>
-      <div className="relative z-10 mx-auto max-w-7xl pt-6 sm:pt-8 text-black">{children}</div>
+      <div className="relative z-10 mx-auto max-w-7xl pt-6 sm:pt-8 text-black dark:text-white">{children}</div>
     </main>
   )
 }
@@ -190,7 +190,7 @@ function Empty({ title }: { title: string }) {
   const { t } = useLanguage()
   return (
     <Shell>
-      <h1 className="text-2xl sm:text-4xl font-medium text-black">{title}</h1>
+      <h1 className="text-2xl sm:text-4xl font-medium text-black dark:text-white">{title}</h1>
       <Link href="/" className="mt-4 sm:mt-6 inline-flex text-xs sm:text-sm text-primary">{t('common.returnHome')} <ArrowRight size={14} className="ml-2" /></Link>
     </Shell>
   )

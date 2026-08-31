@@ -1,0 +1,18 @@
+ITSHOP Bot ishga tushdi...
+Bot polling rejimida ishlayapti...
+C:\Users\HP Victus\OneDrive\Desktop\digital-product-marketplace02\node_modules\node-telegram-bot-api\dist\core\transport.cjs:184
+            throw new errors_js_1.TelegramApiError(json.error_code, json.description, json.parameters);
+                  ^
+
+TelegramApiError: 404: Not Found
+    at Transport.request (C:\Users\HP Victus\OneDrive\Desktop\digital-product-marketplace02\node_modules\node-telegram-bot-api\dist\core\transport.cjs:184:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async longPoll (C:\Users\HP Victus\OneDrive\Desktop\digital-product-marketplace02\node_modules\node-telegram-bot-api\dist\core\longpoll.cjs:28:23)
+    at async Bot.startPolling (C:\Users\HP Victus\OneDrive\Desktop\digital-product-marketplace02\node_modules\node-telegram-bot-api\dist\core\bot.cjs:156:30) {
+  code: 'ETELEGRAM',
+  errorCode: 404,
+  description: 'Not Found',
+  parameters: undefined
+}
+
+Node.js v24.15.0
