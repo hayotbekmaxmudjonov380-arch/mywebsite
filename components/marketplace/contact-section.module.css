@@ -56,6 +56,10 @@
   margin: 0;
 }
 
+:global(.dark) .heading {
+  color: #f0f2ff;
+}
+
 .headingBlue {
   color: #2864ff;
   display: block;
@@ -67,6 +71,10 @@
   color: #555;
   max-width: 520px;
   margin: 0;
+}
+
+:global(.dark) .description {
+  color: #a0a8c0;
 }
 
 .ctaButtons {
