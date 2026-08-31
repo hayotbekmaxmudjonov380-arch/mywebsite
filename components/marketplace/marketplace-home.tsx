@@ -181,17 +181,23 @@ export default function MarketplaceHome() {
     <main className={`min-h-screen overflow-x-hidden ${isDark ? 'text-white' : ''}`}>
       <Nav cart={cart.length} onSearch={() => setSearchOpen(true)} onLogin={() => setLoginOpen(true)} />
       <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
+
+      {/* Fullscreen Elemental Marks Background */}
+      <div className="fixed inset-0 z-0">
+        <ElementalMarks />
+      </div>
+
       {/* Hero */}
-      <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] px-4 pt-24 pb-8 sm:px-5 sm:pb-14 sm:pt-32 lg:px-10 lg:pb-16 lg:pt-36">
-        <div className="relative z-10 mx-auto flex flex-col lg:flex-row items-center max-w-7xl gap-6 lg:gap-4">
-          <div className="flex-1 max-w-2xl text-center lg:text-left">
+      <section className="relative min-h-[100dvh] flex items-center px-4 pt-24 pb-8 sm:px-5 sm:pb-14 sm:pt-32 lg:px-10 lg:pb-16 lg:pt-36">
+        <div className="relative z-10 mx-auto max-w-7xl w-full">
+          <div className="max-w-2xl text-center lg:text-left">
             <p className="mb-4 sm:mb-7 flex items-center justify-center lg:justify-start gap-3 font-mono text-[9px] sm:text-[10px] uppercase tracking-[.26em] text-primary">
               <span className="size-1.5 bg-primary" /> {t('hero.badge')}
             </p>
-            <h1 className="text-balance text-[clamp(1.8rem,6vw,7.2rem)] font-semibold leading-[.92] tracking-[-.05em] sm:leading-[.88] sm:tracking-[-.07em] break-words">
+            <h1 className="text-balance text-[clamp(1.8rem,6vw,7.2rem)] font-semibold leading-[.92] tracking-[-.05em] sm:leading-[.88] sm:tracking-[-.07em] break-words text-white">
               {t('hero.title1')}<br /><span className="text-primary">{t('hero.title2')}</span>
             </h1>
-            <p className="mt-4 sm:mt-8 max-w-md text-xs sm:text-sm md:text-base leading-5 sm:leading-6 text-muted-foreground mx-auto lg:mx-0">
+            <p className="mt-4 sm:mt-8 max-w-md text-xs sm:text-sm md:text-base leading-5 sm:leading-6 text-white/70 mx-auto lg:mx-0">
               {t('hero.desc')}
             </p>
             <div className="mt-5 sm:mt-8 flex flex-wrap justify-center lg:justify-start gap-2.5 sm:gap-3">
@@ -208,9 +214,6 @@ export default function MarketplaceHome() {
                 </button>
               </div>
             </div>
-          </div>
-          <div className="flex-1 w-full md:w-auto h-[300px] sm:h-[400px] lg:h-[500px]">
-            <ElementalMarks />
           </div>
         </div>
       </section>
