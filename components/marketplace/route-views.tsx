@@ -8,6 +8,7 @@ import { useLanguage } from '@/lib/language-context'
 import { categoryNames, licenseFeatures, statsTranslations } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { ProfileCard } from '@/components/marketplace/profile-card'
+import { FavoriteButton } from '@/components/marketplace/favorite-button'
 import backBtnStyles from './back-button.module.css'
 import catBgStyles from './category-bg.module.css'
 
@@ -82,12 +83,17 @@ export function CategoryView({ slug }: { slug: string }) {
       </div>
       <div className="mt-10 sm:mt-16 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {items.length ? items.map((product) => (
-          <Link key={product.id} href={`/products/${product.slug}`} className="border border-black/10 dark:border-white/10 p-4 sm:p-5 hover:border-primary/60 bg-white dark:bg-white/5">
-            <div className="aspect-video" style={{ background: product.cover }} />
-            <h2 className="mt-4 sm:mt-5 font-medium text-sm sm:text-base text-black dark:text-white">{product.name}</h2>
-            <p className="mt-1.5 sm:mt-2 text-xs text-gray-500 dark:text-gray-400">{product.description}</p>
-            <p className="mt-4 sm:mt-5 font-mono text-xs sm:text-sm text-black dark:text-white">{formatPrice(product.price)}</p>
-          </Link>
+          <div key={product.id} className="relative border border-black/10 dark:border-white/10 p-4 sm:p-5 hover:border-primary/60 bg-white dark:bg-white/5">
+            <div className="absolute right-3 top-3 z-10">
+              <FavoriteButton productId={product.id} size="small" />
+            </div>
+            <Link href={`/products/${product.slug}`} className="block">
+              <div className="aspect-video" style={{ background: product.cover }} />
+              <h2 className="mt-4 sm:mt-5 font-medium text-sm sm:text-base text-black dark:text-white">{product.name}</h2>
+              <p className="mt-1.5 sm:mt-2 text-xs text-gray-500 dark:text-gray-400">{product.description}</p>
+              <p className="mt-4 sm:mt-5 font-mono text-xs sm:text-sm text-black dark:text-white">{formatPrice(product.price)}</p>
+            </Link>
+          </div>
         )) : <Empty title={t('category.empty')} />}
       </div>
     </Shell>

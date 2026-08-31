@@ -14,6 +14,7 @@ import { LanguageSwitcher } from '@/components/language-switcher'
 import { LoginModal } from '@/components/auth/login-modal'
 import { BloomSwitch } from './bloom-switch'
 import { FavoriteButton } from './favorite-button'
+import { FavoritesDropdown } from './favorites-dropdown'
 import { CategoryCarousel } from './category-carousel'
 import { ContactSection } from './contact-section'
 import { Footer } from './footer'
@@ -50,13 +51,10 @@ function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; 
         <div className="flex items-center gap-0.5">
           <LanguageSwitcher />
           <BloomSwitch />
-          <FavoriteButton productId="nav-fav" size="small" />
           <button onClick={onSearch} className={navGlassStyles.navIconBtn} aria-label={t('nav.search')}>
             <Search size={16} />
           </button>
-          <button className={navGlassStyles.navIconBtn} aria-label={t('nav.favorites')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          </button>
+          <FavoritesDropdown />
           <button className={`${navGlassStyles.navIconBtn} relative`} aria-label={t('nav.cart')}>
             <ShoppingBag size={16} />
             {cart > 0 && <span className="absolute right-0.5 top-0.5 grid size-3.5 place-items-center rounded-full bg-primary text-[7px] text-primary-foreground font-medium">{cart}</span>}
