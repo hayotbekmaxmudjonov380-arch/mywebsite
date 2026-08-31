@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import { ArrowRight, Menu, Search, ShoppingBag, Star, X, Sun, Moon, LogIn, User } from 'lucide-react'
+import { ArrowRight, Menu, Search, ShoppingBag, Star, X, LogIn, User } from 'lucide-react'
 import { categories, featuredProducts, products, newProducts, bestsellers, formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
 import { useTheme } from '@/lib/theme-context'
@@ -12,6 +12,7 @@ import { useAuth } from '@/lib/auth-context'
 import { categoryNames, categoryDescriptions } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { LoginModal } from '@/components/auth/login-modal'
+import { BloomSwitch } from './bloom-switch'
 import { CategoryCarousel } from './category-carousel'
 import { ContactSection } from './contact-section'
 import { Footer } from './footer'
@@ -34,10 +35,8 @@ function Logo({ className = '' }: { className?: string }) {
 
 function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; onLogin: () => void }) {
   const { t } = useLanguage()
-  const { theme, toggleTheme } = useTheme()
   const { user, loading } = useAuth()
   const [open, setOpen] = useState(false)
-  const isDark = theme === 'dark'
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className={navGlassStyles.navPill}>
@@ -49,9 +48,7 @@ function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; 
         </nav>
         <div className="flex items-center gap-0.5">
           <LanguageSwitcher />
-          <button onClick={toggleTheme} className={navGlassStyles.navIconBtn} aria-label="Toggle theme">
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
+          <BloomSwitch />
           <button onClick={onSearch} className={navGlassStyles.navIconBtn} aria-label={t('nav.search')}>
             <Search size={16} />
           </button>
