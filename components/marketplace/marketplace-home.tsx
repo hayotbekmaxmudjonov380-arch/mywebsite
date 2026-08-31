@@ -81,7 +81,7 @@ function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; 
         </div>
       </div>
       {open && (
-        <nav className={`${navGlassStyles.mobileMenu} flex flex-col gap-2 text-xs uppercase tracking-[.14em] md:hidden`}>
+        <nav className={`${navGlassStyles.mobileMenu} text-xs uppercase tracking-[.14em] md:hidden`}>
           <Link onClick={() => setOpen(false)} href="#categories" className={navGlassStyles.navLink}>{t('nav.categories')}</Link>
           <Link onClick={() => setOpen(false)} href="#programs" className={navGlassStyles.navLink}>{t('nav.programs')}</Link>
           <Link onClick={() => setOpen(false)} href="#contact" className={navGlassStyles.navLink}>{t('footer.contact')}</Link>
