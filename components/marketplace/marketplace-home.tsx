@@ -4,12 +4,14 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import { ArrowRight, Menu, Search, ShoppingBag, Star, X, Sun, Moon } from 'lucide-react'
+import { ArrowRight, Menu, Search, ShoppingBag, Star, X, Sun, Moon, LogIn, User } from 'lucide-react'
 import { categories, featuredProducts, products, newProducts, bestsellers, formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
 import { useTheme } from '@/lib/theme-context'
+import { useAuth } from '@/lib/auth-context'
 import { categoryNames, categoryDescriptions } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
+import { LoginModal } from '@/components/auth/login-modal'
 import { CategoryCarousel } from './category-carousel'
 import { ContactSection } from './contact-section'
 import { Footer } from './footer'
@@ -17,6 +19,7 @@ import btnStyles from './hand-drawn-button.module.css'
 import logoStyles from './logo-glow.module.css'
 import glowCardStyles from './glow-card.module.css'
 import dlBtnStyles from './download-btn.module.css'
+import navGlassStyles from './nav-glass.module.css'
 import { SplineBackground } from './spline-background'
 import type { Product } from '@/lib/marketplace-types'
 
@@ -30,49 +33,62 @@ function Logo({ className = '' }: { className?: string }) {
   )
 }
 
-function Nav({ cart, onSearch }: { cart: number; onSearch: () => void }) {
+function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; onLogin: () => void }) {
   const { t } = useLanguage()
   const { theme, toggleTheme } = useTheme()
+  const { user, loading } = useAuth()
   const [open, setOpen] = useState(false)
   const isDark = theme === 'dark'
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className={`mx-auto mt-3 sm:mt-4 flex max-w-7xl items-center justify-between border py-2.5 sm:py-3 backdrop-blur-xl rounded-[14px] shadow-sm ${isDark ? 'border-white/[.08] bg-black/60' : 'border-black/[.08] bg-white/80'}`} style={{ paddingInline: 'clamp(20px, 3.5vw, 56px)' }}>
+      <div className={`${navGlassStyles.navPill} ${isDark ? navGlassStyles.dark : navGlassStyles.light}`}>
         <Logo />
-        <nav className={`hidden items-center gap-5 lg:gap-7 text-[11px] uppercase tracking-[.14em] md:flex ${isDark ? 'text-gray-400' : 'text-muted-foreground'}`}>
-          <Link href="#categories" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-foreground'}`}>{t('nav.categories')}</Link>
-          <Link href="#programs" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-foreground'}`}>{t('nav.programs')}</Link>
-          <Link href="#contact" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-foreground'}`}>{t('footer.contact')}</Link>
+        <nav className="hidden items-center gap-1 md:flex">
+          <Link href="#categories" className={navGlassStyles.navLink}>{t('nav.categories')}</Link>
+          <Link href="#programs" className={navGlassStyles.navLink}>{t('nav.programs')}</Link>
+          <Link href="#contact" className={navGlassStyles.navLink}>{t('footer.contact')}</Link>
         </nav>
-        <div className="flex items-center gap-1 sm:gap-1.5">
+        <div className="flex items-center gap-0.5">
           <LanguageSwitcher />
-          <button onClick={toggleTheme} className={`grid size-8 sm:size-9 place-items-center transition-colors ${isDark ? 'text-yellow-400 hover:text-yellow-300' : 'text-muted-foreground hover:text-foreground'}`} aria-label="Toggle theme">
+          <button onClick={toggleTheme} className={navGlassStyles.navIconBtn} aria-label="Toggle theme">
             {isDark ? <Sun size={16} /> : <Moon size={16} />}
           </button>
-          <button onClick={onSearch} className={`grid size-8 sm:size-9 place-items-center transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-muted-foreground hover:text-foreground'}`} aria-label={t('nav.search')}>
+          <button onClick={onSearch} className={navGlassStyles.navIconBtn} aria-label={t('nav.search')}>
             <Search size={16} />
           </button>
-          <button className={`grid size-8 sm:size-9 place-items-center transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-muted-foreground hover:text-foreground'}`} aria-label={t('nav.favorites')}>
+          <button className={navGlassStyles.navIconBtn} aria-label={t('nav.favorites')}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
           </button>
-          <button className={`relative grid size-8 sm:size-9 place-items-center transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-muted-foreground hover:text-foreground'}`} aria-label={t('nav.cart')}>
+          <button className={`${navGlassStyles.navIconBtn} relative`} aria-label={t('nav.cart')}>
             <ShoppingBag size={16} />
             {cart > 0 && <span className="absolute right-0.5 top-0.5 grid size-3.5 place-items-center rounded-full bg-primary text-[7px] text-primary-foreground font-medium">{cart}</span>}
           </button>
-          <Link href="/account" className={`hidden ml-1 items-center gap-2 border px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[.12em] transition-colors sm:inline-flex ${isDark ? 'border-white/15 bg-white/[.04] text-gray-400 hover:bg-white/[.08] hover:text-white' : 'border-black/15 bg-black/[.04] text-muted-foreground hover:bg-black/[.08] hover:text-foreground'}`}>
-            {t('nav.login')}
-          </Link>
-          <button onClick={() => setOpen(!open)} className="grid size-8 sm:size-9 place-items-center md:hidden" aria-label="Toggle menu">
+          {!loading && (
+            user ? (
+              <button onClick={onLogin} className={`${navGlassStyles.loginBtn} hidden sm:inline-flex`}>
+                <User size={12} />
+                {user.telegramFirstName}
+              </button>
+            ) : (
+              <button onClick={onLogin} className={`${navGlassStyles.loginBtn} hidden sm:inline-flex`}>
+                <LogIn size={12} />
+                {t('nav.login')}
+              </button>
+            )
+          )}
+          <button onClick={() => setOpen(!open)} className={`${navGlassStyles.navIconBtn} md:hidden`} aria-label="Toggle menu">
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
       {open && (
-        <nav className={`mx-3 sm:mx-4 mt-2 flex flex-col gap-3 sm:gap-4 border p-4 sm:p-5 text-xs uppercase tracking-[.14em] md:hidden rounded-xl backdrop-blur-xl shadow-lg ${isDark ? 'border-white/[.08] bg-black/95 text-gray-400' : 'border-black/[.08] bg-white/95'}`}>
-          <Link onClick={() => setOpen(false)} href="#categories">{t('nav.categories')}</Link>
-          <Link onClick={() => setOpen(false)} href="#programs">{t('nav.programs')}</Link>
-          <Link onClick={() => setOpen(false)} href="#contact">{t('footer.contact')}</Link>
-          <Link onClick={() => setOpen(false)} href="/account" className={`mt-2 border px-4 py-2.5 text-center ${isDark ? 'border-white/15 bg-white/[.04] text-white' : 'border-black/15 bg-black/[.04] text-foreground'}`}>{t('nav.login')}</Link>
+        <nav className={`${navGlassStyles.mobileMenu} flex flex-col gap-2 text-xs uppercase tracking-[.14em] md:hidden`}>
+          <Link onClick={() => setOpen(false)} href="#categories" className={navGlassStyles.navLink}>{t('nav.categories')}</Link>
+          <Link onClick={() => setOpen(false)} href="#programs" className={navGlassStyles.navLink}>{t('nav.programs')}</Link>
+          <Link onClick={() => setOpen(false)} href="#contact" className={navGlassStyles.navLink}>{t('footer.contact')}</Link>
+          <button onClick={() => { setOpen(false); onLogin() }} className={navGlassStyles.loginBtn}>
+            {user ? `${user.telegramFirstName}` : t('nav.login')}
+          </button>
         </nav>
       )}
     </header>
@@ -146,6 +162,7 @@ export default function MarketplaceHome() {
   const [active, setActive] = useState('all')
   const [cart, setCart] = useState<Product[]>([])
   const [searchOpen, setSearchOpen] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(false)
   const [enteringEarth, setEnteringEarth] = useState(false)
   const isDark = theme === 'dark'
 
@@ -164,7 +181,8 @@ export default function MarketplaceHome() {
 
   return (
     <main className={`min-h-screen overflow-x-hidden ${isDark ? 'text-white' : ''}`}>
-      <Nav cart={cart.length} onSearch={() => setSearchOpen(true)} />
+      <Nav cart={cart.length} onSearch={() => setSearchOpen(true)} onLogin={() => setLoginOpen(true)} />
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
       {/* Hero */}
       <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] px-4 pt-24 pb-8 sm:px-5 sm:pb-14 sm:pt-32 lg:px-10 lg:pb-16 lg:pt-36">
         <div className="relative z-10 mx-auto flex flex-col lg:flex-row items-center max-w-7xl gap-6 lg:gap-4">
