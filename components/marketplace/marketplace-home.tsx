@@ -25,7 +25,7 @@ import dlBtnStyles from './download-btn.module.css'
 import navGlassStyles from './nav-glass.module.css'
 import type { Product } from '@/lib/marketplace-types'
 
-const HeroScene = dynamic(() => import('./hero-scene').then((mod) => mod.HeroScene), { ssr: false, loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(64,91,180,.3),transparent_52%)]" /> })
+const ElementalMarks = dynamic(() => import('./elemental-marks').then((mod) => mod.ElementalMarks), { ssr: false, loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(64,91,180,.3),transparent_52%)]" /> })
 
 function Logo({ className = '' }: { className?: string }) {
   return (
@@ -209,8 +209,8 @@ export default function MarketplaceHome() {
               </div>
             </div>
           </div>
-          <div className="flex-1 w-full md:w-auto flex justify-center">
-            <HeroScene />
+          <div className="flex-1 w-full md:w-auto h-[300px] sm:h-[400px] lg:h-[500px]">
+            <ElementalMarks />
           </div>
         </div>
       </section>
