@@ -13,6 +13,7 @@ import { categoryNames, categoryDescriptions } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { LoginModal } from '@/components/auth/login-modal'
 import { BloomSwitch } from './bloom-switch'
+import { FavoriteButton } from './favorite-button'
 import { CategoryCarousel } from './category-carousel'
 import { ContactSection } from './contact-section'
 import { Footer } from './footer'
@@ -49,6 +50,7 @@ function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; 
         <div className="flex items-center gap-0.5">
           <LanguageSwitcher />
           <BloomSwitch />
+          <FavoriteButton productId="nav-fav" size="small" />
           <button onClick={onSearch} className={navGlassStyles.navIconBtn} aria-label={t('nav.search')}>
             <Search size={16} />
           </button>
@@ -99,6 +101,9 @@ function ProductCard({ product, onAdd }: { product: Product; onAdd: () => void }
       <Link href={`/products/${product.slug}`} className="block">
         <div className="relative aspect-[1.35] overflow-hidden" style={{ background: product.cover }}>
           <div className="absolute inset-0 opacity-35" style={{ backgroundImage: 'linear-gradient(115deg, transparent 35%, rgba(255,255,255,.25) 50%, transparent 65%)', backgroundSize: '220% 100%' }} />
+          <div className="absolute right-2 top-2 z-10" onClick={(e) => e.preventDefault()}>
+            <FavoriteButton productId={product.id} size="small" />
+          </div>
           <div className="absolute inset-x-0 bottom-0 flex justify-between p-3 sm:p-4 text-[9px] sm:text-[10px] uppercase tracking-[.16em] text-white/50">
             <span>{catName}</span>
             <span>{product.badges[0]}</span>
