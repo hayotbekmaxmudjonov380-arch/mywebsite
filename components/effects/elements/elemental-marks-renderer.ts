@@ -317,6 +317,11 @@ export class ElementalMarksRenderer {
       return;
     }
     this.gl = gl;
+    if (this.canvas.width === 0 || this.canvas.height === 0) {
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      this.canvas.width = Math.floor(this.canvas.clientWidth * dpr) || 300;
+      this.canvas.height = Math.floor(this.canvas.clientHeight * dpr) || 300;
+    }
     this.setupShaders();
     this.setupGeometry();
     this.startTime = performance.now();
@@ -357,6 +362,7 @@ export class ElementalMarksRenderer {
     this.uniforms.u_time = gl.getUniformLocation(program, 'u_time');
     this.uniforms.u_speed = gl.getUniformLocation(program, 'u_speed');
     this.uniforms.u_particles = gl.getUniformLocation(program, 'u_particles');
+    this.uniforms.u_opacity = gl.getUniformLocation(program, 'u_opacity');
     this.uniforms.u_resolution = gl.getUniformLocation(program, 'u_resolution');
     this.uniforms.u_pointer = gl.getUniformLocation(program, 'u_pointer');
     this.uniforms.u_pointer_active = gl.getUniformLocation(program, 'u_pointer_active');
@@ -424,6 +430,7 @@ export class ElementalMarksRenderer {
     gl.uniform1f(this.uniforms.u_time, t);
     gl.uniform1f(this.uniforms.u_speed, this.config.speed);
     gl.uniform1f(this.uniforms.u_particles, this.config.particleAmount);
+    gl.uniform1f(this.uniforms.u_opacity, this.config.opacity);
     gl.uniform2f(this.uniforms.u_resolution, this.canvas.width, this.canvas.height);
     gl.uniform2f(this.uniforms.u_pointer, this.pointer.x, 1.0 - this.pointer.y);
     gl.uniform1f(this.uniforms.u_pointer_active, this.pointer.active);
