@@ -18,8 +18,6 @@ import { FavoritesDropdown } from './favorites-dropdown'
 import { CategoryCarousel } from './category-carousel'
 import { ContactSection } from './contact-section'
 import { Footer } from './footer'
-import { ElementsBackground } from '@/components/effects/elements/ElementsBackground'
-import '@/components/effects/elements/styles.css'
 import btnStyles from './hand-drawn-button.module.css'
 import logoStyles from './logo-glow.module.css'
 import glowCardStyles from './glow-card.module.css'
@@ -212,7 +210,7 @@ export default function MarketplaceHome() {
             </div>
           </div>
           <div className="flex-1 w-full md:w-auto flex justify-center">
-            <ElementsBackground variant="water" speed={1.0} particleAmount={1.2} opacity={0.8} />
+            <HeroScene />
           </div>
         </div>
       </section>
