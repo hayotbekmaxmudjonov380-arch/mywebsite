@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
         )
       } else {
         await sendTelegramMessage(chatId,
-          `Salom! \u{1F44B}\nITSHOP autentifikatsiya botiga xush kelibsiz!\n\n` +
+          `Salom! \u{1F44B}\nITSHOPPING autentifikatsiya botiga xush kelibsiz!\n\n` +
           `Saytda "Kirish" tugmasini bosing va Telegram orqali tizimga kiring.`
         )
       }

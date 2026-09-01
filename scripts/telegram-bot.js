@@ -28,7 +28,7 @@ if (!BOT_TOKEN) {
 
 const bot = new Bot(BOT_TOKEN)
 
-console.log('ITSHOP Bot ishga tushdi...')
+console.log('ITSHOPPING Bot ishga tushdi...')
 
 function showCode(ctx, code) {
   ctx.reply(
@@ -59,7 +59,7 @@ bot.command('start', (ctx) => {
   } else {
     ctx.reply(
       '\u{1F44B} *Salom!*\n\n' +
-      'ITSHOP autentifikatsiya botiga xush kelibsiz!\n\n' +
+      'ITSHOPPING autentifikatsiya botiga xush kelibsiz!\n\n' +
       'Saytda kirish uchun maxsus parol oling:',
       {
         parse_mode: 'Markdown',

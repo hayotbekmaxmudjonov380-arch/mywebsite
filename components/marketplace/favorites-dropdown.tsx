@@ -10,14 +10,14 @@ import styles from './favorites-dropdown.module.css'
 function getFavorites(): string[] {
   if (typeof window === 'undefined') return []
   try {
-    return JSON.parse(localStorage.getItem('itshop-favorites') || '[]')
+    return JSON.parse(localStorage.getItem('itshopping-favorites') || '[]')
   } catch {
     return []
   }
 }
 
 function saveFavorites(favs: string[]) {
-  localStorage.setItem('itshop-favorites', JSON.stringify(favs))
+  localStorage.setItem('itshopping-favorites', JSON.stringify(favs))
 }
 
 export function FavoritesDropdown() {

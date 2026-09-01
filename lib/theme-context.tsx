@@ -16,7 +16,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem('itshop-theme') as Theme | null
+    const saved = localStorage.getItem('itshopping-theme') as Theme | null
     if (saved === 'dark' || saved === 'light') {
       setTheme(saved)
       document.documentElement.classList.toggle('dark', saved === 'dark')
@@ -27,7 +27,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const toggleTheme = useCallback(() => {
     setTheme(prev => {
       const next = prev === 'light' ? 'dark' : 'light'
-      localStorage.setItem('itshop-theme', next)
+      localStorage.setItem('itshopping-theme', next)
       document.documentElement.classList.toggle('dark', next === 'dark')
       return next
     })

@@ -10,7 +10,7 @@ import './globals.css'
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
-export const metadata: Metadata = { title: { default: 'itshop — Digital products for ambitious builders', template: '%s — itshop' }, description: 'A considered marketplace for production-ready digital products, templates, and intelligent systems.', generator: 'itshop Studio' }
+export const metadata: Metadata = { title: { default: 'itshopping — Digital products for ambitious builders', template: '%s — itshopping' }, description: 'A considered marketplace for production-ready digital products, templates, and intelligent systems.', generator: 'itshopping Studio' }
 export const viewport: Viewport = { colorScheme: 'light dark', themeColor: '#ffffff', width: 'device-width', initialScale: 1 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

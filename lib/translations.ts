@@ -75,7 +75,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'footer.account': 'Account',
     'footer.admin': 'Admin',
     'footer.contact': 'Contact',
-    'footer.copy': '© 2026 itshop Studio',
+    'footer.copy': '© 2026 itshopping Studio',
 
     // Contact
     'contact.title': 'Contact us',
@@ -249,7 +249,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'footer.account': 'Hisob',
     'footer.admin': 'Admin',
     'footer.contact': 'Aloqa',
-    'footer.copy': '© 2026 itshop Studio',
+    'footer.copy': '© 2026 itshopping Studio',
 
     // Contact
     'contact.title': 'Biz bilan bog\'laning',
@@ -423,7 +423,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'footer.account': 'Аккаунт',
     'footer.admin': 'Админ',
     'footer.contact': 'Контакт',
-    'footer.copy': '© 2026 itshop Studio',
+    'footer.copy': '© 2026 itshopping Studio',
 
     // Contact
     'contact.title': 'Свяжитесь с нами',

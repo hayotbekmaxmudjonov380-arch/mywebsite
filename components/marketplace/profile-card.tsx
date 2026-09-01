@@ -44,7 +44,7 @@ export function ProfileCard() {
 
       {/* Content */}
       <div className={styles.content}>
-        <h2>ITSHOP User</h2>
+        <h2>ITSHOPPING User</h2>
         <p>{t('account.profileDesc')}</p>
       </div>
 

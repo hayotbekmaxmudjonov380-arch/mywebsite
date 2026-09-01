@@ -21,15 +21,15 @@ const AuthContext = createContext<AuthContextType | null>(null)
 
 function getSessionId(): string | null {
   if (typeof window === 'undefined') return null
-  return localStorage.getItem('itshop_session')
+  return localStorage.getItem('itshopping_session')
 }
 
 function setSessionId(id: string) {
-  localStorage.setItem('itshop_session', id)
+  localStorage.setItem('itshopping_session', id)
 }
 
 function clearSessionId() {
-  localStorage.removeItem('itshop_session')
+  localStorage.removeItem('itshopping_session')
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
