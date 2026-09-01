@@ -9,13 +9,15 @@ export interface ElementalMarksConfig {
   palette?: string[];
 }
 
-const VERTEX_SHADER = `#version 300 es
-in vec2 a_position;
-out vec2 v_uv;
-void main() {
-  v_uv = a_position * 0.5 + 0.5;
-  gl_Position = vec4(a_position, 0.0, 1.0);
-}`;
+const VERTEX_SHADER = [
+  '#version 300 es',
+  'in vec2 a_position;',
+  'out vec2 v_uv;',
+  'void main() {',
+  '  v_uv = a_position * 0.5 + 0.5;',
+  '  gl_Position = vec4(a_position, 0.0, 1.0);',
+  '}',
+].join('\n');
 
 const FRAGMENT_SHADERS: Record<string, string> = {
   water: `#version 300 es
@@ -317,11 +319,15 @@ export class ElementalMarksRenderer {
       return;
     }
     this.gl = gl;
-    if (this.canvas.width === 0 || this.canvas.height === 0) {
-      const dpr = Math.min(window.devicePixelRatio, 2);
-      this.canvas.width = Math.floor(this.canvas.clientWidth * dpr) || 300;
-      this.canvas.height = Math.floor(this.canvas.clientHeight * dpr) || 300;
-    }
+    
+    // Ensure canvas has valid dimensions
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    const w = this.canvas.clientWidth || 300;
+    const h = this.canvas.clientHeight || 300;
+    this.canvas.width = Math.floor(w * dpr);
+    this.canvas.height = Math.floor(h * dpr);
+    gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+    
     this.setupShaders();
     this.setupGeometry();
     this.startTime = performance.now();
@@ -330,19 +336,32 @@ export class ElementalMarksRenderer {
   private setupShaders() {
     const gl = this.gl!;
     
-    const vs = gl.createShader(gl.VERTEX_SHADER)!;
+    const vs = gl.createShader(gl.VERTEX_SHADER);
+    if (!vs) {
+      console.error('Failed to create vertex shader');
+      return;
+    }
     gl.shaderSource(vs, VERTEX_SHADER);
     gl.compileShader(vs);
     if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
-      console.error('Vertex shader error:', gl.getShaderInfoLog(vs));
+      const info = gl.getShaderInfoLog(vs);
+      console.error('Vertex shader error:', info || 'Unknown error');
+      gl.deleteShader(vs);
       return;
     }
 
-    const fs = gl.createShader(gl.FRAGMENT_SHADER)!;
+    const fs = gl.createShader(gl.FRAGMENT_SHADER);
+    if (!fs) {
+      console.error('Failed to create fragment shader');
+      return;
+    }
     gl.shaderSource(fs, FRAGMENT_SHADERS[this.config.variant]);
     gl.compileShader(fs);
     if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
-      console.error('Fragment shader error:', gl.getShaderInfoLog(fs));
+      const info = gl.getShaderInfoLog(fs);
+      console.error('Fragment shader error:', info || 'Unknown error');
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
       return;
     }
 
