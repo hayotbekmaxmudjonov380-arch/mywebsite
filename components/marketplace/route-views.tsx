@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Check, Download, Lock, Settings, ShoppingBag, Star } from 'lucide-react'
 import { getCategory, getProduct, getProductsByCategory, products, formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
+import { useCart } from '@/lib/cart-context'
 import { categoryNames, licenseFeatures, statsTranslations } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { ProfileCard } from '@/components/marketplace/profile-card'
@@ -15,6 +16,7 @@ import catBgStyles from './category-bg.module.css'
 export function ProductView({ slug }: { slug: string }) {
   const product = getProduct(slug)
   const { t, locale } = useLanguage()
+  const { addItem } = useCart()
   if (!product) return <Empty title={`${t('common.notFound')}`} />
   const lf = licenseFeatures[locale]
   return (
@@ -56,7 +58,7 @@ export function ProductView({ slug }: { slug: string }) {
                     </li>
                   ))}
                 </ul>
-                <button className="mt-5 sm:mt-6 w-full rounded-lg bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-white/90">
+                <button onClick={() => addItem(product, item.id)} className="mt-5 sm:mt-6 w-full rounded-lg bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-white/90">
                   {t('product.addToCart')}
                 </button>
               </div>

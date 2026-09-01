@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next'
 import { LanguageProvider } from '@/lib/language-context'
 import { ThemeProvider } from '@/lib/theme-context'
 import { AuthProvider } from '@/lib/auth-context'
+import { CartProvider } from '@/lib/cart-context'
 import './globals.css'
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' })
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeProvider>
           <LanguageProvider>
             <AuthProvider>
-              {children}
+              <CartProvider>
+                {children}
+              </CartProvider>
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>

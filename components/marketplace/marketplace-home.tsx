@@ -9,6 +9,7 @@ import { categories, featuredProducts, products, newProducts, bestsellers, forma
 import { useLanguage } from '@/lib/language-context'
 import { useTheme } from '@/lib/theme-context'
 import { useAuth } from '@/lib/auth-context'
+import { useCart } from '@/lib/cart-context'
 import { categoryNames, categoryDescriptions } from '@/lib/translations'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { LoginModal } from '@/components/auth/login-modal'
@@ -57,7 +58,7 @@ function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; 
           <FavoritesDropdown />
           <button className={`${navGlassStyles.navIconBtn} relative`} aria-label={t('nav.cart')}>
             <ShoppingBag size={16} />
-            {cart > 0 && <span className="absolute right-0.5 top-0.5 grid size-3.5 place-items-center rounded-full bg-primary text-[7px] text-primary-foreground font-medium">{cart}</span>}
+            {cart > 0 && <span className="absolute -right-1.5 -top-1.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-primary text-[9px] text-primary-foreground font-bold px-1">{cart}</span>}
           </button>
           {!loading && (
             user ? (
@@ -157,9 +158,9 @@ function ProductSection({ title, eyebrow, items, onAdd }: { title: string; eyebr
 export default function MarketplaceHome() {
   const { t, locale } = useLanguage()
   const { theme } = useTheme()
+  const { count: cartCount, addItem } = useCart()
   const [query, setQuery] = useState('')
   const [active, setActive] = useState('all')
-  const [cart, setCart] = useState<Product[]>([])
   const [searchOpen, setSearchOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
   const isDark = theme === 'dark'
@@ -174,12 +175,11 @@ export default function MarketplaceHome() {
       `${product.name} ${product.description} ${product.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase())
     ), [active, query])
 
-  const addToCart = (product: Product) =>
-    setCart((current) => current.some((item) => item.id === product.id) ? current : [...current, product])
+  const addToCart = (product: Product) => addItem(product, 'personal')
 
   return (
     <main className={`min-h-screen overflow-x-hidden ${isDark ? 'text-white' : ''}`}>
-      <Nav cart={cart.length} onSearch={() => setSearchOpen(true)} onLogin={() => setLoginOpen(true)} />
+      <Nav cart={cartCount} onSearch={() => setSearchOpen(true)} onLogin={() => setLoginOpen(true)} />
       <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
       {/* Hero */}
       <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] px-4 pt-24 pb-8 sm:px-5 sm:pb-14 sm:pt-32 lg:px-10 lg:pb-16 lg:pt-36">
@@ -332,12 +332,6 @@ export default function MarketplaceHome() {
       )}
 
       {/* Cart Button */}
-      {cart.length > 0 && (
-        <button onClick={() => setCart([])}
-          className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-40 flex items-center gap-2.5 sm:gap-3 border border-primary bg-primary px-3 sm:px-4 py-2.5 sm:py-3 text-[9px] sm:text-[10px] uppercase tracking-[.12em] text-primary-foreground shadow-2xl">
-          <ShoppingBag size={14} /> {cart.length} {t('common.cartClear')}
-        </button>
-      )}
 
       {/* Meteor container for dark mode */}
       {isDark && (
