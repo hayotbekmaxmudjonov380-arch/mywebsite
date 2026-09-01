@@ -23,7 +23,7 @@ export function ProductView({ slug }: { slug: string }) {
         <ArrowLeft size={14} /> {t('common.backToCollection')}
       </Link>
       <div className="grid gap-6 sm:gap-10 lg:grid-cols-[1.1fr_.9fr]">
-        <div className="aspect-[1.2] border border-black/10 p-5 sm:p-8 md:p-10" style={{ background: product.cover }}>
+        <div className="aspect-video max-h-[350px] border border-black/10 p-5 sm:p-8 md:p-10" style={{ background: product.cover }}>
           <div className="flex h-full flex-col justify-between">
             <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-white/60">{product.category}</span>
             <div>
@@ -34,7 +34,7 @@ export function ProductView({ slug }: { slug: string }) {
         </div>
         <div>
           <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{product.badges.join(' · ')}</p>
-          <h1 className="mt-3 sm:mt-4 text-3xl sm:text-5xl md:text-7xl font-medium tracking-[-.05em] text-black dark:text-white">{product.name}</h1>
+          <h1 className="mt-3 sm:mt-4 text-2xl sm:text-4xl md:text-5xl font-medium tracking-[-.05em] text-black dark:text-white">{product.name}</h1>
           <p className="mt-4 sm:mt-6 text-sm sm:text-base leading-6 sm:leading-7 text-gray-600 dark:text-gray-400">{product.longDescription}</p>
           <div className="mt-5 sm:mt-7 flex items-center gap-2 text-xs sm:text-sm text-black dark:text-white">
             <Star size={15} fill="currentColor" /> {product.rating} <span className="text-gray-500">{t('product.reviews', { count: product.reviews })}</span>
