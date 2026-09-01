@@ -19,9 +19,6 @@ export function ProductView({ slug }: { slug: string }) {
   const lf = licenseFeatures[locale]
   return (
     <Shell>
-      <Link href="/" className="mb-6 sm:mb-10 inline-flex items-center gap-2 text-xs text-gray-500 hover:text-black dark:hover:text-white">
-        <ArrowLeft size={14} /> {t('common.backToCollection')}
-      </Link>
       <div className="grid gap-6 sm:gap-10 lg:grid-cols-[1.1fr_.9fr]">
         <div className="aspect-video max-h-[350px] border border-black/10 p-5 sm:p-8 md:p-10" style={{ background: product.cover }}>
           <div className="flex h-full flex-col justify-between">
