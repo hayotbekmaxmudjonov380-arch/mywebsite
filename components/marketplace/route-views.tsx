@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, Download, Lock, Settings, ShoppingBag, Star } from 'lucide-react'
 import { getCategory, getProduct, getProductsByCategory, products, formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
@@ -17,8 +18,16 @@ export function ProductView({ slug }: { slug: string }) {
   const product = getProduct(slug)
   const { t, locale } = useLanguage()
   const { addItem } = useCart()
+  const [addedId, setAddedId] = useState<string | null>(null)
   if (!product) return <Empty title={`${t('common.notFound')}`} />
   const lf = licenseFeatures[locale]
+  
+  const handleAdd = (licenseId: string) => {
+    addItem(product, licenseId)
+    setAddedId(licenseId)
+    setTimeout(() => setAddedId(null), 2000)
+  }
+
   return (
     <Shell>
       <div className="grid gap-6 sm:gap-10 lg:grid-cols-[1.1fr_.9fr]">
@@ -39,7 +48,7 @@ export function ProductView({ slug }: { slug: string }) {
             <Star size={15} fill="currentColor" /> {product.rating} <span className="text-gray-500">{t('product.reviews', { count: product.reviews })}</span>
           </div>
           <div className="mt-7 sm:mt-10 flex flex-col gap-4 sm:gap-5">
-            {product.licenses.map((item, index) => (
+            {product.licenses.map((item) => (
               <div key={item.id} className="relative flex flex-col rounded-xl bg-[#212121] border border-white/20 p-5 sm:p-6 text-white shadow-lg">
                 <div className="mb-5 border-b border-white/20 pb-4 text-center">
                   <p className="text-xs sm:text-sm uppercase tracking-wider text-white/70">{lf?.[item.id === 'personal' ? 'personal' : 'commercial'] || item.name}</p>
@@ -58,8 +67,15 @@ export function ProductView({ slug }: { slug: string }) {
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => addItem(product, item.id)} className="mt-5 sm:mt-6 w-full rounded-lg bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-white/90">
-                  {t('product.addToCart')}
+                <button 
+                  onClick={() => handleAdd(item.id)} 
+                  className={`mt-5 sm:mt-6 w-full rounded-lg px-4 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors ${
+                    addedId === item.id 
+                      ? 'bg-green-500 text-white' 
+                      : 'bg-white text-black hover:bg-white/90'
+                  }`}
+                >
+                  {addedId === item.id ? '✓ QO\'SHILDI' : t('product.addToCart')}
                 </button>
               </div>
             ))}
