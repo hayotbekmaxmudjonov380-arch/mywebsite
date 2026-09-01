@@ -17,14 +17,16 @@ const FLAGS: Record<Locale, React.ReactNode> = {
   ),
   uz: (
     <svg viewBox="0 0 36 36" className="w-4 h-3 rounded-sm">
-      <rect width="36" height="12" fill="#0099B5"/>
-      <rect y="12" width="36" height="12" fill="#fff"/>
-      <rect y="24" width="36" height="12" fill="#CE1126"/>
-      <circle cx="8" cy="18" r="5" fill="#0099B5"/>
-      <circle cx="9" cy="18" r="4" fill="#fff"/>
-      <circle cx="9.5" cy="18" r="3" fill="#CE1126"/>
-      <g transform="translate(15,12)">
-        <polygon points="0,-3 0.7,-1 2.8,-1 1,0.2 1.7,2.2 0,1 -1.7,2.2 -1,0.2 -2.8,-1 -0.7,-1" fill="#CE1126"/>
+      <rect width="36" height="9" fill="#0099B5"/>
+      <rect y="9" width="36" height="1.5" fill="#CE1126"/>
+      <rect y="10.5" width="36" height="15" fill="#fff"/>
+      <rect y="25.5" width="36" height="1.5" fill="#CE1126"/>
+      <rect y="27" width="36" height="9" fill="#0099B5"/>
+      <g transform="translate(8,9)">
+        <path d="M6,0 A4,4 0 1,1 6,8 A3,3 0 1,0 6,0" fill="#fff"/>
+        <polygon points="11,1.5 11.6,3.2 13.5,3.2 12,4.3 12.5,6 11,5 9.5,6 10,4.3 8.5,3.2 10.4,3.2" fill="#fff"/>
+        <polygon points="13,4 13.3,5 14.5,5 13.5,5.7 13.9,6.8 13,6.1 12.1,6.8 12.5,5.7 11.5,5 12.7,5" fill="#fff"/>
+        <polygon points="9.5,4.5 9.8,5.5 10.8,5.5 10,6.1 10.3,7 9.5,6.4 8.7,7 9,6.1 8.2,5.5 9.2,5.5" fill="#fff"/>
       </g>
     </svg>
   ),
