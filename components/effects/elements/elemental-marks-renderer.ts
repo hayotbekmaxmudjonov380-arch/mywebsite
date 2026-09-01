@@ -280,7 +280,7 @@ void main() {
   }
   color += vec3(1.0, 0.5, 0.1) * embers * 0.6;
   
-  fragColor = vec4(color, fireShape * uOpacity);
+  fragColor = vec4(color, fireShape * u_opacity);
 }`
 };
 
