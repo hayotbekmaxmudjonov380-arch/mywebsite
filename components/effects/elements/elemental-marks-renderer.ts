@@ -308,6 +308,13 @@ export class ElementalMarksRenderer {
   }
 
   private init() {
+    // Ensure canvas has valid dimensions before getting context
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    const w = this.canvas.clientWidth || this.canvas.parentElement?.clientWidth || 300;
+    const h = this.canvas.clientHeight || this.canvas.parentElement?.clientHeight || 300;
+    this.canvas.width = Math.floor(w * dpr);
+    this.canvas.height = Math.floor(h * dpr);
+
     const gl = this.canvas.getContext('webgl2', {
       alpha: true,
       premultipliedAlpha: false,
@@ -319,13 +326,6 @@ export class ElementalMarksRenderer {
       return;
     }
     this.gl = gl;
-    
-    // Ensure canvas has valid dimensions
-    const dpr = Math.min(window.devicePixelRatio, 2);
-    const w = this.canvas.clientWidth || 300;
-    const h = this.canvas.clientHeight || 300;
-    this.canvas.width = Math.floor(w * dpr);
-    this.canvas.height = Math.floor(h * dpr);
     gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     
     this.setupShaders();

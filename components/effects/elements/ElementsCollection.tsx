@@ -25,6 +25,11 @@ export function ElementsCollection({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rendererRef = useRef<ElementalMarksRenderer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!containerRef.current || !rendererRef.current) return;
@@ -39,7 +44,25 @@ export function ElementsCollection({
   }, []);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    if (!mounted || !canvasRef.current) return;
+
+    // Check WebGL2 support first
+    const testCanvas = document.createElement('canvas');
+    const testGl = testCanvas.getContext('webgl2');
+    if (!testGl) {
+      console.warn('WebGL2 not supported, skipping elemental marks');
+      return;
+    }
+
+    // Ensure canvas has valid dimensions
+    const canvas = canvasRef.current;
+    const parent = canvas.parentElement;
+    if (parent) {
+      const rect = parent.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      canvas.width = Math.max(Math.floor(rect.width * dpr), 100);
+      canvas.height = Math.max(Math.floor(rect.height * dpr), 100);
+    }
 
     const config: ElementalMarksConfig = {
       variant,
@@ -48,7 +71,7 @@ export function ElementsCollection({
       opacity,
     };
 
-    const renderer = new ElementalMarksRenderer(canvasRef.current, config);
+    const renderer = new ElementalMarksRenderer(canvas, config);
     rendererRef.current = renderer;
     renderer.start();
 
@@ -56,11 +79,21 @@ export function ElementsCollection({
       renderer.dispose();
       rendererRef.current = null;
     };
-  }, [variant]);
+  }, [mounted, variant]);
 
   useEffect(() => {
     rendererRef.current?.updateConfig({ speed, particleAmount, opacity });
   }, [speed, particleAmount, opacity]);
+
+  if (!mounted) {
+    return (
+      <div
+        ref={containerRef}
+        className={`elements-collection ${className}`}
+        style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#0a0a1a', ...style }}
+      />
+    );
+  }
 
   return (
     <div
