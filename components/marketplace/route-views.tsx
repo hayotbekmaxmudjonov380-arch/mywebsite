@@ -39,28 +39,31 @@ export function ProductView({ slug }: { slug: string }) {
           <div className="mt-5 sm:mt-7 flex items-center gap-2 text-xs sm:text-sm text-black dark:text-white">
             <Star size={15} fill="currentColor" /> {product.rating} <span className="text-gray-500">{t('product.reviews', { count: product.reviews })}</span>
           </div>
-          <div className="mt-7 sm:mt-10 flex flex-col gap-2.5 sm:gap-3">
+          <div className="mt-7 sm:mt-10 flex flex-col gap-4 sm:gap-5">
             {product.licenses.map((item, index) => (
-              <div key={item.id} className={`border p-3 sm:p-4 ${index === 0 ? 'border-primary/70' : 'border-black/10'}`}>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h2 className="font-medium text-sm sm:text-base text-black dark:text-white">{lf?.[item.id === 'personal' ? 'personal' : 'commercial'] || item.name}</h2>
-                    <p className="mt-1 text-[10px] sm:text-xs text-gray-500">{lf?.[item.id === 'personal' ? 'personalDesc' : 'commercialDesc'] || item.description}</p>
+              <div key={item.id} className="relative flex flex-col rounded-xl bg-[#212121] border border-white/20 p-5 sm:p-6 text-white shadow-lg">
+                <div className="mb-5 border-b border-white/20 pb-4 text-center">
+                  <p className="text-xs sm:text-sm uppercase tracking-wider text-white/70">{lf?.[item.id === 'personal' ? 'personal' : 'commercial'] || item.name}</p>
+                  <div className="mt-2 flex items-start justify-center gap-1 font-mono text-4xl sm:text-5xl leading-none">
+                    <span className="mt-1 text-xl sm:text-2xl">$</span>
+                    {Math.floor(item.price)}
                   </div>
-                  <span className="shrink-0 font-mono text-sm sm:text-base text-black dark:text-white">{formatPrice(item.price)}</span>
                 </div>
-                <div className="mt-3 sm:mt-4 flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 sm:gap-y-2 text-[10px] sm:text-xs text-gray-500">
+                <ul className="flex flex-col gap-2.5 sm:gap-3">
                   {item.features.map((feature) => (
-                    <span key={feature} className="flex items-center gap-1">
-                      <Check size={12} className="text-primary" />{feature}
-                    </span>
+                    <li key={feature} className="flex items-center gap-3">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/15">
+                        <Check size={12} />
+                      </span>
+                      <span className="text-xs sm:text-sm">{feature}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
+                <button className="mt-5 sm:mt-6 w-full rounded-lg bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-white/90">
+                  {t('product.addToCart')}
+                </button>
               </div>
             ))}
-            <button className="mt-2 flex items-center justify-center gap-2 bg-primary px-5 py-3 text-[10px] sm:text-xs font-semibold uppercase tracking-[.15em] text-primary-foreground transition-transform hover:scale-[1.02]">
-              <ShoppingBag size={14} /> {t('product.addToCart')}
-            </button>
           </div>
         </div>
       </div>
