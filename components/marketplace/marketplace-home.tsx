@@ -16,6 +16,7 @@ import { LoginModal } from '@/components/auth/login-modal'
 import { BloomSwitch } from './bloom-switch'
 import { FavoriteButton } from './favorite-button'
 import { FavoritesDropdown } from './favorites-dropdown'
+import { CartDropdown } from './cart-dropdown'
 import { CategoryCarousel } from './category-carousel'
 import { ContactSection } from './contact-section'
 import { Footer } from './footer'
@@ -36,7 +37,7 @@ function Logo({ className = '' }: { className?: string }) {
   )
 }
 
-function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; onLogin: () => void }) {
+function Nav({ onSearch, onLogin }: { onSearch: () => void; onLogin: () => void }) {
   const { t } = useLanguage()
   const { user, loading } = useAuth()
   const [open, setOpen] = useState(false)
@@ -56,10 +57,7 @@ function Nav({ cart, onSearch, onLogin }: { cart: number; onSearch: () => void; 
             <Search size={16} />
           </button>
           <FavoritesDropdown />
-          <button className={`${navGlassStyles.navIconBtn} relative`} aria-label={t('nav.cart')}>
-            <ShoppingBag size={16} />
-            {cart > 0 && <span className="absolute -right-1.5 -top-1.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-primary text-[9px] text-primary-foreground font-bold px-1">{cart}</span>}
-          </button>
+          <CartDropdown />
           {!loading && (
             user ? (
               <button onClick={onLogin} className={`${navGlassStyles.loginBtn} hidden sm:inline-flex`}>
@@ -179,7 +177,7 @@ export default function MarketplaceHome() {
 
   return (
     <main className={`min-h-screen overflow-x-hidden ${isDark ? 'text-white' : ''}`}>
-      <Nav cart={cartCount} onSearch={() => setSearchOpen(true)} onLogin={() => setLoginOpen(true)} />
+      <Nav onSearch={() => setSearchOpen(true)} onLogin={() => setLoginOpen(true)} />
       <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
       {/* Hero */}
       <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] px-4 pt-24 pb-8 sm:px-5 sm:pb-14 sm:pt-32 lg:px-10 lg:pb-16 lg:pt-36">
