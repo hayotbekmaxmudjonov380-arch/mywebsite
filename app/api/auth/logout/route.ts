@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { sessionId } = body
     if (sessionId) {
-      removeSession(sessionId)
+      await removeSession(sessionId)
     }
     return NextResponse.json({ ok: true })
   } catch {

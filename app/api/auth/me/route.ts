@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: false, user: null })
   }
 
-  const user = getSession(sessionId)
+  const user = await getSession(sessionId)
   if (!user) {
     return NextResponse.json({ ok: false, user: null })
   }

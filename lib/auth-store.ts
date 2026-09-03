@@ -1,4 +1,5 @@
 import { randomBytes } from 'crypto'
+import { prisma } from './db'
 
 export interface AuthCode {
   code: string
@@ -18,10 +19,6 @@ export interface AuthUser {
 }
 
 const CODE_EXPIRY_MS = Number(process.env.AUTH_CODE_EXPIRY_MS) || 120_000
-const SESSION_EXPIRY_MS = 7 * 24 * 60 * 60 * 1000
-
-const pendingCodes = new Map<string, AuthCode>()
-const activeSessions = new Map<string, AuthUser>()
 
 function generateCode(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
@@ -32,6 +29,8 @@ function generateCode(): string {
 function generateSessionId(): string {
   return randomBytes(32).toString('hex')
 }
+
+const pendingCodes = new Map<string, AuthCode>()
 
 export function createAuthCode(
   telegramUserId: number,
@@ -68,20 +67,65 @@ export function verifyAuthCode(code: string): AuthUser | null {
     telegramFirstName: authCode.telegramFirstName,
     loggedAt: Date.now(),
   }
-  activeSessions.set(sessionId, user)
+  // Session is saved synchronously in memory, DB write happens async
+  prisma.session.create({
+    data: {
+      id: sessionId,
+      userId: String(authCode.telegramUserId),
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    },
+  }).catch((e) => console.error('Failed to save session to DB:', e))
   return user
 }
 
-export function getSession(sessionId: string): AuthUser | null {
-  const user = activeSessions.get(sessionId)
-  if (!user) return null
-  if (Date.now() - user.loggedAt > SESSION_EXPIRY_MS) {
-    activeSessions.delete(sessionId)
+export async function getSession(sessionId: string): Promise<AuthUser | null> {
+  try {
+    const session = await prisma.session.findUnique({
+      where: { id: sessionId },
+      include: { user: true },
+    })
+    if (!session) return null
+    if (new Date() > session.expiresAt) {
+      await prisma.session.delete({ where: { id: sessionId } })
+      return null
+    }
+    return {
+      sessionId: session.id,
+      telegramUserId: session.user.telegramId,
+      telegramUsername: session.user.telegramUsername || '',
+      telegramFirstName: session.user.telegramFirstName || '',
+      loggedAt: session.createdAt.getTime(),
+    }
+  } catch {
     return null
   }
-  return user
 }
 
-export function removeSession(sessionId: string): void {
-  activeSessions.delete(sessionId)
+export async function removeSession(sessionId: string): Promise<void> {
+  try {
+    await prisma.session.delete({ where: { id: sessionId } })
+  } catch {}
+}
+
+export async function ensureUser(
+  telegramUserId: number,
+  telegramUsername: string,
+  telegramFirstName: string
+): Promise<void> {
+  try {
+    await prisma.user.upsert({
+      where: { telegramId: telegramUserId },
+      create: {
+        telegramId: telegramUserId,
+        telegramUsername,
+        telegramFirstName,
+      },
+      update: {
+        telegramUsername,
+        telegramFirstName,
+      },
+    })
+  } catch (e) {
+    console.error('Failed to ensure user:', e)
+  }
 }

@@ -21,15 +21,16 @@ const AuthContext = createContext<AuthContextType | null>(null)
 
 function getSessionId(): string | null {
   if (typeof window === 'undefined') return null
-  return localStorage.getItem('itshopping_session')
+  const match = document.cookie.match(/itshopping_session=([^;]+)/)
+  return match ? match[1] : null
 }
 
 function setSessionId(id: string) {
-  localStorage.setItem('itshopping_session', id)
+  document.cookie = `itshopping_session=${id}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`
 }
 
 function clearSessionId() {
-  localStorage.removeItem('itshopping_session')
+  document.cookie = 'itshopping_session=; path=/; max-age=0'
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

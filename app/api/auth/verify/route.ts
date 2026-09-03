@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyAuthCode } from '@/lib/auth-store'
+import { verifyAuthCode, ensureUser } from '@/lib/auth-store'
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,6 +14,13 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json({ ok: false, error: 'Noto\'g\'ri kod yoki muddati tugagan' }, { status: 401 })
     }
+
+    // Ensure user exists in database
+    await ensureUser(
+      user.telegramUserId,
+      user.telegramUsername,
+      user.telegramFirstName
+    )
 
     return NextResponse.json({
       ok: true,
