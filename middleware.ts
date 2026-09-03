@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { rateLimit } from '@/lib/rate-limit'
+import { securityHeaders } from '@/lib/security-headers'
 
 const protectedRoutes = ['/admin', '/account']
 const authRoutes = ['/auth']
@@ -10,7 +12,6 @@ export function middleware(request: NextRequest) {
 
   // Check if route is protected
   const isProtected = protectedRoutes.some((route) => pathname.startsWith(route))
-  const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route))
 
   if (isProtected && !sessionId) {
     const url = request.nextUrl.clone()
@@ -19,9 +20,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  return NextResponse.next()
+  // Rate limiting
+  const rateLimitResponse = rateLimit(request)
+  if (rateLimitResponse) {
+    return rateLimitResponse
+  }
+
+  // Apply security headers
+  const response = NextResponse.next()
+  return securityHeaders(response)
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/account/:path*'],
+  matcher: ['/admin/:path*', '/account/:path*', '/api/:path*'],
 }
