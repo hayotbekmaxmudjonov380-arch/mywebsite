@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.github
+.env
+.env.local
+.env*.local
+vercel.json
+playwright-report
+test-results
+coverage
+*.md
+LICENSE
