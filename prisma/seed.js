@@ -73,6 +73,136 @@ async function main() {
     },
   ]
 
+  // Blog Posts
+  const blogPosts = [
+    {
+      title: 'ITSHOPPING ga xush kelibsiz',
+      slug: 'welcome-to-itshopping',
+      content: `
+        <h2>Xush kelibsiz!</h2>
+        <p>ITSHOPPING - bu raqamli mahsulotlar marketplace'i. Bu yerda siz turli xil dasturiy ta'minotlarni, ilovalarni va boshqa raqamli mahsulotlarni sotib olishingiz mumkin.</p>
+        
+        <h3>Nima uchun ITSHOPPING?</h3>
+        <ul>
+          <li>Sifatli mahsulotlar</li>
+          <li>Tez yetkazib berish</li>
+          <li>Qulay to'lov usullari</li>
+          <li>24/7 qo'llab-quvvatlash</li>
+        </ul>
+        
+        <p>Bizning maqsadimiz - O'zbekistondagi eng yaxshi raqamli mahsulotlar markazi bo'lish.</p>
+      `,
+      excerpt: 'ITSHOPPING marketplace\'iga xush kelibsiz. Bizning afzalliklarimiz va imkoniyatlarimiz haqida bilib oling.',
+      author: 'ITSHOPPING',
+      category: 'news',
+      tags: 'yangilik,marketplace',
+      published: true,
+      views: 125,
+    },
+    {
+      title: 'Raqamli mahsulotni qanday sotib olish mumkin?',
+      slug: 'how-to-buy-digital-product',
+      content: `
+        <h2>Qadam-baqadam ko'rsatma</h2>
+        
+        <h3>1. Mahsulotni tanlang</h3>
+        <p>Do'konda kerakli mahsulotni toping va uni tanlang.</p>
+        
+        <h3>2. Litsenziyani tanlang</h3>
+        <p>Shaxsiy yoki tijoriy litsenziyani tanlang.</p>
+        
+        <h3>3. To'lovni amalga oshiring</h3>
+        <p>Stripe orqali xavfsiz to'lovni amalga oshiring.</p>
+        
+        <h3>4. Faylni yuklab oling</h3>
+        <p>To'lovdan so'ng darhol faylni yuklab olishingiz mumkin.</p>
+      `,
+      excerpt: 'Raqamli mahsulotni sotib olish jarayoni haqida batafsil ko\'rsatma.',
+      author: 'ITSHOPPING',
+      category: 'tutorial',
+      tags: 'qo\'llanma,sotib olish',
+      published: true,
+      views: 89,
+    },
+    {
+      title: 'Telegram botini qanday yaratish mumkin?',
+      slug: 'how-to-create-telegram-bot',
+      content: `
+        <h2>Telegram bot yaratish</h2>
+        
+        <h3>1. BotFather ga yozing</h3>
+        <p>Telegram'da @BotFather ni toping va /newbot buyrug'ini yuboring.</p>
+        
+        <h3>2. Bot nomini kiriting</h3>
+        <p>Botingiz uchun nom va username kiriting.</p>
+        
+        <h3>3. Tokenni oling</h3>
+        <p>BotFather sizga token beradi. Uni saqlang.</p>
+        
+        <h3>4. Dasturlashni boshlang</h3>
+        <p>Python yoki Node.js yordamida botingizni dasturlang.</p>
+      `,
+      excerpt: 'Telegram botini qanday yaratish va uni ishga tushirish haqida batafsil.',
+      author: 'ITSHOPPING',
+      category: 'tutorial',
+      tags: 'telegram,bot,dasturlash',
+      published: true,
+      views: 156,
+    },
+  ]
+
+  // FAQs
+  const faqs = [
+    {
+      question: 'ITSHOPPING nima?',
+      answer: `ITSHOPPING - bu O'zbekistondagi raqamli mahsulotlar marketplace'i. Bu yerda siz dasturiy ta'minot, ilova, bot va boshqa raqamli mahsulotlarni sotib olishingiz mumkin.`,
+      category: 'general',
+      order: 1,
+    },
+    {
+      question: 'Qanday to\'lov qilish mumkin?',
+      answer: `Biz Stripe orqali to'lovni qo'llab-quvvatlaymiz. Siz Visa, Mastercard va boshqa kartalar orqali to'lov qilishingiz mumkin.`,
+      category: 'payment',
+      order: 2,
+    },
+    {
+      question: 'To\'lovdan keyin faylni qanday yuklab olish mumkin?',
+      answer: `To'lovdan so'ng sizning emailingizga yuklab olish havolasi yuboriladi. Shuningdek, "Mening akkauntim" sahifasidan ham fayllarni yuklab olishingiz mumkin.`,
+      category: 'download',
+      order: 3,
+    },
+    {
+      question: 'Litsenziya nima?',
+      answer: `Litsenziya - bu mahsulotdan foydalanish huquqi. Shaxsiy litsenziya faqat shaxsiy foydalanish uchun, tijoriy litsenzi esa biznes maqsadlarda foydalanish imkonini beradi.`,
+      category: 'general',
+      order: 4,
+    },
+    {
+      question: 'Qaytarish siyosati qanday?',
+      answer: `Raqamli mahsulotlar uchun qaytarish mumkin emas. Lekin agar mahsulotda muammo bo'lsa, biz bilan bog'laning va biz muammoni hal qilamiz.`,
+      category: 'payment',
+      order: 5,
+    },
+    {
+      question: 'Texnik yordamni qanday olish mumkin?',
+      answer: `Bizning qo'llab-quvvatlash jamoamiz sizga yordam berishga tayyor. Contact sahifasi orqali bizga yozing yoki Telegram'da @itshopping_support ga yozing.`,
+      category: 'general',
+      order: 6,
+    },
+    {
+      question: 'Mahsulotni yangilash mumkinmi?',
+      answer: `Ha, barcha mahsulotlarimiz uchun yangiliklar mavjud. Yangiliklar bo'lganda sizning emailingizga xabar yuboriladi.`,
+      category: 'download',
+      order: 7,
+    },
+    {
+      question: 'API mavjudmi?',
+      answer: `Hozircha API mavjud emas. Lekin kelajakda API qo'shishni rejalashtirmoqdamiz.`,
+      category: 'general',
+      order: 8,
+    },
+  ]
+
   // Licenses template
   const makeLicenses = (price) => [
     { name: 'Personal', description: 'For learning and personal projects', price, features: 'Source code,Documentation,Community support' },
@@ -86,6 +216,9 @@ async function main() {
   await prisma.product.deleteMany()
   await prisma.session.deleteMany()
   await prisma.user.deleteMany()
+  await prisma.blogPost.deleteMany()
+  await prisma.contactMessage.deleteMany()
+  await prisma.fAQ.deleteMany()
 
   console.log('Eski data tozalandi...')
 
@@ -115,9 +248,27 @@ async function main() {
     console.log(`✅ ${created.name} yaratildi`)
   }
 
+  // Insert blog posts
+  for (const post of blogPosts) {
+    const created = await prisma.blogPost.create({
+      data: post,
+    })
+    console.log(`📝 ${created.title} yaratildi`)
+  }
+
+  // Insert FAQs
+  for (const faq of faqs) {
+    const created = await prisma.fAQ.create({
+      data: faq,
+    })
+    console.log(`❓ ${created.question} yaratildi`)
+  }
+
   console.log('\n🎉 Database muvaffaqiyatli to\'ldirildi!')
   console.log(`📦 ${products.length} ta mahsulot`)
   console.log(`📜 ${products.length * 2} ta litsenziya`)
+  console.log(`📝 ${blogPosts.length} ta blog post`)
+  console.log(`❓ ${faqs.length} ta FAQ`)
 }
 
 main()
