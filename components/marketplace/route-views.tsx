@@ -12,6 +12,7 @@ import { LanguageSwitcher } from '@/components/language-switcher'
 import { ProfileCard } from '@/components/marketplace/profile-card'
 import { FavoriteButton } from '@/components/marketplace/favorite-button'
 import { CheckoutButton } from '@/components/checkout/checkout-button'
+import { useAuth } from '@/lib/auth-context'
 import backBtnStyles from './back-button.module.css'
 import catBgStyles from './category-bg.module.css'
 import type { Product } from '@/lib/marketplace-types'
@@ -145,6 +146,26 @@ export function CategoryView({ slug }: { slug: string }) {
 
 export function AccountView() {
   const { t } = useLanguage()
+  const { user } = useAuth()
+  const [orders, setOrders] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (user) {
+      fetch('/api/orders', {
+        headers: { 'x-session-id': document.cookie.match(/itshopping_session=([^;]+)/)?.[1] || '' },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setOrders(data.orders || [])
+          setLoading(false)
+        })
+        .catch(() => setLoading(false))
+    } else {
+      setLoading(false)
+    }
+  }, [user])
+
   return (
     <Shell>
       <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('account.eyebrow')}</p>
@@ -156,8 +177,32 @@ export function AccountView() {
         <div className="flex-1 grid gap-3 sm:gap-4">
           <div className="border border-black/10 dark:border-white/10 p-5 sm:p-6 bg-white dark:bg-white/5">
             <h2 className="font-medium text-sm sm:text-base text-black dark:text-white">{t('account.downloads')}</h2>
-            <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400">{t('account.signIn')}</p>
-            <button className="mt-5 sm:mt-7 bg-primary px-5 py-2.5 sm:py-3 text-[10px] sm:text-xs font-semibold uppercase tracking-[.15em] text-primary-foreground">{t('account.signInBtn')}</button>
+            {loading ? (
+              <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400">Yuklanmoqda...</p>
+            ) : orders.length > 0 ? (
+              <div className="mt-4 space-y-3">
+                {orders.map((order) => (
+                  <div key={order.id} className="flex items-center justify-between p-3 border border-black/10 dark:border-white/10 rounded-lg">
+                    <div>
+                      <p className="text-sm font-medium text-black dark:text-white">{order.product?.name}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{order.license?.name} — ${order.amount}</p>
+                    </div>
+                    {order.status === 'completed' && order.downloadToken ? (
+                      <a
+                        href={`/download?token=${order.downloadToken}&order=${order.id}`}
+                        className="text-xs text-primary hover:underline"
+                      >
+                        Yuklab olish
+                      </a>
+                    ) : (
+                      <span className="text-xs text-gray-400">{order.status === 'pending' ? 'Kutilmoqda' : 'Tugallangan'}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400">{t('account.signIn')}</p>
+            )}
           </div>
           <div className="border border-black/10 dark:border-white/10 p-5 sm:p-6 bg-white dark:bg-white/5">
             <Settings className="text-primary" size={20} />

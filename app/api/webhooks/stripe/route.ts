@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getStripe } from '@/lib/stripe'
 import { prisma } from '@/lib/db'
+import { randomBytes } from 'crypto'
 import Stripe from 'stripe'
 
 export async function POST(req: NextRequest) {
@@ -30,7 +31,10 @@ export async function POST(req: NextRequest) {
       const session = event.data.object as Stripe.Checkout.Session
 
       try {
-        // Update order status
+        // Generate download token
+        const downloadToken = randomBytes(32).toString('hex')
+
+        // Update order status and add download token
         await prisma.order.updateMany({
           where: {
             productId: session.metadata?.productId,
@@ -38,10 +42,11 @@ export async function POST(req: NextRequest) {
           },
           data: {
             status: 'completed',
+            downloadToken,
           },
         })
 
-        console.log('Order completed:', session.metadata?.productId)
+        console.log('Order completed with download token:', session.metadata?.productId)
       } catch (error) {
         console.error('Failed to update order:', error)
       }
