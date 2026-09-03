@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { X } from 'lucide-react'
-import { products, formatPrice } from '@/lib/catalog'
+import { formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
 import styles from './favorites-dropdown.module.css'
+import type { Product } from '@/lib/marketplace-types'
 
 function getFavorites(): string[] {
   if (typeof window === 'undefined') return []
@@ -23,6 +24,7 @@ function saveFavorites(favs: string[]) {
 export function FavoritesDropdown() {
   const [open, setOpen] = useState(false)
   const [favIds, setFavIds] = useState<string[]>([])
+  const [products, setProducts] = useState<Product[]>([])
   const [mounted, setMounted] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const { t } = useLanguage()
@@ -30,6 +32,10 @@ export function FavoritesDropdown() {
   useEffect(() => {
     setFavIds(getFavorites())
     setMounted(true)
+    fetch('/api/products')
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error('Failed to fetch products:', err))
   }, [])
 
   useEffect(() => {

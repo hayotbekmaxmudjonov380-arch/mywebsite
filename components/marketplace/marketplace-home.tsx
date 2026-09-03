@@ -3,9 +3,9 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight, Menu, Search, ShoppingBag, Star, X, LogIn, User } from 'lucide-react'
-import { categories, featuredProducts, products, newProducts, bestsellers, formatPrice } from '@/lib/catalog'
+import { categories, formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
 import { useTheme } from '@/lib/theme-context'
 import { useAuth } from '@/lib/auth-context'
@@ -161,7 +161,22 @@ export default function MarketplaceHome() {
   const [active, setActive] = useState('all')
   const [searchOpen, setSearchOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
   const isDark = theme === 'dark'
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data)
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.error('Failed to fetch products:', err)
+        setLoading(false)
+      })
+  }, [])
 
   const enterExplore = () => {
     document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -171,7 +186,7 @@ export default function MarketplaceHome() {
     products.filter((product) =>
       (active === 'all' || product.categoryPlatform === active) &&
       `${product.name} ${product.description} ${product.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase())
-    ), [active, query])
+    ), [active, query, products])
 
   const addToCart = (product: Product) => addItem(product, 'personal')
 

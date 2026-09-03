@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, Download, Lock, Settings, ShoppingBag, Star } from 'lucide-react'
-import { getCategory, getProduct, getProductsByCategory, products, formatPrice } from '@/lib/catalog'
+import { getCategory, formatPrice } from '@/lib/catalog'
 import { useLanguage } from '@/lib/language-context'
 import { useCart } from '@/lib/cart-context'
 import { categoryNames, licenseFeatures, statsTranslations } from '@/lib/translations'
@@ -13,15 +13,24 @@ import { ProfileCard } from '@/components/marketplace/profile-card'
 import { FavoriteButton } from '@/components/marketplace/favorite-button'
 import backBtnStyles from './back-button.module.css'
 import catBgStyles from './category-bg.module.css'
+import type { Product } from '@/lib/marketplace-types'
 
 export function ProductView({ slug }: { slug: string }) {
-  const product = getProduct(slug)
+  const [product, setProduct] = useState<Product | null>(null)
   const { t, locale } = useLanguage()
   const { addItem } = useCart()
   const [addedId, setAddedId] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetch(`/api/products/${slug}`)
+      .then((res) => res.json())
+      .then((data) => setProduct(data))
+      .catch((err) => console.error('Failed to fetch product:', err))
+  }, [slug])
+
   if (!product) return <Empty title={`${t('common.notFound')}`} />
   const lf = licenseFeatures[locale]
-  
+
   const handleAdd = (licenseId: string) => {
     addItem(product, licenseId)
     setAddedId(licenseId)
@@ -67,11 +76,11 @@ export function ProductView({ slug }: { slug: string }) {
                     </li>
                   ))}
                 </ul>
-                <button 
-                  onClick={() => handleAdd(item.id)} 
+                <button
+                  onClick={() => handleAdd(item.id)}
                   className={`mt-5 sm:mt-6 w-full rounded-lg px-4 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors ${
-                    addedId === item.id 
-                      ? 'bg-green-500 text-white' 
+                    addedId === item.id
+                      ? 'bg-green-500 text-white'
                       : 'bg-white text-black hover:bg-white/90'
                   }`}
                 >
@@ -87,9 +96,17 @@ export function ProductView({ slug }: { slug: string }) {
 }
 
 export function CategoryView({ slug }: { slug: string }) {
+  const [items, setItems] = useState<Product[]>([])
   const category = getCategory(slug)
-  const items = getProductsByCategory(slug)
   const { t, locale } = useLanguage()
+
+  useEffect(() => {
+    fetch(`/api/products?category=${slug}`)
+      .then((res) => res.json())
+      .then((data) => setItems(data))
+      .catch((err) => console.error('Failed to fetch products:', err))
+  }, [slug])
+
   if (!category) return <Empty title={`${t('common.notFound')}`} />
   const catName = categoryNames[locale]?.[slug] || category.name
   return (
@@ -146,8 +163,17 @@ export function AccountView() {
 }
 
 export function AdminView() {
+  const [products, setProducts] = useState<Product[]>([])
   const { t, locale } = useLanguage()
   const st = statsTranslations[locale]
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error('Failed to fetch products:', err))
+  }, [])
+
   return (
     <Shell>
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
