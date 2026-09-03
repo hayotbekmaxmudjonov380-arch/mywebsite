@@ -11,6 +11,7 @@ import { categoryNames, licenseFeatures, statsTranslations } from '@/lib/transla
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { ProfileCard } from '@/components/marketplace/profile-card'
 import { FavoriteButton } from '@/components/marketplace/favorite-button'
+import { CheckoutButton } from '@/components/checkout/checkout-button'
 import backBtnStyles from './back-button.module.css'
 import catBgStyles from './category-bg.module.css'
 import type { Product } from '@/lib/marketplace-types'
@@ -76,12 +77,19 @@ export function ProductView({ slug }: { slug: string }) {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-5 sm:mt-6">
+                  <CheckoutButton
+                    productId={product.id}
+                    licenseId={item.id}
+                    price={item.price}
+                  />
+                </div>
                 <button
                   onClick={() => handleAdd(item.id)}
-                  className={`mt-5 sm:mt-6 w-full rounded-lg px-4 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors ${
+                  className={`mt-3 w-full rounded-lg px-4 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors ${
                     addedId === item.id
                       ? 'bg-green-500 text-white'
-                      : 'bg-white text-black hover:bg-white/90'
+                      : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
                   }`}
                 >
                   {addedId === item.id ? '✓ QO\'SHILDI' : t('product.addToCart')}
