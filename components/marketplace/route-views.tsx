@@ -216,16 +216,32 @@ export function AccountView() {
 }
 
 export function AdminView() {
-  const [products, setProducts] = useState<Product[]>([])
+  const [stats, setStats] = useState<any>(null)
+  const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'orders' | 'users'>('overview')
   const { t, locale } = useLanguage()
-  const st = statsTranslations[locale]
+  const { user } = useAuth()
 
   useEffect(() => {
-    fetch('/api/products')
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => console.error('Failed to fetch products:', err))
+    const sessionId = document.cookie.match(/itshopping_session=([^;]+)/)?.[1]
+    if (sessionId) {
+      fetch('/api/admin/stats', {
+        headers: { 'x-session-id': sessionId },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.ok) setStats(data.stats)
+        })
+        .catch((err) => console.error('Failed to fetch admin stats:', err))
+    }
   }, [])
+
+  if (!stats) {
+    return (
+      <Shell>
+        <p className="text-center text-gray-500">Yuklanmoqda...</p>
+      </Shell>
+    )
+  }
 
   return (
     <Shell>
@@ -234,24 +250,71 @@ export function AdminView() {
           <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[.25em] text-primary">{t('admin.eyebrow')}</p>
           <h1 className="mt-3 sm:mt-4 text-3xl sm:text-5xl font-medium tracking-[-.06em] text-black dark:text-white">{t('admin.title')}</h1>
         </div>
-        <button className="border border-black/15 dark:border-white/15 px-4 py-2.5 sm:py-3 text-xs self-start sm:self-auto text-black dark:text-white bg-white dark:bg-white/5">{t('admin.newProduct')}</button>
       </div>
-      <div className="mt-10 sm:mt-14 overflow-x-auto border border-black/10 dark:border-white/10 bg-white dark:bg-white/5">
-        <div className="grid min-w-[500px] sm:min-w-[620px] grid-cols-4 border-b border-black/10 dark:border-white/10 px-3 sm:px-5 py-3 sm:py-4 text-[9px] sm:text-[10px] uppercase tracking-[.16em] text-gray-500 dark:text-gray-400">
-          <span>{t('admin.product')}</span>
-          <span>{t('admin.status')}</span>
-          <span>{t('admin.sales')}</span>
-          <span>{t('admin.revenue')}</span>
+
+      {/* Stats Cards */}
+      <div className="mt-10 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="border border-black/10 dark:border-white/10 p-4 sm:p-5 bg-white dark:bg-white/5">
+          <p className="text-xs text-gray-500 dark:text-gray-400">Mahsulotlar</p>
+          <p className="mt-2 text-2xl font-semibold text-black dark:text-white">{stats.totalProducts}</p>
         </div>
-        {products.map((product) => (
-          <div key={product.id} className="grid min-w-[500px] sm:min-w-[620px] grid-cols-4 items-center border-b border-black/10 dark:border-white/10 px-3 sm:px-5 py-4 sm:py-5 text-xs sm:text-sm last:border-0">
-            <span className="text-black dark:text-white">{product.name}</span>
-            <span className="text-primary">{t('admin.published')}</span>
-            <span className="text-black dark:text-white">{product.reviews + 18}</span>
-            <span className="text-black dark:text-white">{formatPrice(product.price * (product.reviews + 18))}</span>
-          </div>
+        <div className="border border-black/10 dark:border-white/10 p-4 sm:p-5 bg-white dark:bg-white/5">
+          <p className="text-xs text-gray-500 dark:text-gray-400">Buyurtmalar</p>
+          <p className="mt-2 text-2xl font-semibold text-black dark:text-white">{stats.totalOrders}</p>
+        </div>
+        <div className="border border-black/10 dark:border-white/10 p-4 sm:p-5 bg-white dark:bg-white/5">
+          <p className="text-xs text-gray-500 dark:text-gray-400">Foydalanuvchilar</p>
+          <p className="mt-2 text-2xl font-semibold text-black dark:text-white">{stats.totalUsers}</p>
+        </div>
+        <div className="border border-black/10 dark:border-white/10 p-4 sm:p-5 bg-white dark:bg-white/5">
+          <p className="text-xs text-gray-500 dark:text-gray-400">Umumiy daromad</p>
+          <p className="mt-2 text-2xl font-semibold text-black dark:text-white">${stats.totalRevenue}</p>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="mt-8 flex gap-2 border-b border-black/10 dark:border-white/10">
+        {(['overview', 'products', 'orders', 'users'] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-4 py-2 text-xs uppercase tracking-wider transition-colors ${
+              activeTab === tab
+                ? 'text-primary border-b-2 border-primary'
+                : 'text-gray-500 hover:text-black dark:hover:text-white'
+            }`}
+          >
+            {tab === 'overview' ? 'Umumiy' : tab === 'products' ? 'Mahsulotlar' : tab === 'orders' ? 'Buyurtmalar' : 'Foydalanuvchilar'}
+          </button>
         ))}
       </div>
+
+      {/* Recent Orders */}
+      {activeTab === 'overview' && (
+        <div className="mt-6">
+          <h2 className="text-lg font-medium text-black dark:text-white">So'nggi buyurtmalar</h2>
+          <div className="mt-4 overflow-x-auto border border-black/10 dark:border-white/10 bg-white dark:bg-white/5">
+            {stats.recentOrders.length > 0 ? (
+              stats.recentOrders.map((order: any) => (
+                <div key={order.id} className="flex items-center justify-between border-b border-black/10 dark:border-white/10 px-4 py-3 last:border-0">
+                  <div>
+                    <p className="text-sm font-medium text-black dark:text-white">{order.product}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">@{order.user}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-black dark:text-white">${order.amount}</p>
+                    <p className={`text-xs ${order.status === 'completed' ? 'text-green-500' : 'text-yellow-500'}`}>
+                      {order.status === 'completed' ? 'Tugallangan' : 'Kutilmoqda'}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="p-4 text-sm text-gray-500 dark:text-gray-400">Hali buyurtmalar yo'q</p>
+            )}
+          </div>
+        </div>
+      )}
     </Shell>
   )
 }
