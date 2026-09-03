@@ -15,6 +15,7 @@
     "@prisma/client": "^6.19.3",
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
+    "@sentry/nextjs": "^10.73.0",
     "@splinetool/react-spline": "^4.1.0",
     "@stripe/stripe-js": "^9.15.0",
     "@types/three": "^0.185.4",
