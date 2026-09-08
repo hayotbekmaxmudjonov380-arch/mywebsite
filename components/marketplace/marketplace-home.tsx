@@ -185,7 +185,7 @@ export default function MarketplaceHome() {
   const filtered = useMemo(() =>
     products.filter((product) =>
       (active === 'all' || product.categoryPlatform === active) &&
-      `${product.name} ${product.description} ${product.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase())
+      `${product.name} ${product.description} ${product.tags}`.toLowerCase().includes(query.toLowerCase())
     ), [active, query, products])
 
   const addToCart = (product: Product) => addItem(product, 'personal')
@@ -332,7 +332,7 @@ export default function MarketplaceHome() {
                 className="w-full bg-transparent text-lg sm:text-xl md:text-3xl outline-none placeholder:text-muted-foreground/60" />
             </div>
             <div className="mt-6 sm:mt-8 grid gap-2 sm:gap-3">
-              {products.filter((product) => `${product.name} ${product.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase())).slice(0, 4).map((product) => (
+              {products.filter((product) => `${product.name} ${product.tags}`.toLowerCase().includes(query.toLowerCase())).slice(0, 4).map((product) => (
                 <Link onClick={() => setSearchOpen(false)} href={`/products/${product.slug}`} key={product.id}
                   className="flex items-center justify-between border-b border-black/10 py-3 sm:py-4 hover:text-primary">
                   <span className="text-sm sm:text-base">{product.name}</span>
