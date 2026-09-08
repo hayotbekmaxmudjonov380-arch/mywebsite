@@ -3,9 +3,7 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": ".next",
-  "env": {
-    "NEXT_PUBLIC_SITE_URL": "@site-url"
-  },
+  "env": {},
   "headers": [
     {
       "source": "/api/(.*)",
