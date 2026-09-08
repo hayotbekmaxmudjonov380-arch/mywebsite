@@ -3,51 +3,59 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id              String    @id @default(cuid())
-  telegramId      Int       @unique
-  telegramUsername String?
+  id                String    @id @default(cuid())
+  telegramId        Int       @unique
+  telegramUsername   String?
   telegramFirstName String?
-  role            String    @default("user")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  orders          Order[]
-  favorites       Favorite[]
-  sessions        Session[]
+  role              String    @default("user")
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  orders            Order[]
+  favorites         Favorite[]
+  sessions          Session[]
+
+  @@index([telegramId])
 }
 
 model Session {
   id        String   @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 model Product {
-  id              String    @id @default(cuid())
-  name            String
-  slug            String    @unique
-  description     String
-  longDescription String
-  category        String
+  id               String    @id @default(cuid())
+  name             String
+  slug             String    @unique
+  description      String
+  longDescription  String
+  category         String
   categoryPlatform String
-  price           Float
-  cover           String
-  badges          String
-  tags            String
-  rating          Float     @default(0)
-  reviews         Int       @default(0)
-  deliveryTime    String    @default("Instant download")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  licenses        License[]
-  orders          Order[]
-  favorites       Favorite[]
+  price            Float
+  cover            String
+  badges           String
+  tags             String
+  rating           Float     @default(0)
+  reviews          Int       @default(0)
+  deliveryTime     String    @default("Instant download")
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  licenses         License[]
+  orders           Order[]
+  favorites        Favorite[]
+
+  @@index([slug])
+  @@index([category])
 }
 
 model License {
@@ -57,51 +65,60 @@ model License {
   price       Float
   features    String
   productId   String
-  product     Product   @relation(fields: [productId], references: [id])
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   orders      Order[]
+
+  @@index([productId])
 }
 
 model Order {
   id            String    @id @default(cuid())
   userId        String
-  user          User      @relation(fields: [userId], references: [id])
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   productId     String
-  product       Product   @relation(fields: [productId], references: [id])
+  product       Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   licenseId     String
-  license       License   @relation(fields: [licenseId], references: [id])
+  license       License   @relation(fields: [licenseId], references: [id], onDelete: Cascade)
   amount        Float
   status        String    @default("pending")
   downloadToken String?   @unique
   downloadCount Int       @default(0)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([productId])
+  @@index([downloadToken])
 }
 
 model Favorite {
   id        String   @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   productId String
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
   @@unique([userId, productId])
 }
 
 model BlogPost {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  content     String
-  excerpt     String
-  coverImage  String?
-  author      String   @default("ITSHOPPING")
-  category    String
-  tags        String
-  published   Boolean  @default(false)
-  views       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  content    String
+  excerpt    String
+  coverImage String?
+  author     String   @default("ITSHOPPING")
+  category   String
+  tags       String
+  published  Boolean  @default(false)
+  views      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([slug])
+  @@index([published])
 }
 
 model ContactMessage {
@@ -113,6 +130,8 @@ model ContactMessage {
   read      Boolean  @default(false)
   replied   Boolean  @default(false)
   createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }
 
 model FAQ {
@@ -123,4 +142,6 @@ model FAQ {
   order     Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([category])
 }
