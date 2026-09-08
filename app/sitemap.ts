@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/db'
-import { SITE_URL } from '@/lib/stripe'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://itshopping.uz'
 
 export default async function sitemap() {
   const staticPages = [
@@ -51,9 +52,26 @@ export default async function sitemap() {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/faq`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${SITE_URL}/contact`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
   ]
 
-  // Get all products for dynamic sitemap
   try {
     const products = await prisma.product.findMany({
       select: {
@@ -70,8 +88,7 @@ export default async function sitemap() {
     }))
 
     return [...staticPages, ...productPages]
-  } catch (error) {
-    console.error('Failed to generate sitemap:', error)
+  } catch {
     return staticPages
   }
 }
